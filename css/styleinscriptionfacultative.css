@@ -1,0 +1,96 @@
+body{
+	background-color: red;
+    margin:0;
+    padding: 0;
+    font-family: 'Arial';
+    background-color:#BA1138;
+}
+
+header figure{
+    position: fixed;
+    top:1vh;
+}
+header figure img{
+    width: 50px;
+    height: 46px;
+}
+
+main{
+    width: 400px;
+    overflow: hidden;
+    margin: auto;
+    margin-top:25px;
+    padding:20px;
+    border-radius:5px;
+    background: #fff;
+}
+
+main h1, h2{
+    text-align: center;
+}
+
+h2{
+    font-size: 15px;
+}
+
+
+/*listes des cases à cocher*/
+main ol, ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 20 px;
+}
+
+main ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 px;
+    padding: 0 px;
+
+}
+
+main ul li{
+    margin: 10px;
+}
+
+/*BOUTON STYLE*/
+main #valide{
+
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+    height: 35px;
+    background-color: #3498db;
+    color:#fff;
+    border-radius:3px;
+    border:0;
+    font-size: 18px;
+}
+
+p{
+    display: flex;
+    margin:0;
+    padding: 0;
+}
+
+
+/*OBJECTIFS*/
+#objectifs{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content:  center;
+    flex-wrap: wrap;
+}
+main #adresse, #arondissement{
+    width: 400px;
+    height: 35px;
+    margin-bottom:20px;
+    border-radius:5px;
+    border: 1px solid silver;
+    padding: 5px;
+}
+
