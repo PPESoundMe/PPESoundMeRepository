@@ -54,8 +54,12 @@ $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
           <h5 class="light grey-text text-lighten-3">Rejoignez l'aventure.</h5>
           
           <div class="box">
-	          <button onclick="window.open('inscription.php')">Inscription</button>
-	          <button onclick="window.open('connexion.php')">Connexion</button>
+
+            <a href="inscription.php" class="waves-effect waves-light btn  red accent-3">Inscription</a>
+            <a href="connexion.php" class="waves-effect waves-light btn  red accent-3">Connexion</a>
+            
+
+	  
 	       </div>
         </div>
       </li>
