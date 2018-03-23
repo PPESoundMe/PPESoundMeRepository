@@ -12,7 +12,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
 
 if(isset($_POST['forminscription']))
 {
@@ -105,7 +105,17 @@ if(isset($_POST['forminscription']))
 	    <meta name="author" content="PPE SoundMe">
             
         <!-- Feuille de style  -->
-	    <link rel="stylesheet" href="css/styleinscription.css">
+	    <link rel="stylesheet" href="css/stylelogin.css">
+	    <link rel="stylesheet" href="css/default.css">
+
+	     <!-- Feuilles de style  -->
+    	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+         <!-- Bibliothèques JQuery  -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
         
         <!-- Titre  -->
 	    <title>Inscription</title> 
@@ -113,70 +123,131 @@ if(isset($_POST['forminscription']))
 	
 	<body>
         
+          <header> 
+	            <figure>
+	                <img src="photos/noteblanche.png" alt="logoSoundMe">
+	            </figure>
+	        </header>
+            <!-- Box d'inscriptino  -->
+        <div class="container">
+	        <!-- Header logo  -->
+	      
+	        
         
-        <!-- Header logo  -->
-        <header> 
-            <figure>
-                <img src="photos/noteblanche.png" alt="logoSoundMe">
-            </figure>
-        </header>
-        
-        
-        <!-- Box d'inscriptino  -->
-        <main>
-		<h1>Inscription</h1>
+    
+
+
+  
+        	<div class="box">
+
+			<h1>Inscription</h1>
 	
+		  		<div class="row">
+
+		  			<!-- Début du formulaire  -->
+    				<form method="POST" action="" class="col s12">
+
+     	 				<div class="row">
+					    	<!-- Prénom  -->
+					        <div class="input-field col s6">
+					          <input id="prenom" type="text" class="validate" name="prenom" value="<?php if(isset($prenom)) {echo $prenom;} ?>">
+					          <label for="prenom">Prénom</label>
+					        </div>
+
+				        <!-- Nom  -->
+				        <div class="input-field col s6">
+				          <input id="nom" type="text" class="validate" name="nom" value="<?php if(isset($nom)) {echo $nom;} ?>">
+				          <label for="nom">Nom</label>
+				        </div>
+				      </div>
+
+
+				      <!-- Date  -->
+				 		<div class="row">
+				        	<div class="input-field col s12">
+				        		<input type="date" id="age" class="validate" name="age" min='1910-01-01' max='2002-12-31' value="<?php if(isset($age)) {echo $age;} ?>" />
+				        	</div>
+				      </div>
+   
+				   		<!-- Sexe  -->
+				 		<div class="row">
+				        	<div class="input-field col s12">
+				        		<p id="sexe">
+							      <label for ="homme">
+							        <input id="homme" name="sexe" type="radio" value"homme" checked />
+							        <span>Homme</span>
+							      </label>
+							      <label for ="femme">
+							        <input id="femme" name="sexe" type="radio" value"femme" />
+							        <span>Femme</span>
+							      </label>
+
+						    </p>				        		
+			        	</div>
+				      </div>
+
+
+				      <!-- mail  -->
+				      <div class="row">
+				        <div class="input-field col s12">
+				          <input type="email" class="validate" id="email" name="email" value="<?php if(isset($email)) {echo $email;} ?>" />
+				          <label for="email">Email</label>        
+				        </div>
+				        </div>
+     
+
+
+				        <div class="row">
+					    	<!-- Mdp  -->
+					        <div class="input-field col s6">
+					          <input type="password" id="mdp" name="mdp"class="validate" />
+				          <label for="mdp">Mot de passe</label>
+					        </div>
+
+				        <!-- Mdpconfirmation  -->
+				        <div class="input-field col s6">
+				          <input type="password" id="mdp2" name="mdp2" class="validate" />
+				          <label for="mdp">Confirmation mot de passe</label>
+				        </div>
+				      </div>
+
+				      
+
+			      <!-- valider  -->
+				<div class="row">
+			        <div class="input-field col s12">   
+				        <button id="valide" class="btn waves-effect waves-light blue" type="submit" name="forminscription" value="Je m'inscris">Je m'inscris
+	    					<i class="material-icons right">send</i>
+	 					 </button>
+			         
+			        </div>
+			      </div>
+				
+      
+
+   
+    		</form>
+     <!-- fin du formulaire
+       -->
+
+				    <div class="erreur">
+					    <?php 
+							if(isset($erreur))
+							{
+								echo $erreur;
+							}
+							?>
+					</div>
+
+  			</div>
+
+   
 		
-        <!-- Formulaire  -->
-		<form method="POST" action="   ">
-			             
-                    <!-- Nom  -->
-                    <p>
-						<input type="text" placeholder="Votre nom" id="nom" name="nom" value="<?php if(isset($nom)) {echo $nom;} ?>"  />
-                    </p>
-					
-				     <!-- Prénom  -->
-                    <p>
-						<input type="text" placeholder="Votre prénom" id="prenom" name="prenom" value="<?php if(isset($prenom)) {echo $prenom;} ?>" />
-                    </p>
-					
-					 <!-- Date  -->
-                    <p>
-						<input type="date" placeholder="Votre date de naissance" id="age" name="age" min='1910-01-01' max='2002-12-31' value="<?php if(isset($age)) {echo $age;} ?>" />
-                    </p>
-				
-					 <!-- Homme/Femme  -->
-                    <p id="sexe">
-						<label for="homme">Homme</label><input type="radio" id="homme" name="sexe" value="homme"/>
-						<label for="femme">Femme</label><input type="radio" id="femme" name="sexe" value="femme"/>
-                    </p>
-				
-						 <!-- Mail  -->
-                    <p>
-						<input type="mail" placeholder="Votre e-mail" id="email" name="email" value="<?php if(isset($email)) {echo $email;} ?>" />
-                    </p>
-				
-					
-					 <!-- MDP  -->
-                    <p>
-						<input type="password" placeholder="Votre mot de passe" id="mdp" name="mdp" />
-                    </p>
-				
-					 <!-- Confirmation MDP  -->
-                    <p>
-						<input type="password" placeholder="Confirmer mot de passe" id="mdp2" name="mdp2" />
-                    </p>
-	   
-                <p>
-			<input id="valide" type="submit" name="forminscription" value="Je m'inscris" />
-            </p>
-		</form>
-		<?php 
-		if(isset($erreur))
-		{
-			echo $erreur;
-		}
-		?>
-        </main>
-	</body>
+				</div>
+ 
+ </div>
+
+
+</body>
 </html>
+

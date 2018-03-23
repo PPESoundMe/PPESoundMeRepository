@@ -35,9 +35,9 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	    <meta name="author" content="PPE SoundMe">
         
         <!-- Feuilles de style  -->
-	    <link rel="stylesheet" href="style/css/styleparametre.css">
-        <link rel="stylesheet" href="style/css/stylenavbar.css">
-        <link href="style/css/hover-min.css" rel="stylesheet">
+	    <link rel="stylesheet" href="css/styleparametre.css">
+        <link rel="stylesheet" href="css/stylenavbar.css">
+        <link href="css/hover-min.css" rel="stylesheet">
         
         <!-- Ajout du js pour la navbar  -->
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
