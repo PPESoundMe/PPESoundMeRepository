@@ -86,12 +86,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 			
 
                 
-                 <!-- Bouton  -->
-				<a href="#" class="button hvr-underline-from-center"> 
-                   
-                </a>
-                
-                 <!-- Pas encore inscrit?  -->
+  
 				
               
           

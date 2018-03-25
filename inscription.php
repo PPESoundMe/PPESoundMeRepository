@@ -125,19 +125,16 @@ if(isset($_POST['forminscription']))
         
           <header> 
 	            <figure>
-	                <img src="photos/noteblanche.png" alt="logoSoundMe">
+
+	              
+	                <a href="accueil.php" class="  "><img src="photos/noteblanche.png" alt="logoSoundMe"></a> 
+
 	            </figure>
 	        </header>
             <!-- Box d'inscriptino  -->
         <div class="container">
 	        <!-- Header logo  -->
-	      
-	        
-        
-    
 
-
-  
         	<div class="box">
 
 			<h1>Inscription</h1>
@@ -182,6 +179,7 @@ if(isset($_POST['forminscription']))
 							        <span>Femme</span>
 							      </label>
 
+
 						    </p>				        		
 			        	</div>
 				      </div>
@@ -215,16 +213,16 @@ if(isset($_POST['forminscription']))
 
 			      <!-- valider  -->
 				<div class="row">
-			        <div class="input-field col s12">   
-				        <button id="valide" class="btn waves-effect waves-light blue" type="submit" name="forminscription" value="Je m'inscris">Je m'inscris
+			        <div class="input-field col s6">   
+				        <button id="valide" class="btn waves-effect waves-light red accent-3" type="submit" name="forminscription" value="Je m'inscris">Je m'inscris
 	    					<i class="material-icons right">send</i>
 	 					 </button>
-			         
 			        </div>
+			    
 			      </div>
 				
       
-
+ 
    
     		</form>
      <!-- fin du formulaire
