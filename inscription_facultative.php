@@ -13,7 +13,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
 
 echo $_SESSION['id_utilisateur'];
 

@@ -8,3 +8,27 @@ header img{
 .erreur{
 	color:#e53935;
 }
+
+
+header, main, footer {
+      padding-left: 300px;
+    }
+
+@media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    }
+
+#slide-out {
+	
+}
+
+#slide-out  a:hover{
+	
+}
+
+.nav-wrapper{
+	background-color: transparent;
+	
+}
