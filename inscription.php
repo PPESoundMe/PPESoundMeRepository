@@ -131,6 +131,7 @@ if(isset($_POST['forminscription']))
 
 	            </figure>
 	        </header>
+	        
             <!-- Box d'inscriptino  -->
         <div class="container">
 	        <!-- Header logo  -->
