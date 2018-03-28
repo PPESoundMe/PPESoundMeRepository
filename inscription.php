@@ -103,7 +103,7 @@ if(isset($_POST['forminscription']))
 	  	<meta name="description" content="SoundMe Réseau Social">
 	    <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre">
 	    <meta name="author" content="PPE SoundMe">
-            
+		<link rel="shortcut icon" href="photos/logo_onglet.ico">      
         <!-- Feuille de style  -->
 	    <link rel="stylesheet" href="css/stylelogin.css">
 	    <link rel="stylesheet" href="css/default.css">

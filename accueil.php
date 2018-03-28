@@ -14,6 +14,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 	  	<meta name="description" content="SoundMe Réseau Social">
 	    <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre">
 	    <meta name="author" content="PPE SoundMe">
+      <link rel="shortcut icon" href="photos/logo_onglet.ico">
 
         
         <!-- Feuilles de style  -->

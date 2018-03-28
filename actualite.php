@@ -36,6 +36,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 	  	<meta name="description" content="SoundMe Réseau Social">
 	    <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre, parametres">
 	    <meta name="author" content="PPE SoundMe">
+	    <link rel="shortcut icon" href="photos/logo_onglet.ico">
         
         <!-- Feuilles de style  -->
 	    <link rel="stylesheet" href="style/css/styleparametre.css">
@@ -52,7 +53,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
             })
         </script>    
         <!-- Titre  -->
-	    <title>SoundMe</title>    
+	    <title>Actualités - SoundMe</title>    
     </head>
 <body>
 

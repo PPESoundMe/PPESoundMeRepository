@@ -22,6 +22,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
   <head>
     <title>Place ID Finder</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="photos/logo_onglet.ico">
     <meta charset="utf-8">
     <style>
       /* Always set the map height explicitly to define the size of the div

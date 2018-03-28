@@ -94,6 +94,7 @@ if(isset($_SESSION['id_utilisateur']))
 	  	<meta name="description" content="SoundMe Réseau Social">
 	    <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre, parametres">
 	    <meta name="author" content="PPE SoundMe">
+      <link rel="shortcut icon" href="photos/logo_onglet.ico">
         
         <!-- Feuilles de style  -->
 	    <link rel="stylesheet" href="style/css/styleparametre.css">
@@ -111,7 +112,7 @@ if(isset($_SESSION['id_utilisateur']))
         </script>
 	    
         <!-- Titre  -->
-	    <title>Paramètres</title>    
+	    <title>Paramètres - SoundMe</title>    
 	</head>
 	
 	<body>

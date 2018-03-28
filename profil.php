@@ -27,8 +27,9 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 
 <html>
 	<head>
-		<title>Profil</title>
+		<title>Profil - SoundMe</title>
 		<meta charset="utf-8">
+		<link rel="shortcut icon" href="photos/logo_onglet.ico">
 	   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  	<meta name="description" content="SoundMe Réseau Social">
 	    <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre, parametres">
@@ -62,8 +63,8 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 
 	<header>
 			<!-- NAVBAR DU HAUT  -->
-			  <nav>
-    			<nav>
+	<nav>
+    
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
       <ul class="right hide-on-med-and-down">
@@ -74,9 +75,8 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
       </ul>
     </div>
   </nav>
-  			</nav>
-
 	</header>
+
 	<body>
 	
 	

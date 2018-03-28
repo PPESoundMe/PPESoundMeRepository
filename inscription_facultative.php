@@ -54,11 +54,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 <html>
 	<head>
 		
-	           <meta charset="utf-8">
+	   <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="SoundMe Réseau Social">
         <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre">
         <meta name="author" content="PPE SoundMe">
+        <link rel="shortcut icon" href="photos/logo_onglet.ico">
             
         <!-- Feuille de style  -->
         <link rel="stylesheet" href="css/stylelogin.css">

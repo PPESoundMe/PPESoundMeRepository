@@ -100,12 +100,12 @@ if(isset($_POST['formconnexion']))
 
 				      <div class="row">
 				        <div class="input-field col s12">
-				          <input type="text" class="champ" id="email" name="mailconnect" />
+				          <input type="email" class="validate" id="email" name="mailconnect" />
 				          <label for="email">Email</label>        
 				        </div>
 				        </div>
 
-				       
+
 
 				        <div class="row">
 					    	<!-- Mdp  -->

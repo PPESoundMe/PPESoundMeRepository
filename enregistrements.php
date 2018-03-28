@@ -54,7 +54,8 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 <html>
 	<head>
-	    <meta charset="utf-8">	    
+	    <meta charset="utf-8">	
+	    <link rel="shortcut icon" href="photos/logo_onglet.ico">    
         <!-- Titre  -->
 	    <title>SoundMe</title>    
     </head>
