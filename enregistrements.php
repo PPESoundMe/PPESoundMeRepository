@@ -15,9 +15,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 {
 	if(isset($_POST['valider']))
 	{
+		$reqid = $bdd->query('SELECT * FROM actu ORDER BY id_actualite DESC LIMIT 0,1');
+		$idinfo = $reqid->fetch();
+		$res = $idinfo['id_actualite']+1;
+		
 		if(isset($_FILES['enregistrement']) AND !empty($_FILES['enregistrement']['name']))
 		{
-			echo "ok";
 			$tailleMax = 5000000;	
 			$extensionValides = array('mp3');
 			if($_FILES['enregistrement']['size']<= $tailleMax)
@@ -25,12 +28,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				$extensionUpload = strtolower(substr(strrchr($_FILES['enregistrement']['name'],'.'),1));
 				if(in_array($extensionUpload, $extensionValides))
 				{
-					$chemin = "membres/enregistrements/".$_SESSION['id_utilisateur'].".".$extensionUpload;
+					$chemin = "membres/actus/".$res.".".$extensionUpload;
 					$resultat = move_uploaded_file($_FILES['enregistrement']['tmp_name'],$chemin);
 					if($resultat)
 					{
-						$updateenregistrement = $bdd->prepare('INSERT INTO enregistrement(URL,id_utilisateur) VALUES (?,?)');
-						$updateenregistrement->execute(array($_SESSION['id_utilisateur'].".".$extensionUpload,$_SESSION['id_utilisateur']));
+						$updateenregistrement = $bdd->prepare('INSERT INTO actu(id_utilisateur,date_upload,URL) VALUES (?,CURRENT_TIMESTAMP,?)');
+						$updateenregistrement->execute(array($_SESSION['id_utilisateur'],$res.".".$extensionUpload));
 						header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
 					}
 					else
@@ -60,7 +63,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
     </head>
 <body>
 
-	<h1>Publier une vidéo !</h1>
+	<h1>Publier un enregistrement !</h1>
 
 	<form method="POST" action="" enctype="multipart/form-data">
 					
