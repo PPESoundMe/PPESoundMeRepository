@@ -15,13 +15,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 {
 	if(isset($_POST['valider']))
 	{
-		$statut=$_POST['statut'];
-		
+		$statut=$_POST['statut'];		
 		
 		if(!empty($statut))
 		{
-			$req= $bdd->prepare("INSERT INTO statut(description,date,id_utilisateur) VALUES(?,CURRENT_TIMESTAMP,?)");
-			$req->execute(array($statut,$_SESSION['id_utilisateur']));
+			$req= $bdd->prepare("INSERT INTO actu(id_utilisateur,description,date_upload) VALUES(?,?,CURRENT_TIMESTAMP)");
+			$req->execute(array($_SESSION['id_utilisateur'],$statut));
 			header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
 			
 		}

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -10,27 +10,20 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	$requser->execute(array($getid));
 	$userinfo = $requser->fetch();
 	
-	$reqphotos = $bdd->prepare('SELECT * FROM photo WHERE id_utilisateur=?');
-	$reqphotos->execute(array(21));
-	$photos = $reqphotos->fetch();
 	
-	$reqvideos = $bdd->prepare('SELECT * FROM video WHERE id_utilisateur=?');
-	$reqvideos->execute(array(21));
-	$videos = $reqvideos->fetch();
 	
-	$reqenregistrements = $bdd->prepare('SELECT * FROM enregistrement WHERE id_utilisateur=?');
-	$reqenregistrements->execute(array(21));
-	$enregistrements = $reqenregistrements->fetch();
 }
 
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
+	$reqactus = $bdd->query('SELECT * FROM actu ORDER BY date_upload DESC ');
 	
 	?>
 
 
 <html>
 	<head>
+<<<<<<< HEAD
 	    <meta charset="utf-8">
 	   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  	<meta name="description" content="SoundMe Réseau Social">
@@ -52,64 +45,77 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
                 })
             })
         </script>    
+=======
+	    <meta charset="utf-8">	    
+>>>>>>> 60614c5303ac09bab918ac814a0e198e5158d58b
         <!-- Titre  -->
 	    <title>Actualités - SoundMe</title>    
     </head>
 <body>
 
-		<!-- Headerlogo  -->
-		<header> 
-			<figure>
-				<img src="style/photos/noteblanche.png" alt="logoSoundMe">
-			</figure>
-		</header>
-			
-		<!-- Début du menu sur le côté  -->
-        <aside>
-            
-            <!-- Barre de recherche  -->
-            <nav class="main-nav">
-                <form action="">
-                    <input id="barnav" type = "text" name="" placeholder="RECHERCHE...">
-                </form>
-                <ul class="main-nav-ul">
-                    
-                    <li class="has-sub"><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Profil<span class="sub-arrow"></span></a>
-                        <ul>
-                            <li><a href="#">Mes groupes</a></li>
-                            <li><a href="#">Mes abonnés</a></li>
-                            <li><a href="#">Mes événements</a></li>
-                        </ul>
-
-                    </li>
-                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Actualités</a></li>
-                    <li><a href="carte.php">SoundMap</a></li>
-                    <li class="has-sub"><a href="#">Messagerie<span class="sub-arrow"></span></a>
-                        <ul>
-                            <li><a href="envoi.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Envoyer un message</a></li>
-                            <li><a href="reception.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Mes messages</a></li>
-                        </ul>
-
-                    </li>
-                    <li><a href="#">Mes réservations</a></li>
-                    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Paramètres</a></li>
-                    <li><a href="deconnexion.php">Déconnexion</a></li>
-                
-                </ul>
-            
-            </nav>
-        </aside>
-
 	<h1>Actualités</h1>
 	
-	<div id="publications">
+	<a href="statuts.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier un statut !</a><br/>
+	<a href="photos.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier une photo !</a><br/>
+	<a href="videos.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier une vidéo !</a><br/>
+	<a href="enregistrements.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier un enregistrement !</a><br/><br><br><br>
 	
-		<a href="statuts.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier un statut !</a><br/>
-		<a href="photos.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier une photo !</a><br/>
-		<a href="video.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier une vidéo !</a><br/>
-		<a href="enregistrements.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Publier un enregistrement !</a><br/>
+	<?php
+	
+	while ($donnees = $reqactus->fetch())
+	{
+		$dejafollowed = $bdd->prepare('SELECT * FROM follow WHERE id_abonne = ? AND id_suivi=?');
+		$dejafollowed->execute(array($_SESSION['id_utilisateur'],$donnees['id_utilisateur']));
+		$dejafollowed = $dejafollowed->rowCount();
 		
-	</div>
+		
+		if($dejafollowed == 1 OR $donnees['id_utilisateur']==$_SESSION['id_utilisateur'])
+		{
+			$publisher = $bdd->prepare('SELECT * FROM utilisateur WHERE id_utilisateur = ?');
+			$publisher->execute(array($donnees['id_utilisateur']));
+			$publisher = $publisher->fetch();
+			
+			?><strong> <?php echo $publisher['prenom']." ".$publisher['nom']." : <br><br>"; ?></strong> 
+			
+			<?php
+		
+			if($donnees['url']!=NULL)
+			{
+			$fichier = "membres/actus".$donnees['url'];
+			$extension = pathinfo($fichier, PATHINFO_EXTENSION);
+			
+				if($extension=='jpg' OR $extension=='jpeg' OR $extension=='gif' OR $extension=='png')
+				{
+				?>
+					<img src="membres/actus/<?php echo $donnees['url']; ?>" width="150" /><br><br>
+				<?php
+				}
+				
+				if($extension=='mp4')
+				{
+				?>
+					<video src="membres/actus/<?php echo $donnees['url']; ?>" controls poster="membres/actus/<?php echo $videos['URL']; ?>.jpg" width="150"></video><br><br>
+				<?php
+				}
+				
+				if($extension=='mp3')
+				{
+				?>
+					<audio src="membres/actus/<?php echo $donnees['url']; ?>" controls></audio><br><br>
+				<?php
+				}
+					
+			
+			}
+			
+			else
+			{
+				echo $donnees['description'];
+			}
+		}
+	}
+	
+	?>
 	
 	
 	
