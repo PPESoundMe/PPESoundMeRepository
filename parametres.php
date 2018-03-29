@@ -15,11 +15,13 @@ $pdo = new PDO($dsn, $username, $password);*/
 
 $pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
+
 if(isset($_SESSION['id_utilisateur']))
 {
 	$requser = $pdo->prepare("SELECT * FROM Utilisateur WHERE id_utilisateur=?");
 	$requser->execute(array($_SESSION['id_utilisateur']));
 	$user = $requser->fetch();
+
 	
 	if(isset($_POST['mdp']) AND !empty($_POST['mdp']) AND isset($_POST['nouvmdp']) AND !empty($_POST['nouvmdp']) AND isset($_POST['nouvmdp2']) AND !empty($_POST['nouvmdp2']))
 	{
@@ -264,10 +266,24 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
       <?php if(isset($message)) {echo $message;}?>
     </div>
 
+
+
+
+
           <div class="row">
             <div class="input-field col s6">
-               <input type="file" name="avatar"/>
-               <label> Avatar </label>
+               <div class="file-field input-field">
+                <div class="btn">
+                <span>Fichier</span>
+           <input type="file" name="avatar" />
+      
+            
+         </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
+                <?php header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);?>
+              </div>
+            </div>  
                 </div>
             </div>
 

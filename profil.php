@@ -21,6 +21,49 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	$requser = $pdo->prepare('SELECT * FROM Utilisateur WHERE id_utilisateur=?');
 	$requser->execute(array($getid));
 	$userinfo = $requser->fetch();
+
+
+  //PHOTO DE PROFIL
+if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
+    {
+
+      $tailleMax = 2097152; 
+      $extensionValides = array('jpg','jpeg','gif','png');
+      if($_FILES['avatar']['size']<= $tailleMax)
+      {
+        $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'],'.'),1));
+        if(in_array($extensionUpload, $extensionValides))
+        {
+          $chemin = "membres/avatar/".$_SESSION['id_utilisateur'].".".$extensionUpload;
+          $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'],$chemin);
+          if($resultat)
+          {
+            $updateavatar = $pdo->prepare('UPDATE Utilisateur SET avatar = :avatar WHERE id_utilisateur = :id_utilisateur');
+            $updateavatar->execute(array(
+                'avatar' => $_SESSION['id_utilisateur'].".".$extensionUpload,
+                'id_utilisateur'=> $_SESSION['id_utilisateur']
+              ));
+      
+
+            header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+
+          }
+          else
+          {
+            $message =  "Erreur pendant l'importation de la photo !";
+          }
+        }
+        else
+        {
+          $message = "Votre photo de profil doit être au format jpg, jpeg, gif ou png !";
+        }
+      }
+      else
+      {
+        $message =  "Votre photo de profil ne doit pas dépasser 2Mo !";
+      }
+    }
+
 }
 
 ?>
@@ -94,8 +137,10 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 		      <div class="background">
 		        <img src="photos/fond.jpg">
 		      </div>
-		      
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $userinfo['avatar']; ?>"></a>
+
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable modal-trigger" src="membres/avatar/<?php echo $userinfo['avatar']; ?>" href="#modal"></a>
+		         
+
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
 
@@ -146,7 +191,34 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	<!-- CONTENU DE LA PAGE  -->		
 	<main>
 		<div class="container">
-	
+
+
+				<!-- changer la PP -->
+  				<div id="modal" class="modal">
+			  	<form method="POST" action="" enctype="multipart/form-data">
+			    <div class="modal-content">
+			      <h4>Changer la photo de profil</h4>
+			      <br>
+      
+			<div class="file-field input-field">
+				<div class="btn">
+				   <span>Fichier</span>
+				   <input type="file" name="avatar" />
+			
+            
+				 </div>
+				      <div class="file-path-wrapper">
+				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
+				        <?php header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);?>
+				      </div>
+				    </div>  
+				  
+    		</div>
+	    <div class="modal-footer">
+	    	<input type="submit" name="valider" value="Enregistrer" class="modal-action modal-close waves-effect waves-green btn-flat"/>
+	    </div>
+    	</form>
+  		</div>
 					<h1> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h1>
 
 					<img src="membres/avatar/<?php echo $userinfo['avatar']; ?>" class="pp materialboxed" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" width="150" />
@@ -196,6 +268,10 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
   		});
 	$(document).ready(function(){
     $('.modal').modal();
+  });
+
+	  $(document).ready(function(){
+    $('.tooltipped').tooltip();
   });
 	</script>
 	</body>
