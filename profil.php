@@ -38,6 +38,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
         <!-- Feuilles de style  -->
 	  
         <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/styleprofil.css">
    
         
     	<script type="text/javascript" src="js/materialize.min.js"></script>
@@ -63,17 +64,21 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 
 	<header>
 			<!-- NAVBAR DU HAUT  -->
-	<nav>
-    
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+	<nav class="transparent ">
+  
+		<div class="nav-wrapper ">
+      	<a href="#!" class="brand-logo right"><img src="photos/horizontal.png" width="600" alt=""></a>
+ 
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons red-text text-accent-4">search</i></label>
+        
+        </div>
+      </form>
       </ul>
-    </div>
+  </div>
   </nav>
 	</header>
 
@@ -89,7 +94,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 		      <div class="background">
 		        <img src="photos/fond.jpg">
 		      </div>
-		      <a href="#"><img class="circle hoverable" src="photos/fond.jpg"></a>
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="photos/fond.jpg"></a>
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
 		    </div></li>
@@ -99,20 +104,21 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 		            <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
 		            <div class="collapsible-body">
 		              <ul>
-		                <li><a href="#!"><i class="material-icons">music_note</i>Mes groupes</a></li>
-		                <li><a href="#!"><i class="material-icons">group_add</i>Mes abonnés</a></li>
-		                <li><a href="#!"><i class="material-icons">today</i>Mes événements</a></li>
+		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
+		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
+		                <li><a href=""><i class="material-icons">today</i>Mes événements</a></li>
+
 
 		              </ul>
 		            </div>
 		          </li>
 		        </ul>
-		    <li><a href="#!"><i class="material-icons">language</i>Actualités</a></li>
+		    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
 		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
 		 
 		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
-		    <li><a href="#!"><i class="material-icons">settings</i>Paramètres</a></li>
-		    <li><a href="#!"><i class="material-icons">settings_power</i>Déconnexion</a></li>
+		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
+		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
 		    
 		    <ul class="collapsible collapsible-accordion">
 		          <li>
@@ -130,47 +136,51 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 		    <li><a class="subheader">Subheader</a></li>
 		    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
 		  </ul>
-		  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+		 
 
     
 
 
 	<!-- CONTENU DE LA PAGE  -->		
 	<main>
-		<h1>hello</h1>
-		<h1> Profil de <?php echo $userinfo['prenom']; ?></h1>
+		<div class="container">
 	
+					<h1> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h1>
+					<img class="pp materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" src="photos/fond.jpg">
 
 
-			
-			<?php
-				if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
-				{
-				
-				}
-			?>
-			<?php
-				if(isset($_SESSION['id_utilisateur']) AND $_SESSION['id_utilisateur']!=$getid)
-				{
-					$isfollowingornot = $pdo->prepare('SELECT * FROM Abonnement WHERE id_abonne=? AND id_suivi=?');
-					$isfollowingornot->execute(array($_SESSION['id_utilisateur'],$getid));
-					$isfollowingornot = $isfollowingornot->rowCount();
-					if($isfollowingornot==1)
-					{
-					?>
-					<a href="follow.php?followedid=<?php echo $getid; ?>">Ne plus suivre cette personne</a>
-					<?php
-					}
-					else
-					{
-					
-				?>
-				<a href="follow.php?followedid=<?php echo $getid; ?>">Suivre cette personne</a>
 		
-				<?php
-				}
-				}
-			?>
+					<?php
+						if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
+						{
+						
+						}
+					?>
+					<?php
+						if(isset($_SESSION['id_utilisateur']) AND $_SESSION['id_utilisateur']!=$getid)
+						{
+							$isfollowingornot = $pdo->prepare('SELECT * FROM Abonnement WHERE id_abonne=? AND id_suivi=?');
+							$isfollowingornot->execute(array($_SESSION['id_utilisateur'],$getid));
+							$isfollowingornot = $isfollowingornot->rowCount();
+							if($isfollowingornot==1)
+							{
+							?>
+							<a href="follow.php?followedid=<?php echo $getid; ?>">Ne plus suivre cette personne</a>
+							<?php
+							}
+							else
+							{
+							
+						?>
+
+						<a href="follow.php?followedid=<?php echo $getid; ?>">Suivre cette personne</a>
+						
+				
+						<?php
+						}
+						}
+					?>
+	</div>
 </main>
 			
 	<!-- Dossier Javascript -->
@@ -181,6 +191,9 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
     $('.sidenav').sidenav('methodName', paramName);
 
   		});
+	$(document).ready(function(){
+    $('.modal').modal();
+  });
 	</script>
 	</body>
 

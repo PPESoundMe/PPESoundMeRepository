@@ -27,6 +27,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 		
+
 	    
         <!-- Titre  -->
 	    <title>SoundMe</title>    
@@ -45,13 +46,13 @@ $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
         <!-- Box de connexion  -->
 		<main>
 			
-			<div class="slider fullscreen">
+			<div class="slider" >
     <ul class="slides">
 
       <li>
         <img src="photos/fond.jpg"> <!-- random image -->
         <div class="caption center-align">
-          <h3>Bienvenue sur SoundMe</h3>
+          <h1>Bienvenue sur SoundMe !</h1>
           <h5 class="light grey-text text-lighten-3">Rejoignez l'aventure.</h5>
           
           <div class="box">
@@ -69,7 +70,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
       <li>
         <img src="photos/guitar.jpg"> <!-- random image -->
         <div class="caption left-align">
-          <h3>Partagez votre passion</h3>
+          <h1>Partagez votre passion</h1>
           <h5 class="light grey-text text-lighten-3">C'est simple comme bonjour.</h5>
           
 
@@ -77,12 +78,45 @@ $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
       </li>
      
     </ul>
-  </div>
+
+    <div class="section grey lighten-3">
+      <div class="row container">
+        <h1 class="header">SoundMe : qu'est-ce que c'est ?</h1>
+              <div class="row">
+                  <div class="col s4 center-align">
+                    <div class="block center-align">
+                      <i class="center-align large material-icons hovicon effect-1 sub-a">music_note</i>
+                    </div>
+                  <p class="flow-text light grey-text">Partagez avec d'autres musiciens</p>
+                  </div>
+
+
+                <div class="col s4 center-align">
+                    <div class="block center-align">
+                        <i class="center-align large material-icons hovicon effect-1 sub-a">group</i>
+                    </div>
+                    <p class="flow-text light grey-text">Créez des groupes de musique</p>
+                </div>
+              <div class="col s4 center-align">
+                <div class="block center-align">
+                        <i class="center-align large material-icons hovicon effect-1 sub-a">headset</i>
+                    </div>
+                <p class="flow-text light grey-text ">Réservez des studios de musique en ligne</p>
+              </div>
+
+            </div>
+        
+        </div>
+
+         
 
 <script type="text/javascript">
 	 $(document).ready(function(){
       $('.slider').slider({full_width: true});
     });
+     $('.carousel.carousel-slider').carousel({
+    fullWidth: true
+  });
 </script>
 			
 

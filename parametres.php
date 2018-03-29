@@ -142,7 +142,7 @@ if(isset($_SESSION['id_utilisateur']))
                         </ul>
 
                     </li>
-                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Actualités</a></li>
+                    <li><a href="actualite.php?id_utilisateur="<?php echo $_SESSION['id_utilisateur'];?>>Actualités</a></li>
                     <li><a href="carte.php">SoundMap</a></li>
                     <li class="has-sub"><a href="#">Messagerie<span class="sub-arrow"></span></a>
                         <ul>

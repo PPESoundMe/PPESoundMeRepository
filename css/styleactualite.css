@@ -1,0 +1,28 @@
+body{
+	background-color: #eeeeee;
+}
+
+.blocmusic{
+	background-color: red;
+}
+
+.blocactu{
+	border: 1px #bdbdbd solid;
+	padding: 10px;
+}
+
+
+
+.container .photo, .video, .enregistrement, .statut {
+	background-color: #9e9e9e;
+}
+
+
+
+.container .material-icons:hover{
+	background-color: transparent;
+} 
+
+
+
+

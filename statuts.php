@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -52,6 +52,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
         <!-- Titre  -->
 	    <title>Statuts - SoundMe</title>    
     </head>
+    
 <body>
 
 	<h1>Publier un statut !</h1>

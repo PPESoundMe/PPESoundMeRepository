@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -15,15 +15,17 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 {
 	if(isset($_POST['valider']))
 	{
+
 		if(isset($_FILES['video']) AND !empty($_FILES['video']['name']))
 		{
+			
 			$reqid = $bdd->query('SELECT * FROM actu ORDER BY id_actualite DESC LIMIT 0,1');
 			$idinfo = $reqid->fetch();
 			$res = $idinfo['id_actualite']+1;
 		
 			$tailleMax = 100000000;	
 			$extensionValides = array('mp4');
-			if($_FILES['photo']['size']<= $tailleMax)
+			if($_FILES['video']['size']<= $tailleMax)
 			{
 				$extensionUpload = strtolower(substr(strrchr($_FILES['video']['name'],'.'),1));
 				if(in_array($extensionUpload, $extensionValides))
