@@ -94,9 +94,11 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 		      <div class="background">
 		        <img src="photos/fond.jpg">
 		      </div>
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="photos/fond.jpg"></a>
+		      
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $userinfo['avatar']; ?>"></a>
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
+
 		    </div></li>
 
 		    <ul class="collapsible collapsible-accordion">
@@ -146,7 +148,8 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 		<div class="container">
 	
 					<h1> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h1>
-					<img class="pp materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" src="photos/fond.jpg">
+
+					<img src="membres/avatar/<?php echo $userinfo['avatar']; ?>" class="pp materialboxed" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" width="150" />
 
 
 		

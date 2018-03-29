@@ -11,7 +11,6 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	$userinfo = $requser->fetch();
 	
 	
-	
 }
 
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
@@ -229,9 +228,11 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		      <div class="background">
 		        <img src="photos/fond.jpg">
 		      </div>
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="photos/fond.jpg"></a>
+		      
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $userinfo['avatar']; ?>"></a>
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
+
 		    </div></li>
 
 		    <ul class="collapsible collapsible-accordion">
@@ -239,9 +240,9 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		            <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
 		            <div class="collapsible-body">
 		              <ul>
-		                <li><a href="videos.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
-		                <li><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
-		                <li><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">today</i>Mes événements</a></li>
+		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
+		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
+		                <li><a href=""><i class="material-icons">today</i>Mes événements</a></li>
 
 
 		              </ul>
@@ -252,7 +253,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
 		 
 		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
-		    <li><a href="parametre.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
+		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
 		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
 		    
 		    <ul class="collapsible collapsible-accordion">
@@ -403,7 +404,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 				<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<img src="photos/fond.jpg" alt="" class="circle hoverable">
+			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
 			      		<span class="title"><b><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></b><br></span>
 			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="150" />
 
