@@ -1,0 +1,9 @@
+div#calendar{
+  margin:0px auto;
+  padding:0px;
+  border: 1px solid black;
+}
+
+tr#planning_labels{
+  border: 1px solid black;
+}
