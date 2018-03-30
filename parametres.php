@@ -145,7 +145,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
         <!-- Feuilles de style  -->
     
         <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/styleprofil.css">
+        <link rel="stylesheet" href="css/styleparametre.css">
    
         
       <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -453,10 +453,21 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
            <hr>
            
 			<h3>Objectifs</h3>
+
            <section id="objectifs">
-               <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Qu'attendez-vous de SoundMe ?"></textarea></div>
-			 
-               <div class="lol"><input type="button" value=" Enregistrer les modifications " id="enregistrer"></div>
+
+            <div class="input-field col s12">
+            <textarea id="textarea2" name="objectifs" class="materialize-textarea" data-length="120"></textarea>
+            <label for="textarea2">Quel est votre objectif ? </label>
+          </div>			 
+              
+               <div class="row">
+              <div class="input-field col s6">   
+                <button id="valide" class="btn waves-effect waves-light red accent-3" type="button" value="Enregistrer l'objectif">Enregistrer l'adresse
+                <i class="material-icons right">send</i>
+             </button>
+              </div>
+            </div> 
            </section>
 		
     </div>
