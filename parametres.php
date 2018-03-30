@@ -177,7 +177,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
  <header>
 
       <!-- NAVBAR DU HAUT  -->
-  <nav class="transparent ">
+  <nav class="white ">
   
     <div class="nav-wrapper ">
         <a href="#!" class="brand-logo right"><img src="photos/horizontal.png" width="600" alt=""></a>

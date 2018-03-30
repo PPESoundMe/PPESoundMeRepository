@@ -201,7 +201,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 	<header>
 			<!-- NAVBAR DU HAUT  -->
-	<nav class="transparent ">
+	<nav class="white ">
   
 		<div class="nav-wrapper ">
       	<a href="#!" class="brand-logo right"><img src="photos/horizontal.png" width="600" alt=""></a>
@@ -286,11 +286,11 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			</div>
 
 	      <div class=" col s3 center-align">
-	      		<a class="btn-floating btn-large  modal-trigger red darken-2 hoverable hoverable" href="#modal2"><i class="material-icons photo">photo_camera</i></a><br>Photo
+	      		<a class="btn-floating btn-large  modal-trigger red darken-2 hoverable" href="#modal2"><i class="material-icons photo">photo_camera</i></a><br>Photo
 	      	</div>
 
       		<div class=" col s3 center-align">
-      			<a class="btn-floating btn-large  red darken-2 hoverable hoverable" href="videos.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons video">videocam</i></a><br>Vidéo
+      			<a class="btn-floating btn-large  red darken-2 hoverable" href="videos.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons video">videocam</i></a><br>Vidéo
       		</div>
 
       		<div class=" col s3 center-align">
@@ -327,7 +327,6 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 			<div class="file-field input-field">
 				<div class="btn">
-				   <span>Fichier</span>
 				   <input type="file" name="photo" />
 				 </div>
 				      <div class="file-path-wrapper">
@@ -405,10 +404,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
 			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
-			      		<span class="title"><b><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></b><br></span>
+			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="150" />
 
+      				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+
     			</li>
 	  		</ul>
 				<?php
@@ -421,7 +422,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 					<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
 			      	<img src="photos/fond.jpg" alt="" class="circle hoverable">
-			      		<span class="title"><b><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></b><br></span>
+			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<video src="membres/actus/<?php echo $donnees['url']; ?>" controls poster="membres/actus/<?php echo $videos['URL']; ?>.jpg" width="150"></video>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
@@ -437,7 +438,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 							<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
 			      	<img src="photos/fond.jpg" alt="" class="circle hoverable">
-			      		<span class="title"><b><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></b><br></span>
+			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<audio src="membres/actus/<?php echo $donnees['url']; ?>" controls></audio>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
@@ -454,7 +455,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				  <ul class="collection z-depth-2">
 				    <li class="collection-item avatar">
 				      <img src="photos/fond.jpg" alt="" class="circle hoverable">
-				      <span class="title"><b><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></b><br></span>
+				      <span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 
 				         <?php echo $donnees['description'];?>
 
