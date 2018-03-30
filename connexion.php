@@ -14,7 +14,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 if(isset($_POST['formconnexion']))
 {
@@ -57,8 +57,18 @@ if(isset($_POST['formconnexion']))
 	    <meta name="author" content="PPE SoundMe">
         
         <!-- Feuilles de style  -->
-	    <link rel="stylesheet" href="css/styleconnexion.css">
+	    <link rel="stylesheet" href="css/stylelogin.css">
+	    <link rel="stylesheet" href="css/default.css">
         <link href="css/hover-min.css" rel="stylesheet">
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+         <!-- Bibliothèques JQuery  -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 	    
         <!-- Titre  -->
 	    <title>SoundMe</title>    
@@ -74,38 +84,67 @@ if(isset($_POST['formconnexion']))
         </header>
         
         <!-- Box de connexion  -->
-		<main>
+	<div class="container">
+		<div class="boxconnexion">
 			
 			<h1>Connexion</h1>
 
-			<?php
-			if(isset($erreur))
-			{
-				echo $erreur;
-			}
-			?> 
-			
+			<div class="row">
+
+
             <!-- Formulaire  -->
-			<form method="POST" action="">
+			<form method="POST" action="" class="col s12">
                 
+
                  <!-- Mail  -->
-			    <input class="champ" type="text" name="mailconnect" placeholder="Adresse e-mail" />
-                
-                 <!-- MDP  -->
-				<input class="champ" type="password" name="mdpconnect" placeholder="Mot de passe" />
-                
-                 <!-- Bouton  -->
-				<a href="#" class="button hvr-underline-from-center"> 
-                   <input class="valide" type="submit" name="formconnexion" value="Se connecter"/>
-                </a>
+
+				      <div class="row">
+				        <div class="input-field col s12">
+				          <input type="email" class="validate" id="email" name="mailconnect" />
+				          <label for="email">Email</label>        
+				        </div>
+				        </div>
+
+
+
+				        <div class="row">
+					    	<!-- Mdp  -->
+					        <div class="input-field col s12">
+					          <input type="password" id="mdp" name="mdpconnect" class="champ" />
+				          <label for="mdp">Mot de passe</label>
+					       </div>
+					     </div>
+
+			  
+
+                     <!-- valider  -->
+				<div class="row">
+			        <div class="input-field col s12">   
+				        <button id="valide" class="btn waves-effect waves-light blue" type="submit" name="formconnexion" value="Je me connecte">Je me connecte
+	    					<i class="material-icons right">send</i>
+	 					 </button>
+			         
+			        </div>
+			      </div>
+               
                 
                  <!-- Pas encore inscrit?  -->
-				<a href="inscription.php" class="button hvr-grow">Pas encore inscrit ? Crée ton compte maintenant !</a>
+				<a href="inscription.php" class="">Pas encore inscrit ? Crée ton compte maintenant !</a>
               
           
 		    </form>
-			
-        </main>	
+
+		    		<div class="erreur">
+						<?php
+						if(isset($erreur))
+						{
+							echo $erreur;
+						}
+						?> 
+					</div>
+			</div>
+		</div>
+		</div>
 			
 	</body>
 </html>

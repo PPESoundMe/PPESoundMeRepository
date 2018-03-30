@@ -1,0 +1,18 @@
+@font-face {
+
+src: url(style/font/'Tw Cen MT.ttf');
+
+
+}
+
+
+main h2 {
+    font-family: 'Tw Cen MT';
+     font-size: xx-large;
+}
+
+
+main h3{
+	font-size: large;
+	font-weight: bold;
+}

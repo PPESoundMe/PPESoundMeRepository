@@ -13,7 +13,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
 
 echo $_SESSION['id_utilisateur'];
 
@@ -54,14 +54,26 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 <html>
 	<head>
 		
-	    <meta charset="utf-8">
-	   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  	<meta name="description" content="SoundMe Réseau Social">
-	    <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre">
-	    <meta name="author" content="PPE SoundMe">
+	   <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="SoundMe Réseau Social">
+        <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre">
+        <meta name="author" content="PPE SoundMe">
+        <link rel="shortcut icon" href="photos/logo_onglet.ico">
             
         <!-- Feuille de style  -->
-	    <link rel="stylesheet" href="css/styleinscriptionfacultative.css">
+        <link rel="stylesheet" href="css/stylelogin.css">
+        <link rel="stylesheet" href="css/default.css">
+
+         <!-- Feuilles de style  -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+         <!-- Bibliothèques JQuery  -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
         
         <!-- Titre  -->
 	    <title>Inscription facultative</title> 
@@ -71,17 +83,22 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
         
         
         <!-- Header logo  -->
-        <header> 
-            <figure>
-                <img src="photos/noteblanche.png" alt="logoSoundMe">
-            </figure>
-        </header>
+       <header> 
+                <figure>
+
+                  
+                    <a href="accueil.php" class="  "><img src="photos/noteblanche.png" alt="logoSoundMe"></a> 
+
+                </figure>
+            </header>
         
         
         <!-- Box d'inscriptino  -->
-        <main>
+       <div class="container">
+
+            <div class="box">
 		<h1>Inscription facultative</h1>
-        <h2>Vous pouvez ignorer cette étape ou y revenir plus tard.</h2>
+        <h2 grey>Vous pouvez ignorer cette étape ou y revenir plus tard.</h2>
 	
 		
         <!-- Formulaire  -->         
@@ -91,6 +108,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		<hr>
             <section>
                 <h3>Profil musical</h3>
+                <label for="prenom">Profil</label>
 
                 <ol>
                     <li>
@@ -211,22 +229,32 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
                     <hr>
                    <h3>Objectifs</h3>
                     <section id="objectifs">
-                    <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherchez-vous ? Quelles sont vos attentes ?"></textarea></div>
-		
+                    <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherches-tu ?"></textarea></div>
+		                <div class="row">
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+          <label for="icon_prefix2">Que recherches-tu ?</label>
+        </div>
+      </div>
+
+  </div>
                     </section>	
 	   
-        <p>              
+  <section>             
             <!-- Bouton validation  -->
 			<input id="valide" type="submit" name="forminscription" value="Confirmer" />
                     
             <!-- Bouton ignorer  -->
             
             <a id="valide" href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Ignorer cette étape</a>
-            
-        </p>
+       
+</section>
         </form>
-	
-        </main>
+	   </div>
+     </div>
+ </div>
 
         <script>
     function find_adress() {

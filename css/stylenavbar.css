@@ -1,0 +1,70 @@
+/*STYLE DE LA BARRE DE NAV*/
+* {
+ padding: 0;
+    margin: 0;
+}
+
+
+aside a {
+    text-decoration: none;
+}
+
+aside li{
+    list-style: none;
+}
+
+aside .main-nav{
+    width: 17.2%;
+    position: fixed;
+    background-color: black;
+}
+
+aside .main-nav a{
+    display: block;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: .2em;
+    color:#fff;
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px dotted gray;
+    
+}
+
+aside .main-nav-ul ul{
+    display: none;
+}
+
+aside .main-nav-ul li.tap ul{
+    display:block;
+}
+
+aside .main-nav li.tap .sub-arrow:after{
+    content: '\2039';
+}
+
+aside .main-nav-ul ul a:before{
+    content:'\203A';
+    margin-right: 20px;
+}
+
+aside .main-nav .sub-arrow:after{
+    content:'\203A';
+    float: right;
+    margin-right: 20px;
+    transform: rotate(90deg);
+    -webkit-transform:rotate(90deg);
+    -moz-transform: rotate(90deg);
+}
+
+#barnav {
+    background-color: #fff;
+    background-image: url(../photos/loupe.png);
+    background-repeat: no-repeat;
+    background-position: 12px 17px;
+    background-size: 15px;
+    padding: 16px 20px 14px 27px;
+    border-radius: 7px;
+    margin-top: 5px;
+    width:96%;
+    
+}

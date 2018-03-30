@@ -20,7 +20,8 @@ $pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 
 	<head>
-		<title>Carte SoundMe</title>
+		<title>SoundMap</title>
+		<link rel="shortcut icon" href="photos/logo_onglet.ico">
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<!-- Elément Google Maps indiquant que la carte doit être affiché en plein écran et
 		qu'elle ne peut pas être redimensionnée par l'utilisateur -->
