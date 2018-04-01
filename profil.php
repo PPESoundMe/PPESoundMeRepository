@@ -277,8 +277,15 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
   });
 	</script>
 	</body>
+<<<<<<< HEAD
+=======
 
 <footer></footer>
 
 </html>
+>>>>>>> 3b572b021831df33d57ca6ed1122976d708e6256
 
+<footer></footer>
+
+
+</html>
