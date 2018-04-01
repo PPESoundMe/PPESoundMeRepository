@@ -138,7 +138,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 
 	
 		<meta charset="utf-8">
-<meta charset="utf-8">
     <link rel="shortcut icon" href="photos/logo_onglet.ico">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="description" content="SoundMe Réseau Social">
@@ -156,8 +155,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <link type="text/css" rel="stylesheet" href="css/materialize/materialize.css"  media="screen,projection"/>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -166,7 +164,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
          <!-- Compiled and minified CSS -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
       <!-- Compiled and minified JavaScript -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -260,7 +257,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		
     <hr>
           <section>
-    <h2><i class="material-icons prefix red-text">photo</i> Changer la photo de profil</h2>
+    <h2><i class="material-icons prefix">photo</i> Changer la photo de profil</h2>
 
     <form method="POST" action ="" enctype="multipart/form-data">
       
@@ -302,7 +299,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
         </section>
 
         <hr>
-		<h2>Changer le mot de passe </h2>
+		<h2><i class="material-icons prefix">security</i> Changer le mot de passe </h2>
 		
 		<form method="POST" id="changemdp" action="" class="col s12" >
 		
@@ -339,7 +336,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
            <hr>
 		
            <section>
-		<h2> Informations générales </h2>
+		<h2> <i class="material-icons prefix">person</i> Informations générales </h2>
 		
 		<form method="POST" action ="" id="infogenerales">
 
@@ -373,7 +370,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
            </section>
            
 			<section>
-		<h2>Adresse</h2>
+		<h2><i class="material-icons prefix">home</i> Adresse</h2>
 
 		<form method="POST" action ="">
           <div class="row">
@@ -405,7 +402,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
            <section>
 			
                <hr>
-		<h2> Informations personnelles </h2>
+		<h2><i class="material-icons prefix">music_note</i> Informations personnelles </h2>
 		
 		<form method="POST" action ="">
 		
