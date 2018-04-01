@@ -91,8 +91,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
     	<!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+      	<link type="text/css" rel="stylesheet" href="css/materialize/materialize.css"  media="screen,projection"/>
     	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -101,7 +100,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
          <!-- Compiled and minified CSS -->
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
     	<!-- Compiled and minified JavaScript -->
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -129,10 +127,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 
 	<body>
 	
-	
-		
-	
-
 	<!-- NAVBAR DU BAS  -->		
 		<ul id="slide-out" class="sidenav sidenav-fixed">
 		    <li><div class="user-view">
@@ -194,37 +188,42 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 	<main>
 		<div class="container">
 
-
-				<!-- changer la PP -->
-  				<div id="modal" class="modal">
-			  	<form method="POST" action="" enctype="multipart/form-data">
-			    <div class="modal-content">
-			      <h4>Changer la photo de profil</h4>
-			      <br>
-      
-			<div class="file-field input-field">
-				<div class="btn">
-				   <span>Fichier</span>
-				   <input type="file" name="avatar" />
-			
+		  		<!-- CONTENU -->
+		  	    <div class="row"></div>
             
-				 </div>
-				      <div class="file-path-wrapper">
-				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
+    			 <div class="row">
+				      <div class="col s4"><img src="membres/avatar/<?php echo $userinfo['avatar']; ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
+				      <div class="col s8">
+				      	<h3> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h3>
+				      	<blockquote class="coucou">
+				      	<ul class="grey-text">
+					      <li><h6><i class=" tiny material-icons">cake</i> <?php echo $userinfo['age']; ?></h6></li>
+					      <li><h6><i class=" tiny material-icons">group</i> Abonnés </h6></li>
+					      <li><h6><i class=" tiny material-icons">message</i> Messages </h6></li>
+					      <li><h6><i class=" tiny material-icons">settings</i> Paramètres </h6></li>
+			  			</ul>
+			  		</blockquote>
 				      </div>
-				    </div>  
-				  
-    		</div>
-	    <div class="modal-footer">
-	    	<input type="submit" name="valider" value="Enregistrer" class="modal-action modal-close waves-effect waves-green btn-flat"/>
-	    </div>
-    	</form>
-  		</div>
-					<h1> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h1>
 
-					<img src="membres/avatar/<?php echo $userinfo['avatar']; ?>" class="pp materialboxed" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" width="150" />
+    			</div>
 
+  <div class="card">
 
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a href="#test1" class="active">Photos</a></li>
+        <li class="tab"><a href="#test2">Vidéos</a></li>
+        <li class="tab"><a href="#test3">Enregistrements</a></li>
+        <li class="tab"><a href="#test4">Évènements</a></li>
+      </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div id="test1">Photos</div>
+      <div id="test2">Vidéos</div>
+      <div id="test3">Enregistrements</div>
+      <div id="test4">Enregistrements</div>
+    </div>
+  </div>
 		
 					<?php
 						if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])

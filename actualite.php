@@ -284,7 +284,8 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 <main>
 
 <div class="container">
-	<h1 class="left-align">Actualités</h1>
+	
+	<h1 class="left-align">Exprimez-vous, <?php echo $userinfo['prenom'] ;?></h1>
 
 		<!--Affichage des erreurs-->
 	     <div class="erreur">
@@ -421,7 +422,6 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="250" />
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
-      				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
 
     			</li>
 	  		</ul>
