@@ -2,7 +2,8 @@
 
 <?php
 session_start();
-
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
 $dbname = DB_DATABASE;
@@ -21,6 +22,8 @@ if(isset($_SESSION['id_utilisateur']))
 	$requser = $pdo->prepare("SELECT * FROM Utilisateur WHERE id_utilisateur=?");
 	$requser->execute(array($_SESSION['id_utilisateur']));
 	$user = $requser->fetch();
+
+
 
 	
 	if(isset($_POST['mdp']) AND !empty($_POST['mdp']) AND isset($_POST['nouvmdp']) AND !empty($_POST['nouvmdp']) AND isset($_POST['nouvmdp2']) AND !empty($_POST['nouvmdp2']))
@@ -204,9 +207,9 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
             <img src="photos/fond.jpg">
           </div>
           
-          <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $userinfo['avatar']; ?>"></a>
-          <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
-          <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
+          <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $user['avatar']; ?>"></a>
+          <a href="#name"><span class="white-text name"><?php echo $user['prenom'] ; echo(" "); echo $user['nom'] ; ?></span></a>
+          <a href="#email"><span class="white-text email"><?php echo $user['email'] ;?></span></a>
 
         </div></li>
 
@@ -257,7 +260,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		
     <hr>
           <section>
-    <h2>Changer la photo de profil</h2>
+    <h2><i class="material-icons prefix red-text">photo</i> Changer la photo de profil</h2>
 
     <form method="POST" action ="" enctype="multipart/form-data">
       
@@ -281,7 +284,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
          </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
-                <?php header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);?>
+
               </div>
             </div>  
                 </div>

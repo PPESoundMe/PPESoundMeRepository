@@ -1,6 +1,8 @@
 <?php // include "../inc/dbinfo.inc"; ?>
 
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 session_start();
 
 /*$dbhost = DB_SERVER;
@@ -50,21 +52,21 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
           }
           else
           {
-            $message =  "Erreur pendant l'importation de la photo !";
+            echo ("Erreur pendant l'importation de la photo !");
           }
         }
         else
         {
-          $message = "Votre photo de profil doit être au format jpg, jpeg, gif ou png !";
+          echo ("Votre photo de profil doit être au format jpg, jpeg, gif ou png !");
         }
       }
       else
       {
-        $message =  "Votre photo de profil ne doit pas dépasser 2Mo !";
+        echo  ("Votre photo de profil ne doit pas dépasser 2Mo !");
       }
     }
 
-}
+
 
 ?>
 
@@ -209,7 +211,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 				 </div>
 				      <div class="file-path-wrapper">
 				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
-				        <?php header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);?>
 				      </div>
 				    </div>  
 				  
@@ -254,6 +255,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 						<?php
 						}
 						}
+						}
 					?>
 	</div>
 </main>
@@ -277,7 +279,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 	</body>
 
 <footer></footer>
-
 
 </html>
 

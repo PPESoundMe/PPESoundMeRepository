@@ -89,6 +89,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 					
 		<input type="file" name="video" /><br><br>
 		<input type="submit" name="valider" value="Valider"/>
+	
 				  
 	</form>
 </body>

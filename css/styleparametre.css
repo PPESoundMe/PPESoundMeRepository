@@ -4,7 +4,9 @@ src: url(style/font/'Tw Cen MT.ttf');
 
 
 }
-
+body{
+	background-color: #eeeeee;
+}
 
 main h2 {
     font-family: 'Tw Cen MT';
