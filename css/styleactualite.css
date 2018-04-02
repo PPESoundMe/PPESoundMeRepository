@@ -23,6 +23,10 @@ body{
 	background-color: transparent;
 } 
 
-
+.nomstatut{
+	font-weight: bold;
+	margin-bottom: 5px;
+	color: #bd1130;
+}
 
 

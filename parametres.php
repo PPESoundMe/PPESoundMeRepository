@@ -2,7 +2,8 @@
 
 <?php
 session_start();
-
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
 $dbname = DB_DATABASE;
@@ -13,13 +14,17 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+
 
 if(isset($_SESSION['id_utilisateur']))
 {
 	$requser = $pdo->prepare("SELECT * FROM Utilisateur WHERE id_utilisateur=?");
 	$requser->execute(array($_SESSION['id_utilisateur']));
 	$user = $requser->fetch();
+
+
+
 	
 	if(isset($_POST['mdp']) AND !empty($_POST['mdp']) AND isset($_POST['nouvmdp']) AND !empty($_POST['nouvmdp']) AND isset($_POST['nouvmdp2']) AND !empty($_POST['nouvmdp2']))
 	{
@@ -42,7 +47,7 @@ if(isset($_SESSION['id_utilisateur']))
 		}
 		else
 		{
-			$message = "Le mot de passe actuel est incorrect";
+			$message = "Le mot de passe actuel est incorrect !";
 		}
 	}
 	else
@@ -50,6 +55,48 @@ if(isset($_SESSION['id_utilisateur']))
 		$message = "Veuillez remplir tous les champs !";
 	}
 	
+
+  //PHOTO DE PROFIL
+if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
+    {
+
+      $tailleMax = 2097152; 
+      $extensionValides = array('jpg','jpeg','gif','png');
+      if($_FILES['avatar']['size']<= $tailleMax)
+      {
+        $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'],'.'),1));
+        if(in_array($extensionUpload, $extensionValides))
+        {
+          $chemin = "membres/avatar/".$_SESSION['id_utilisateur'].".".$extensionUpload;
+          $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'],$chemin);
+          if($resultat)
+          {
+            $updateavatar = $pdo->prepare('UPDATE Utilisateur SET avatar = :avatar WHERE id_utilisateur = :id_utilisateur');
+            $updateavatar->execute(array(
+                'avatar' => $_SESSION['id_utilisateur'].".".$extensionUpload,
+                'id_utilisateur'=> $_SESSION['id_utilisateur']
+              ));
+      
+
+            header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+
+          }
+          else
+          {
+            $message =  "Erreur pendant l'importation de la photo !";
+          }
+        }
+        else
+        {
+          $message = "Votre photo de profil doit être au format jpg, jpeg, gif ou png !";
+        }
+      }
+      else
+      {
+        $message =  "Votre photo de profil ne doit pas dépasser 2Mo !";
+      }
+    }
+
 	if(isset($_POST['nouvnom']) AND !empty($_POST['nouvnom']) AND $_POST['nouvnom']!=$user['nom'])
 	{
 		$nouvnom = htmlspecialchars($_POST['nouvnom']);
@@ -81,8 +128,9 @@ if(isset($_SESSION['id_utilisateur']))
 		$insertadress->execute(array($adress,$_SESSION['id_utilisateur']));
 		header('Location:profil.php?id_utilisateur='.$_SESSION['id_utilisateur']);
 	}
-}
 
+
+}
 ?>
 
 <html>
@@ -90,166 +138,271 @@ if(isset($_SESSION['id_utilisateur']))
 
 	
 		<meta charset="utf-8">
-	   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  	<meta name="description" content="SoundMe Réseau Social">
-	    <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre, parametres">
-	    <meta name="author" content="PPE SoundMe">
-      <link rel="shortcut icon" href="photos/logo_onglet.ico">
+    <link rel="shortcut icon" href="photos/logo_onglet.ico">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="SoundMe Réseau Social">
+      <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre, parametres">
+      <meta name="author" content="PPE SoundMe">
         
         <!-- Feuilles de style  -->
-	    <link rel="stylesheet" href="style/css/styleparametre.css">
-        <link rel="stylesheet" href="style/css/stylenavbar.css">
-        <link href="style/css/hover-min.css" rel="stylesheet">
+    
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/styleparametre.css">
+   
         
-        <!-- Ajout du js pour la navbar  -->
-        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(e){
-                $('.has-sub').click(function(){
-                    $(this).toggleClass('tap');
-                })
-            })
-        </script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize/materialize.css"  media="screen,projection"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+         <!-- Bibliothèques JQuery  -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+         <!-- Compiled and minified CSS -->
+
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 	    
         <!-- Titre  -->
 	    <title>Paramètres - SoundMe</title>    
 	</head>
 	
-	<body>
-        <!-- Headerlogo  -->
-        <header> 
-            <figure>
-                <img src="style/photos/noteblanche.png" alt="logoSoundMe">
-            </figure>
-        </header>
-        
-        
-        <!-- Début du menu sur le côté  -->
-        <aside>
-            
-            <!-- Barre de recherche  -->
-            <nav class="main-nav">
-                <form action="">
-                    <input id="barnav" type = "text" name="" placeholder="RECHERCHE...">
-                </form>
-                <ul class="main-nav-ul">
-                    
-                    <li class="has-sub"><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Profil<span class="sub-arrow"></span></a>
-                        <ul>
-                            <li><a href="#">Mes groupes</a></li>
-                            <li><a href="#">Mes abonnés</a></li>
-                            <li><a href="#">Mes événements</a></li>
-                        </ul>
 
-                    </li>
-                    <li><a href="actualite.php?id_utilisateur="<?php echo $_SESSION['id_utilisateur'];?>>Actualités</a></li>
-                    <li><a href="carte.php">SoundMap</a></li>
-                    <li class="has-sub"><a href="#">Messagerie<span class="sub-arrow"></span></a>
-                        <ul>
-                            <li><a href="envoi.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Envoyer un message</a></li>
-                            <li><a href="reception.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Mes messages</a></li>
-                        </ul>
 
-                    </li>
-                    <li><a href="#">Mes réservations</a></li>
-                    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Paramètres</a></li>
-                    <li><a href="deconnexion.php">Déconnexion</a></li>
-                
-                </ul>
+ <header>
+
+      <!-- NAVBAR DU HAUT  -->
+  <nav class="white ">
+  
+    <div class="nav-wrapper ">
+        <a href="#!" class="brand-logo right"><img src="photos/horizontal.png" width="600" alt=""></a>
+ 
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons red-text text-accent-4">search</i></label>
+        
+        </div>
+      </form>
+      </ul>
+    </div>
+      </nav>
+ </header>
+   
+   <body>     
+     
+    <!-- NAVBAR DU BAS  -->   
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li><div class="user-view">
+          <div class="background">
+            <img src="photos/fond.jpg">
+          </div>
+          
+          <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $user['avatar']; ?>"></a>
+          <a href="#name"><span class="white-text name"><?php echo $user['prenom'] ; echo(" "); echo $user['nom'] ; ?></span></a>
+          <a href="#email"><span class="white-text email"><?php echo $user['email'] ;?></span></a>
+
+        </div></li>
+
+        <ul class="collapsible collapsible-accordion">
+              <li>
+                <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
+                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
+                    <li><a href=""><i class="material-icons">today</i>Mes événements</a></li>
+
+
+                  </ul>
+                </div>
+              </li>
+            </ul>
+        <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
+        <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
+     
+        <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
+        <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
+        <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
+        
+        <ul class="collapsible collapsible-accordion">
+              <li>
+                <a class="collapsible-header">Messagerie<i class="material-icons">message</i></a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a href="#!">Envoyer un message</a></li>
+                    <li><a href="#!">Mes messages</a></li>
+
+                  </ul>
+                </div>
+              </li>
+            </ul>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+      </ul>
             
-            </nav>
-        </aside>
         
         
          <!-- Début du main  -->
 	   <main>
+      <div class="container">
 		<h1>Paramètres du compte</h1>		
 		
-           <hr>
-		<h2>Changer le mot de passe </h2>
-		
-		<form method="POST" id="changemdp" action="">
-		
-		<?php if(isset($message)) {echo $message;}?>
-		
-			<table>
-                <tr>
-                    
-                    <td><label>Mot de passe actuel : </label></td>
-                    <td><input type="password" name="mdp"/></td>
+    <hr>
+          <section>
+    <h2><i class="material-icons prefix">photo</i> Changer la photo de profil</h2>
+
+    <form method="POST" action ="" enctype="multipart/form-data">
+      
+       
+     <div class="erreur">
+      <?php if(isset($message)) {echo $message;}?>
+    </div>
+
+
+
+
+
+          <div class="row">
+            <div class="input-field col s6">
+               <div class="file-field input-field">
+                <div class="btn">
+                <span>Fichier</span>
+           <input type="file" name="avatar" />
+      
             
-                </tr>
-                <td><label>Nouveau mot de passe : </label></td>
-                <td><input type="password" name="nouvmdp" /></td>
-           
-                <tr>
-                    <td><label>Confirmer le nouveau mot de passe : </label></td>
-                    <td><input type="password" name="nouvmdp2" /></td>
-                </tr>
-           
-                <tr>
-                    <td><input type="submit" value="Enregistrer les modifications" /></td>
-                </tr>
-            </table>
-				
-		</form>
+         </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
+
+              </div>
+            </div>  
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6">   
+                <button id="valide" class="btn waves-effect waves-light red accent-3" type="submit" value="Enregistrer l'avatar">Charger la photo
+                <i class="material-icons right">send</i>
+             </button>
+              </div>
+            </div>  
+
+          </form>
+        </section>
+
+        <hr>
+		<h2><i class="material-icons prefix">security</i> Changer le mot de passe </h2>
+		
+		<form method="POST" id="changemdp" action="" class="col s12" >
+		
+     
+              <div class="row">
+                 <div class="input-field col s6">
+                      <input   id="mdpactuel" type="password" class="validate" name="mdp" /> 
+                      <label for="mdpactuel">Mot de passe actuel</label>
+                  </div>
+              </div>
+
+              <div class="row">
+                 <div class="input-field col s6">
+                      <input  id="mdpactuel" type="password" class="validate" name="nouvmdp" /> 
+                      <label for="mdpactuel">Nouveau mot de passe</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input  id="mdpactuel" type="password" class="validate" name="nouvmdp2" /> 
+                      <label for="mdpactuel">Confirmer le nouveau mot de passe</label>
+                  </div>
+              </div>
+
+              <div class="row">
+              <div class="input-field col s6">   
+                <button id="valide" class="btn waves-effect waves-light red accent-3" type="submit" value="Enregistrer les modifications">Enregistrer le mot de passe
+                <i class="material-icons right">send</i>
+             </button>
+              </div>
+            </div>         
+      </form>
+
+
            
            <hr>
 		
            <section>
-		<h2> Informations générales </h2>
+		<h2> <i class="material-icons prefix">person</i> Informations générales </h2>
 		
 		<form method="POST" action ="" id="infogenerales">
-		  <table>
-              <tr>
-                  <td><label>Nom : </label></td>
-                  <td><input type="text" name="nouvnom" placeholder="Nom" value="<?php echo $user['nom']; ?>" /></td>
-            
-              </tr>
+
+             
+                  <form class="col s12">
+                    <div class="row">
+                      <div class="input-field col s6">
+                        
+                        <input name="nouvprenom" placeholder="Prénom" id="prenom" type="text" class="validate" value="<?php echo $user['prenom']; ?>" /> 
+                        <label for="prenom">Prénom</label>
+                      </div>
+                      <div class="input-field col s6">
+                        <input id="nom" type="text" class="validate" name="nouvnom" placeholder="Nom" value="<?php echo $user['nom']; ?>">
+                        <label for="nom">Last Name</label>
+                      </div>
+                    </div>
               
-              <tr>
-                  <td><label>Prénom : </label></td>
-                  <td><input type="text" name="nouvprenom" placeholder="Prenom" value="<?php echo $user['prenom']; ?>" /></td>
+	              <label>Date de naissance : </label></td>
+                <input type="date"  id="nouvdate" name="nouvdate" placeholder="Date de naissance" value="<?php echo $user['age']; ?>" />
+                <!--Bouton valider-->
+
+             <div class="row">
+              <div class="input-field col s6">   
+                <button id="valide" class="btn waves-effect waves-light red accent-3" type="submit" value="Enregistrer les modifications">Enregistrer les modifications
+                <i class="material-icons right">send</i>
+             </button>
+              </div>
+            </div>        
             
-              </tr>
-			<tr>
-                <td><label>Date de naissance : </label></td>
-                <td><input type="date"  id="nouvdate" name="nouvdate" placeholder="Date de naissance" value="<?php echo $user['age']; ?>" /></td>
-              </tr>
-			
-              <tr>
-                  <td><input type="submit" value="Enregistrer les modifications" /></td>
-              </tr>
-            </table>
-            
-		</form>
+		  </form>
            </section>
            
 			<section>
-		<h2>Adresse</h2>
+		<h2><i class="material-icons prefix">home</i> Adresse</h2>
+
 		<form method="POST" action ="">
-			<table>
-              <tr>
-                <td><label>Adresse : </label></td>
-                <td><input type="text" id="adress" class="controls" name="adress" placeholder="Adresse" value="<?php echo $user['adresse']; ?>"></td>
-              </tr>
-              <tr>
-              	<td><span id="place-id"></span></td>
-      			<td><span id="place-address"></span></td>
-      		  </tr>
-			
-              <tr>
-                  <td><input type="submit" value="Enregistrer l'adresse" /></td>
-              </tr>
-            </table>
-            
-		</form>
+          <div class="row">
+            <div class="input-field col s6">
+                  <i class="material-icons prefix">home</i>
+                    <input type="text" id="icon_prefix" class="validate" name="adress" value="<?php echo $user['adresse']; ?>">
+                    <label for="icon_prefix">Adresse</label>
+              	     <span id="place-id"></span>
+      			         <span id="place-address"></span>
+
+                  
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6">   
+                <button id="valide" class="btn waves-effect waves-light red accent-3" type="submit" value="Enregistrer l'adresse">Enregistrer l'adresse
+                <i class="material-icons right">send</i>
+             </button>
+              </div>
+            </div>  
+
+		      </form>
     		</section>
+
+    
+
 
            <section>
 			
                <hr>
-		<h2> Informations personnelles </h2>
+		<h2><i class="material-icons prefix">music_note</i> Informations personnelles </h2>
 		
 		<form method="POST" action ="">
 		
@@ -300,14 +453,38 @@ if(isset($_SESSION['id_utilisateur']))
            <hr>
            
 			<h3>Objectifs</h3>
+
            <section id="objectifs">
-               <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Qu'attendez-vous de SoundMe ?"></textarea></div>
-			 
-               <div class="lol"><input type="button" value=" Enregistrer les modifications " id="enregistrer"></div>
+
+            <div class="input-field col s12">
+            <textarea id="textarea2" name="objectifs" class="materialize-textarea" data-length="120"></textarea>
+            <label for="textarea2">Quel est votre objectif ? </label>
+          </div>			 
+              
+               <div class="row">
+              <div class="input-field col s6">   
+                <button id="valide" class="btn waves-effect waves-light red accent-3" type="button" value="Enregistrer l'objectif">Enregistrer l'adresse
+                <i class="material-icons right">send</i>
+             </button>
+              </div>
+            </div> 
            </section>
 		
+    </div>
 		</main>	
 	
+  <!-- Dossier Javascript -->
+  <script type="text/javascript">
+     $(document).ready(function(){
+      $('.sidenav').sidenav();
+       $('.sidenav').sidenav('methodName');
+    $('.sidenav').sidenav('methodName', paramName);
+
+      });
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
+  </script>
 		<script>
 	function find_adress() {
 

@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Bitstream Vera Serif Bold";
+  src: url("/fonts/Tw Cen MT.ttf");
+}
+
+h3{
+     font-family: 'Tw Cen MT';
+}
+
 .pp{
 
   background-image: url('../img/login.png');
@@ -5,10 +14,10 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  margin-left: 20px;
-  margin-top: 40px;
+
   border-style: solid;
-  border-width: 5px;
+  border-width: 2px;
+  border-color: #bd1130;
  
 }
 

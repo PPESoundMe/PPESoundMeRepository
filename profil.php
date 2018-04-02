@@ -1,6 +1,8 @@
 <?php // include "../inc/dbinfo.inc"; ?>
 
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 session_start();
 
 /*$dbhost = DB_SERVER;
@@ -21,7 +23,50 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	$requser = $pdo->prepare('SELECT * FROM Utilisateur WHERE id_utilisateur=?');
 	$requser->execute(array($getid));
 	$userinfo = $requser->fetch();
-}
+
+
+  //PHOTO DE PROFIL
+if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
+    {
+
+      $tailleMax = 2097152; 
+      $extensionValides = array('jpg','jpeg','gif','png');
+      if($_FILES['avatar']['size']<= $tailleMax)
+      {
+        $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'],'.'),1));
+        if(in_array($extensionUpload, $extensionValides))
+        {
+          $chemin = "membres/avatar/".$_SESSION['id_utilisateur'].".".$extensionUpload;
+          $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'],$chemin);
+          if($resultat)
+          {
+            $updateavatar = $pdo->prepare('UPDATE Utilisateur SET avatar = :avatar WHERE id_utilisateur = :id_utilisateur');
+            $updateavatar->execute(array(
+                'avatar' => $_SESSION['id_utilisateur'].".".$extensionUpload,
+                'id_utilisateur'=> $_SESSION['id_utilisateur']
+              ));
+      
+
+            header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+
+          }
+          else
+          {
+            echo ("Erreur pendant l'importation de la photo !");
+          }
+        }
+        else
+        {
+          echo ("Votre photo de profil doit être au format jpg, jpeg, gif ou png !");
+        }
+      }
+      else
+      {
+        echo  ("Votre photo de profil ne doit pas dépasser 2Mo !");
+      }
+    }
+
+
 
 ?>
 
@@ -46,8 +91,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
     	<!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+      	<link type="text/css" rel="stylesheet" href="css/materialize/materialize.css"  media="screen,projection"/>
     	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -56,7 +100,6 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
          <!-- Compiled and minified CSS -->
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
     	<!-- Compiled and minified JavaScript -->
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -84,19 +127,19 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 
 	<body>
 	
-	
-		
-	
-
 	<!-- NAVBAR DU BAS  -->		
 		<ul id="slide-out" class="sidenav sidenav-fixed">
 		    <li><div class="user-view">
 		      <div class="background">
 		        <img src="photos/fond.jpg">
 		      </div>
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="photos/fond.jpg"></a>
+
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable modal-trigger" src="membres/avatar/<?php echo $userinfo['avatar']; ?>" href="#modal"></a>
+		         
+
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
+
 		    </div></li>
 
 		    <ul class="collapsible collapsible-accordion">
@@ -144,11 +187,43 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	<!-- CONTENU DE LA PAGE  -->		
 	<main>
 		<div class="container">
-	
-					<h1> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h1>
-					<img class="pp materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" src="photos/fond.jpg">
 
+		  		<!-- CONTENU -->
+		  	    <div class="row"></div>
+            
+    			 <div class="row">
+				      <div class="col s4"><img src="membres/avatar/<?php echo $userinfo['avatar']; ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
+				      <div class="col s8">
+				      	<h3> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h3>
+				      	<blockquote class="coucou">
+				      	<ul class="grey-text">
+					      <li><h6><i class=" tiny material-icons">cake</i> <?php echo $userinfo['age']; ?></h6></li>
+					      <li><h6><i class=" tiny material-icons">group</i> Abonnés </h6></li>
+					      <li><h6><i class=" tiny material-icons">message</i> Messages </h6></li>
+					      <li><h6><i class=" tiny material-icons">settings</i> Paramètres </h6></li>
+			  			</ul>
+			  		</blockquote>
+				      </div>
 
+    			</div>
+
+  <div class="card">
+
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a href="#test1" class="active">Photos</a></li>
+        <li class="tab"><a href="#test2">Vidéos</a></li>
+        <li class="tab"><a href="#test3">Enregistrements</a></li>
+        <li class="tab"><a href="#test4">Évènements</a></li>
+      </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div id="test1">Photos</div>
+      <div id="test2">Vidéos</div>
+      <div id="test3">Enregistrements</div>
+      <div id="test4">Enregistrements</div>
+    </div>
+  </div>
 		
 					<?php
 						if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
@@ -179,6 +254,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 						<?php
 						}
 						}
+						}
 					?>
 	</div>
 </main>
@@ -194,11 +270,14 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	$(document).ready(function(){
     $('.modal').modal();
   });
+
+	  $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  });
 	</script>
 	</body>
 
 <footer></footer>
-
 
 </html>
 
