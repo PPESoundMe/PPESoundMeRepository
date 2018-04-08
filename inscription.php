@@ -3,6 +3,7 @@
 <?php
 
 session_start();
+
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
 $dbname = DB_DATABASE;
@@ -36,7 +37,7 @@ if(isset($_POST['forminscription']))
 			{
 				if(filter_var($email, FILTER_VALIDATE_EMAIL))
 				{
-					$reqmail = $pdo->prepare("SELECT * FROM Utilisateur WHERE email=?");
+					$reqmail = $pdo->prepare("SELECT * FROM utilisateur WHERE email=?");
 					$reqmail->execute(array($email));
 					$mailexist=$reqmail->rowCount();
 					
@@ -44,9 +45,9 @@ if(isset($_POST['forminscription']))
 					{					
 						if($mdp == $mdp2)
 						{
-							$insertmbr = $pdo->prepare("INSERT INTO Utilisateur(nom, prenom, sexe, age,email,mdp) VALUES(?, ?, ?, ?, ?, ?)");
+							$insertmbr = $pdo->prepare("INSERT INTO utilisateur(nom, prenom, sexe, age,email,mdp) VALUES(?, ?, ?, ?, ?, ?)");
 							$insertmbr->execute(array($nom, $prenom, $sexe, $age, $email, $mdp));
-							$requser= $pdo->prepare("SELECT * FROM Utilisateur WHERE email=? AND mdp=?");		
+							$requser= $pdo->prepare("SELECT * FROM utilisateur WHERE email=? AND mdp=?");		
 							$requser->execute(array($email,$mdp));		     
 							$userinfo = $requser->fetch();
 			
@@ -251,4 +252,3 @@ if(isset($_POST['forminscription']))
 
 </body>
 </html>
-
