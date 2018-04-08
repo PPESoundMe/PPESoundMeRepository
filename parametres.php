@@ -2,7 +2,8 @@
 
 <?php
 session_start();
-
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
 $dbname = DB_DATABASE;
@@ -21,6 +22,8 @@ if(isset($_SESSION['id_utilisateur']))
 	$requser = $pdo->prepare("SELECT * FROM Utilisateur WHERE id_utilisateur=?");
 	$requser->execute(array($_SESSION['id_utilisateur']));
 	$user = $requser->fetch();
+
+
 
 	
 	if(isset($_POST['mdp']) AND !empty($_POST['mdp']) AND isset($_POST['nouvmdp']) AND !empty($_POST['nouvmdp']) AND isset($_POST['nouvmdp2']) AND !empty($_POST['nouvmdp2']))
@@ -135,7 +138,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 
 	
 		<meta charset="utf-8">
-<meta charset="utf-8">
     <link rel="shortcut icon" href="photos/logo_onglet.ico">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="description" content="SoundMe Réseau Social">
@@ -153,8 +155,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <link type="text/css" rel="stylesheet" href="css/materialize/materialize.css"  media="screen,projection"/>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -163,7 +164,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
          <!-- Compiled and minified CSS -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 
       <!-- Compiled and minified JavaScript -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -204,9 +204,9 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
             <img src="photos/fond.jpg">
           </div>
           
-          <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $userinfo['avatar']; ?>"></a>
-          <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
-          <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
+          <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $user['avatar']; ?>"></a>
+          <a href="#name"><span class="white-text name"><?php echo $user['prenom'] ; echo(" "); echo $user['nom'] ; ?></span></a>
+          <a href="#email"><span class="white-text email"><?php echo $user['email'] ;?></span></a>
 
         </div></li>
 
@@ -257,7 +257,11 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		
     <hr>
           <section>
+<<<<<<< HEAD
     <h2><i class="material-icons prefix">mode_edit</i>Changer la photo de profil</h2>
+=======
+    <h2><i class="material-icons prefix">photo</i> Changer la photo de profil</h2>
+>>>>>>> ef06300244b39487f5e1ec1dad04495f98b985f5
 
     <form method="POST" action ="" enctype="multipart/form-data">
       
@@ -281,7 +285,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
          </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
-                <?php header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);?>
+
               </div>
             </div>  
                 </div>
@@ -299,7 +303,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
         </section>
 
         <hr>
-		<h2>Changer le mot de passe </h2>
+		<h2><i class="material-icons prefix">security</i> Changer le mot de passe </h2>
 		
 		<form method="POST" id="changemdp" action="" class="col s12" >
 		
@@ -336,7 +340,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
            <hr>
 		
            <section>
-		<h2> Informations générales </h2>
+		<h2> <i class="material-icons prefix">person</i> Informations générales </h2>
 		
 		<form method="POST" action ="" id="infogenerales">
 
@@ -370,7 +374,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
            </section>
            
 			<section>
-		<h2>Adresse</h2>
+		<h2><i class="material-icons prefix">home</i> Adresse</h2>
 
 		<form method="POST" action ="">
           <div class="row">
@@ -402,7 +406,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
            <section>
 			
                <hr>
-		<h2> Informations personnelles </h2>
+		<h2><i class="material-icons prefix">music_note</i> Informations personnelles </h2>
 		
 		<form method="POST" action ="">
 		

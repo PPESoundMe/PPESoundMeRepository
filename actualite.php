@@ -1,7 +1,15 @@
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 session_start();
 
+<<<<<<< HEAD
 $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+=======
+
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+>>>>>>> ef06300244b39487f5e1ec1dad04495f98b985f5
+
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -21,6 +29,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 }
 
+//STATUT
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
 	$getid = intval($_GET['id_utilisateur']);
@@ -33,7 +42,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 {
 	if(isset($_POST['valider']))
 	{
-		$statut=$_POST['statut'];		
+		$statut = $_POST['statut'];		
 		
 		if(!empty($statut))
 		{
@@ -46,6 +55,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 }
 
+//PHOTOS
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
 	$getid = intval($_GET['id_utilisateur']);
@@ -82,17 +92,17 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 					}
 					else
 					{
-						echo "Erreur pendant l'importation de la photo !";
+						$message = "Erreur pendant l'importation de la photo !";
 					}
 				}
 				else
 				{
-					echo "Votre photo doit être au format jpg, jpeg, gif ou png !";
+					$message = "Votre photo doit être au format jpg, jpeg, gif ou png !";
 				}
 			}
 			else
 			{
-				echo "Votre photo ne doit pas dépasser 2Mo !";
+				$message = "Votre photo ne doit pas dépasser 2Mo !";
 			}
 		}
 	}
@@ -135,17 +145,17 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 					}
 					else
 					{
-						echo "Erreur pendant l'importation de l'enregistrement !";
+						$message = "Erreur pendant l'importation de l'enregistrement !";
 					}
 				}
 				else
 				{
-					echo "Votre photo doit être au format mp3 !";
+					$message = "Votre enregistrement doit être au format mp3 !";
 				}
 			}
 			else
 			{
-				echo "Votre enregistrement ne doit pas dépasser 5Mo !";
+				$message = "Votre enregistrement ne doit pas dépasser 5Mo !";
 			}
 		}
 	}
@@ -278,7 +288,14 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 <main>
 
 <div class="container">
-	<h1 class="left-align">Actualités</h1>
+	
+	<h1 class="left-align">Exprimez-vous, <?php echo $userinfo['prenom'] ;?></h1>
+
+		<!--Affichage des erreurs-->
+	     <div class="erreur">
+     		 <?php if(isset($message)) {echo $message;}?>
+    	</div>
+
 	    <div class="row">
 	      <div class=" col s3 center-align">
 	      		<a class="btn-floating btn-large modal-trigger red darken-2 hoverable" href="#modal1"><i class="material-icons statut">edit
@@ -406,10 +423,13 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			    	<li class="collection-item avatar">
 			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
-			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="150" />
+			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="250" />
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
+<<<<<<< HEAD
       				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+=======
+>>>>>>> ef06300244b39487f5e1ec1dad04495f98b985f5
 
     			</li>
 	  		</ul>
@@ -422,23 +442,25 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				?>
 					<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<img src="photos/fond.jpg" alt="" class="circle hoverable">
+			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
-			         	<video src="membres/actus/<?php echo $donnees['url']; ?>" controls poster="membres/actus/<?php echo $videos['URL']; ?>.jpg" width="150"></video>
+			         	<video src="membres/actus/<?php echo $donnees['url']; ?>" controls poster="membres/actus/<?php echo $videos['URL']; ?>.jpg" width="250"></video>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+
     			</li>
     		</ul>
 
 				<?php
 				}
+				//MUSIQUE
 
 					if($extension=='mp3')
 					{
 					?>
 							<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<img src="photos/fond.jpg" alt="" class="circle hoverable">
+			      	<a href ="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>" ><img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable" ></a>
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<audio src="membres/actus/<?php echo $donnees['url']; ?>" controls></audio>
 
@@ -455,13 +477,15 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			{	?>
 				  <ul class="collection z-depth-2">
 				    <li class="collection-item avatar">
-				      <img src="photos/fond.jpg" alt="" class="circle hoverable">
+				      <img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
 				      <span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 
 				         <?php echo $donnees['description'];?>
 
 
-				      <a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+				      <a href="edit.php" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+				       <input type="submit" name="supprimer" value="Supprimer" class="secondary-content"/>		 
+
 				    </li>
 				  </ul>
 				

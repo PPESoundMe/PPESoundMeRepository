@@ -1,4 +1,4 @@
-<?php //include "../inc/dbinfo.inc"; ?>
+﻿<?php //include "../inc/dbinfo.inc"; ?>
 
 <?php
 
@@ -175,11 +175,12 @@ if(isset($_POST['forminscription']))
 							      <label for ="homme">
 							        <input id="homme" name="sexe" type="radio" value"homme" checked />
 							        <span>Homme</span>
-							      </label>
+							      </label></p></br>
+							      <p id="sexe">
 							      <label for ="femme">
 							        <input id="femme" name="sexe" type="radio" value"femme" />
 							        <span>Femme</span>
-							      </label>
+							      </label></p>
 
 
 						    </p>				        		
