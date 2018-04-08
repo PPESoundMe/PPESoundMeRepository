@@ -13,9 +13,9 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
 
-echo $_SESSION['id_utilisateur'];
+// echo $_SESSION['id_utilisateur'];
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -33,15 +33,23 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
     if(isset($_POST['forminscription']))
     {
-           if(isset($_POST['adress']) AND !empty($_POST['adress']) AND $_POST['adress']!=$user['adresse'])
+           if(isset($_POST['adress']) AND !empty($_POST['adress']) AND $_POST['adress']!=$userinfo['adresse'])
             {
                 $adress = htmlspecialchars($_POST['adress']);
                 $insertadress = $pdo->prepare("UPDATE Utilisateur SET adresse = ? WHERE id_utilisateur = ?");
                 $insertadress->execute(array($adress,$_SESSION['id_utilisateur']));
-
-               
+                header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
             } 
-            header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+
+            if(isset($_POST['adress']) AND !empty($_POST['adress']) AND $_POST['adress']!=$userinfo['adresse'])
+            {
+                $adress = htmlspecialchars($_POST['adress']);
+                $insertadress = $pdo->prepare("UPDATE Utilisateur SET adresse = ? WHERE id_utilisateur = ?");
+                $insertadress->execute(array($adress,$_SESSION['id_utilisateur']));
+                header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+            } 
+            
+
     }
 }
 
@@ -62,7 +70,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
         <link rel="shortcut icon" href="photos/logo_onglet.ico">
             
         <!-- Feuille de style  -->
-        <link rel="stylesheet" href="css/stylelogin.css">
+        <!--<link rel="stylesheet" href="css/stylelogin.css"> -->
         <link rel="stylesheet" href="css/default.css">
 
          <!-- Feuilles de style  -->
@@ -131,9 +139,25 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
             <section>
                     <hr>
                     <h3>Niveau</h3> 
-                        <select name="niveau" size="1">
-                            <option>Débutant <option>Intermédiaire <option>Avancé <option>Professionnel 
-                        </select>
+                        <ol>
+                    <li>
+                        <input type="checkbox" id="debutant" name="activite" value="debutant">
+                         <label for="debutant">Débutant</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="intermediaire" name="activite" value="intermediaire">
+                         <label for="intermediaire">Intermédiaire</label>
+                    </li>
+
+                    <li>
+                         <input type="checkbox" id="avance" name="activite" value="avance">
+                         <label for="avance">Avancé</label>
+                    </li>
+                    <li>
+                         <input type="checkbox" id="professionel" name="activite" value="professionnel">
+                         <label for="professionel">Professionel</label>
+                    </li>
+                </ol>
                 </section>
             
                 
@@ -193,23 +217,59 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
             <section>
                 <hr>
                 <h3>Styles musicaux favoris </h3> 
-                <ul>
-                
-                    <li><input type="checkbox" name="rock" value="rock">Rock</li>
-                    <li><input type="checkbox" name="hiphop" value="hiphop">Hip-Hop</li>
-                    <li><input type="checkbox" name="pop" value="pop">Pop</li>
-                    <li><input type="checkbox" name="jazz" value="jazz">Jazz</li>
-                    <li><input type="checkbox" name="rap" value="rap">Rap</li>
-                    <li><input type="checkbox" name="rnb" value="rnb">R'n'B</li>
-                    <li><input type="checkbox" name="metal" value="metal">Metal</li>
-                    <li><input type="checkbox" name="classique" value="classique">Musique classique</li>
-                    <li><input type="checkbox" name="house" value="house">House</li>
-                    <li><input type="checkbox" name="opera" value="opera">Opéra</li>
-                    <li><input type="checkbox" name="dubstep" value="dubstep">Dubstep</li>
-                    <li><input type="checkbox" name="techno" value="techno">Techno</li>
-                    <li><input type="checkbox" name="transe" value="transe">Transe</li>
-                    <li><input type="checkbox" name="country" value="country">Country</li>
-                </ul>
+                <table>
+                       <tr>
+                           <td><input type="checkbox" id="Rock" name="activite" value=value="<?php echo $userinfo['adresse']; ?>">
+                             <label for="Rock">Rock </label></td>
+                           
+                           <td><input type="checkbox" id="HipHop" name="activite" value="HipHop">
+                             <label for="HipHop">Hip Hop</label></td>
+                           
+                           <td><input type="checkbox" id="Pop" name="activite" value="Pop">
+                             <label for="Pop">Pop</label></td>
+                       </tr>
+                       <tr>
+                           <td><input type="checkbox" id="Jazz" name="activite" value="Jazz">
+                             <label for="Jazz">Jazz</label></td>
+                           
+                           <td><input type="checkbox" id="Rap" name="activite" value="Rap">
+                             <label for="Rap">Rap</label></td>
+
+                           <td><input type="checkbox" id="RnB" name="activite" value="R'n'B">
+                             <label for="RnB">R'n'B</label></td>
+                       </tr>
+                        
+                        <tr>
+                           <td><input type="checkbox" id="Metal" name="activite" value="Metal">
+                             <label for="Metal">Metal</label></td>
+                           
+                           <td><input type="checkbox" id="Classique" name="activite" value="Classique">
+                             <label for="Classique">Classique</label></td>
+                            
+                           <td><input type="checkbox" id="House" name="activite" value="House">
+                             <label for="House">House</label></td>
+                       </tr>
+
+                       <tr>
+                           <td><input type="checkbox" id="Opera" name="activite" value="Opera">
+                             <label for="Opera">Opéra</label></td>
+                           
+                           <td><input type="checkbox" id="Dubstep" name="activite" value="Dubstep">
+                             <label for="Dubstep">Classique</label></td>
+                            
+                           <td><input type="checkbox" id="Techno" name="activite" value="Techno">
+                             <label for="Techno">Techno</label></td>
+                       </tr>
+                        
+                        <tr>
+                           <td><input type="checkbox" id="Transe" name="activite" value="Transe">
+                             <label for="Transe">Transe</label></td>
+                           
+                           <td><input type="checkbox" id="Country" name="activite" value="Country">
+                             <label for="Country">Country</label></td>
+            
+                       </tr>
+                    </table>
             </section>
         
 				
@@ -218,7 +278,11 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
                     <hr>
                     <h3>Adresse ou arondissement </h3> 
                     <p>
-						<input type="adress" placeholder="Votre adresse" id="adresse" name="adresse" />
+						<!--<input type="adress" placeholder="Votre adresse" id="adresse" name="adresse" />-->
+                        <input type="text" id="adress" class="validate" name="adress" value="<?php echo $userinfo['adresse']; ?>">
+                       <!-- <label for="icon_prefix">Adresse</label>-->
+                        <span id="place-id"></span>
+                        <span id="place-address"></span>
                     </p>
                  
                     
@@ -226,11 +290,11 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 						
                 	
 <!-- Ce que vous attendez de soundme  -->
-                    <hr>
+                <!--    <hr>-->
                    <h3>Objectifs</h3>
                     <section id="objectifs">
-                    <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherches-tu ?"></textarea></div>
-		                <div class="row">
+                   <!-- <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherches-tu ?"></textarea></div>
+		                <div class="row">-->
 
         <div class="input-field col s12">
           <i class="material-icons prefix">mode_edit</i>
@@ -248,7 +312,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
                     
             <!-- Bouton ignorer  -->
             
-            <a id="valide" href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Ignorer cette étape</a>
+            <a id="valide" href="profil.php?id_utilisateur=<?php //echo $_SESSION['id_utilisateur']; ?>">Ignorer cette étape</a>
        
 </section>
         </form>

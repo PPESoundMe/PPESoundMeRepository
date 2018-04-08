@@ -2,6 +2,7 @@
 
 <?php
 
+session_start();
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
 $dbname = DB_DATABASE;
@@ -12,7 +13,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
 
 if(isset($_POST['forminscription']))
 {

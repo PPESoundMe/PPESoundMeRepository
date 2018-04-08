@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -328,6 +328,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			<div class="file-field input-field">
 				<div class="btn">
 				   <input type="file" name="photo" />
+				   <span>Fichier</span>
 				 </div>
 				      <div class="file-path-wrapper">
 				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
@@ -408,7 +409,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="150" />
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
-      				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+      				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
 
     			</li>
 	  		</ul>

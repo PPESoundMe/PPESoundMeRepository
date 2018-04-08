@@ -13,7 +13,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
 
 if(isset($_SESSION['id_utilisateur']))
@@ -257,7 +257,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		
     <hr>
           <section>
-    <h2>Changer la photo de profil</h2>
+    <h2><i class="material-icons prefix">mode_edit</i>Changer la photo de profil</h2>
 
     <form method="POST" action ="" enctype="multipart/form-data">
       

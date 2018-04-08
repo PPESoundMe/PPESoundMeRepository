@@ -13,7 +13,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -209,7 +209,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 				 </div>
 				      <div class="file-path-wrapper">
 				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
-				        <?php header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);?>
 				      </div>
 				    </div>  
 				  
