@@ -3,7 +3,10 @@
 <?php
 
 session_start();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
 $dbname = DB_DATABASE;
