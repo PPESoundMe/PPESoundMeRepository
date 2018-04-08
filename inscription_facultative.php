@@ -35,7 +35,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
             {
                 $adress = htmlspecialchars($_POST['adress']);
                 $insertadress = $pdo->prepare("UPDATE Utilisateur SET adresse = ? WHERE id_utilisateur = ?");
-<<<<<<< HEAD
+
                 $insertadress->execute(array($adress,$userinfo['id_utilisateur']));
                 
             }  
@@ -82,7 +82,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
             }
 			
 			header("Location:profil.php?id_utilisateur=".$userinfo['id_utilisateur']);
-=======
+
                 $insertadress->execute(array($adress,$_SESSION['id_utilisateur']));
                 header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
             } 
@@ -96,7 +96,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
             } 
             
 
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
     }
 
 
@@ -189,36 +189,36 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                     <h3>Niveau</h3> 
                         <ol>
                     <li>
-<<<<<<< HEAD
+
                         <input type="checkbox" id="debutant" name="niveau" value="debutant">
                          <label for="debutant">Débutant</label>
                     </li>
                     <li>
                         <input type="checkbox" id="intermediaire" name="niveau" value="intermediaire">
-=======
+
                         <input type="checkbox" id="debutant" name="activite" value="debutant">
                          <label for="debutant">Débutant</label>
                     </li>
                     <li>
                         <input type="checkbox" id="intermediaire" name="activite" value="intermediaire">
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
                          <label for="intermediaire">Intermédiaire</label>
                     </li>
 
                     <li>
-<<<<<<< HEAD
+
                          <input type="checkbox" id="avance" name="niveau" value="avance">
                          <label for="avance">Avancé</label>
                     </li>
                     <li>
                          <input type="checkbox" id="professionel" name="niveau" value="professionnel">
-=======
+
                          <input type="checkbox" id="avance" name="activite" value="avance">
                          <label for="avance">Avancé</label>
                     </li>
                     <li>
                          <input type="checkbox" id="professionel" name="activite" value="professionnel">
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
                          <label for="professionel">Professionel</label>
                     </li>
                 </ol>
@@ -283,7 +283,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                 <h3>Styles musicaux favoris </h3> 
                 <table>
                        <tr>
-<<<<<<< HEAD
+
                            <td><input type="checkbox" id="Rock" name="style[]" value="Rock">
                              <label for="Rock">Rock </label></td>
                            
@@ -301,7 +301,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                              <label for="Rap">Rap</label></td>
 
                            <td><input type="checkbox" id="RnB" name="style[]" value="R'n'B">
-=======
+
                            <td><input type="checkbox" id="Rock" name="activite" value=value="<?php echo $userinfo['adresse']; ?>">
                              <label for="Rock">Rock </label></td>
                            
@@ -319,12 +319,12 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                              <label for="Rap">Rap</label></td>
 
                            <td><input type="checkbox" id="RnB" name="activite" value="R'n'B">
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
                              <label for="RnB">R'n'B</label></td>
                        </tr>
                         
                         <tr>
-<<<<<<< HEAD
+
                            <td><input type="checkbox" id="Metal" name="style[]" value="Metal">
                              <label for="Metal">Metal</label></td>
                            
@@ -332,7 +332,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                              <label for="Classique">Classique</label></td>
                             
                            <td><input type="checkbox" id="House" name="style[]" value="House">
-=======
+
                            <td><input type="checkbox" id="Metal" name="activite" value="Metal">
                              <label for="Metal">Metal</label></td>
                            
@@ -340,12 +340,12 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                              <label for="Classique">Classique</label></td>
                             
                            <td><input type="checkbox" id="House" name="activite" value="House">
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
                              <label for="House">House</label></td>
                        </tr>
 
                        <tr>
-<<<<<<< HEAD
+
                            <td><input type="checkbox" id="Opera" name="style[]" value="Opera">
                              <label for="Opera">Opéra</label></td>
                            
@@ -353,7 +353,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                              <label for="Dubstep">Classique</label></td>
                             
                            <td><input type="checkbox" id="Techno" name="style[]" value="Techno">
-=======
+
                            <td><input type="checkbox" id="Opera" name="activite" value="Opera">
                              <label for="Opera">Opéra</label></td>
                            
@@ -361,22 +361,22 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                              <label for="Dubstep">Classique</label></td>
                             
                            <td><input type="checkbox" id="Techno" name="activite" value="Techno">
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
                              <label for="Techno">Techno</label></td>
                        </tr>
                         
                         <tr>
-<<<<<<< HEAD
+
                            <td><input type="checkbox" id="Transe" name="style[]" value="Transe">
                              <label for="Transe">Transe</label></td>
                            
                            <td><input type="checkbox" id="Country" name="style[]" value="Country">
-=======
+
                            <td><input type="checkbox" id="Transe" name="activite" value="Transe">
                              <label for="Transe">Transe</label></td>
                            
                            <td><input type="checkbox" id="Country" name="activite" value="Country">
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
                              <label for="Country">Country</label></td>
             
                        </tr>
@@ -406,11 +406,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                     <section id="objectifs">
                    <!-- <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherches-tu ?"></textarea></div>
 		                <div class="row">-->
-<<<<<<< HEAD
-						
-					
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
+
 
         <div class="input-field col s12">
           <i class="material-icons prefix">mode_edit</i>
