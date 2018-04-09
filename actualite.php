@@ -237,7 +237,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		        <img src="photos/fond.jpg">
 		      </div>
 		      
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $userinfo['avatar']; ?>"></a>
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>"></a>
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
 
@@ -419,15 +419,15 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 				<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
+			      	<img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable">
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="250" />
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
-<<<<<<< HEAD
+
       				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
-=======
->>>>>>> ef06300244b39487f5e1ec1dad04495f98b985f5
+
+
 
     			</li>
 	  		</ul>
@@ -440,7 +440,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				?>
 					<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
+			      	<img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable">
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<video src="membres/actus/<?php echo $donnees['url']; ?>" controls poster="membres/actus/<?php echo $videos['URL']; ?>.jpg" width="250"></video>
 
@@ -458,7 +458,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 					?>
 							<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<a href ="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>" ><img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable" ></a>
+			      	<a href ="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>" ><img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable" ></a>
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<audio src="membres/actus/<?php echo $donnees['url']; ?>" controls></audio>
 
@@ -475,7 +475,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			{	?>
 				  <ul class="collection z-depth-2">
 				    <li class="collection-item avatar">
-				      <img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
+				      <img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable">
 				      <span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 
 				         <?php echo $donnees['description'];?>

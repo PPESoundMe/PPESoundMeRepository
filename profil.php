@@ -134,7 +134,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		        <img src="photos/fond.jpg">
 		      </div>
 
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable modal-trigger" src="membres/avatar/<?php echo $userinfo['avatar']; ?>" href="#modal"></a>
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable modal-trigger" src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" href="#modal"></a>
 		         
 
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
@@ -197,7 +197,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
 
     			 <div class="row">
-				      <div class="col s4"><img src="membres/avatar/<?php echo $userinfo['avatar']; ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
+				      <div class="col s4"><img src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
 				      <div class="col s8">
 				      	<h3> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h3>
 				      	<blockquote class="coucou">

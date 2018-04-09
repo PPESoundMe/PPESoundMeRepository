@@ -204,7 +204,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
             <img src="photos/fond.jpg">
           </div>
           
-          <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $user['avatar']; ?>"></a>
+          <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php if($user['avatar'] == NULL) { echo "default.png"; } else {  echo $user['avatar']; } ?>"></a>
           <a href="#name"><span class="white-text name"><?php echo $user['prenom'] ; echo(" "); echo $user['nom'] ; ?></span></a>
           <a href="#email"><span class="white-text email"><?php echo $user['email'] ;?></span></a>
 
