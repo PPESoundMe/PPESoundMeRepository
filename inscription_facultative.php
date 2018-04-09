@@ -1,6 +1,7 @@
 <?php //include "../inc/dbinfo.inc"; ?>
 
 <?php
+
 session_start();
 
 /*$dbhost = DB_SERVER;
@@ -15,7 +16,7 @@ $pdo = new PDO($dsn, $username, $password);*/
 
 $pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
 
-echo $_SESSION['id_utilisateur'];
+// echo $_SESSION['id_utilisateur'];
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -23,27 +24,71 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
     $requser = $pdo->prepare('SELECT * FROM Utilisateur WHERE id_utilisateur=?');
     $requser->execute(array($getid));
     $userinfo = $requser->fetch();
-}
 
-if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
-{
     $requser = $pdo->prepare("SELECT * FROM Utilisateur WHERE id_utilisateur=?");
     $requser->execute(array($_SESSION['id_utilisateur']));
     $user = $requser->fetch();
 
-    if(isset($_POST['forminscription']))
+    if(isset($_POST['forminscription']) AND (!empty($_POST['activite']) OR !empty($_POST['niveau']) OR !empty($_POST['instrument']) OR !empty($_POST['style']) OR !empty($_POST['adresse'])))
     {
-           if(isset($_POST['adress']) AND !empty($_POST['adress']) AND $_POST['adress']!=$user['adresse'])
+           if(isset($_POST['adress']) AND !empty($_POST['adress']) AND $_POST['adress']!=$userinfo['adresse'])
             {
                 $adress = htmlspecialchars($_POST['adress']);
                 $insertadress = $pdo->prepare("UPDATE Utilisateur SET adresse = ? WHERE id_utilisateur = ?");
-                $insertadress->execute(array($adress,$_SESSION['id_utilisateur']));
+                $insertadress->execute(array($adress,$userinfo['id_utilisateur']));
+                
+            }  
+      
+			if(!empty($_POST['activite']))
+			  {
+				foreach($_POST['activite'] as $value)
+				{
+				  $req_activite = $pdo->prepare("INSERT INTO profil_musical(id_utilisateur,activite) VALUES (?,?)");
+				  $req_activite->execute(array($userinfo['id_utilisateur'],$value));
+				}
+			  }
+            
+			  if(!empty($_POST['instrument']))
+			  {
+				foreach($_POST['instrument'] as $value)
+				{
+				  $req_instrument = $pdo->prepare("INSERT INTO instrument(nom_instrument,id_utilisateur) VALUES (?,?)");
+				  $req_instrument->execute(array($value,$userinfo['id_utilisateur']));
+				}
+			  }
+			  
+			  if(!empty($_POST['style']))
+			  {
+				foreach($_POST['style'] as $value)
+				{
+				  $req_style = $pdo->prepare("INSERT INTO style_musical(style,id_utilisateur) VALUES (?,?)");
+				  $req_style->execute(array($value,$userinfo['id_utilisateur']));
+				}
+			  }
+                
+			
+				if(isset($_POST['objectifs']) AND !empty($_POST['objectifs']) AND $_POST['objectifs']!=$userinfo['objectifs'])
+
+				{
+					$objectifs = htmlspecialchars($_POST['objectifs']);
+					$insertobjectif = $pdo->prepare("UPDATE Utilisateur SET objectifs = ? WHERE id_utilisateur = ?");
+					$insertobjectif->execute(array($objectifs,$userinfo['id_utilisateur']));  
+				}
+
+				
+				if(isset($_POST['niveau']) AND !empty($_POST['niveau']) AND $_POST['niveau']!=$userinfo['niveau'])
+				{
+					$niveau = htmlspecialchars($_POST['niveau']);
+					$insertniveau = $pdo->prepare("UPDATE Utilisateur SET niveau = ? WHERE id_utilisateur = ?");
+					$insertniveau->execute(array($niveau,$userinfo['id_utilisateur']));
+				}
+
+      
+      header("Location:profil.php?id_utilisateur=".$userinfo['id_utilisateur']);
 
                
-            } 
-            header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
     }
-}
+
 
     
 
@@ -52,9 +97,9 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 <!-- Début HTML  -->
 <html>
-	<head>
-		
-	   <meta charset="utf-8">
+  <head>
+    
+     <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="SoundMe Réseau Social">
         <meta name="keywords" content="SoundMe, music, rencontre, réseau, social, instrument, studio, réservation, apprendre">
@@ -62,7 +107,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
         <link rel="shortcut icon" href="photos/logo_onglet.ico">
             
         <!-- Feuille de style  -->
-        <link rel="stylesheet" href="css/stylelogin.css">
+        <!--<link rel="stylesheet" href="css/stylelogin.css"> -->
         <link rel="stylesheet" href="css/default.css">
 
          <!-- Feuilles de style  -->
@@ -76,10 +121,10 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
         
         <!-- Titre  -->
-	    <title>Inscription facultative</title> 
-	</head>
-	
-	<body>
+      <title>Inscription facultative</title> 
+  </head>
+  
+  <body>
         
         
         <!-- Header logo  -->
@@ -97,162 +142,223 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
        <div class="container">
 
             <div class="box">
-		<h1>Inscription facultative</h1>
+    <h1>Inscription facultative</h1>
         <h2 grey>Vous pouvez ignorer cette étape ou y revenir plus tard.</h2>
-	
-		
+  
+    
         <!-- Formulaire  -->         
             <!-- Profil musical  -->
             <form method="POST" action ="">
-		
-		<hr>
+    
+    <hr>
             <section>
                 <h3>Profil musical</h3>
                 <label for="prenom">Profil</label>
-
                 <ol>
                     <li>
-                        <input type="checkbox" id="chanteur" name="activite" value="chanteur">
+                        <input type="checkbox" id="chanteur" name="activite[]" value="chanteur">
                          <label for="chanteur">Chanteur</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="DJ" name="activite" value="DJ">
+                        <input type="checkbox" id="DJ" name="activite[]" value="DJ">
                          <label for="DJ">DJ</label>
                     </li>
 
                     <li>
-                         <input type="checkbox" id="musicien" name="activite" value="musicien">
+                         <input type="checkbox" id="musicien" name="activite[]" value="musicien">
                          <label for="musicien">Musicien</label>
                     </li>
                 </ol>
+
             </section>
          
             <!-- Niveau  -->
             <section>
                     <hr>
                     <h3>Niveau</h3> 
-                        <select name="niveau" size="1">
-                            <option>Débutant <option>Intermédiaire <option>Avancé <option>Professionnel 
-                        </select>
+                        <ol>
+                    <li>
+                        <input type="radio" id="debutant" name="niveau" value="debutant">
+                         <label for="debutant">Débutant</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="intermediaire" name="niveau" value="intermediaire">
+                        <label for="intermediaire">Intermédiaire</label>
+                    </li>
+
+                    <li>
+                         <input type="radio" id="avance" name="niveau" value="avance">
+                         <label for="avance">Avancé</label>
+                    </li>
+                    <li>
+                         <input type="radio" id="professionel" name="niveau" value="professionnel">                                       
+                         <label for="professionel">Professionel</label>
+                    </li>
+                </ol>
                 </section>
             
                 
             <!-- Instruments  -->
                 <section>
-				    <hr>
+            <hr>
                     <h3>Instruments</h3> 
-					
+          
                     <table>
                        <tr>
-                           <td><input type="checkbox" id="Guitare" name="activite" value="Guitare">
+                           <td><input type="checkbox" id="Guitare" name="instrument[]" value="Guitare">
                              <label for="Guitare">Guitare </label></td>
                            
-                           <td><input type="checkbox" id="Piano" name="activite" value="Piano">
+                           <td><input type="checkbox" id="Piano" name="instrument[]" value="Piano">
                              <label for="Piano">Piano</label></td>
                            
-                           <td><input type="checkbox" id="Batterie" name="activite" value="Batterie">
+                           <td><input type="checkbox" id="Batterie" name="instrument[]" value="Batterie">
                              <label for="Batterie">Batterie</label></td>
                        </tr>
                        <tr>
-                           <td><input type="checkbox" id="Basse" name="activite" value="Basse">
+                           <td><input type="checkbox" id="Basse" name="instrument[]" value="Basse">
                              <label for="Basse">Basse</label></td>
                            
-                           <td><input type="checkbox" id="Violon" name="activite" value="Violon">
+                           <td><input type="checkbox" id="Violon" name="instrument[]" value="Violon">
                              <label for="Violon">Violon</label></td>
-                           <td><input type="checkbox" id="Flûte" name="activite" value="Flûte">
+                           <td><input type="checkbox" id="Flûte" name="instrument[]" value="Flute">
                              <label for="Flûte">Flûte</label></td>
                        </tr>
                         
                         <tr>
-                           <td><input type="checkbox" id="Trompette" name="activite" value="Trompette">
+                           <td><input type="checkbox" id="Trompette" name="instrument[]" value="Trompette">
                              <label for="Trompette">Trompette</label></td>
                            
-                           <td><input type="checkbox" id="Harpe" name="activite" value="Harpe">
+                           <td><input type="checkbox" id="Harpe" name="instrument[]" value="Harpe">
                              <label for="Harpe">Harpe</label></td>
                             
-                           <td><input type="checkbox" id="Saxophone" name="activite" value="Saxophone">
+                           <td><input type="checkbox" id="Saxophone" name="instrument[]" value="Saxophone">
                              <label for="Saxophone">Saxophone</label></td>
                        </tr>
                         
                         <tr>
-                           <td><input type="checkbox" id="Violoncelle" name="activite" value="Violoncelle">
+                           <td><input type="checkbox" id="Violoncelle" name="instrument[]" value="Violoncelle">
                              <label for="Violoncelle">Violoncelle</label></td>
                            
-                           <td><input type="checkbox" id="Triangle" name="activite" value="Triangle">
+                           <td><input type="checkbox" id="Triangle" name="instrument[]" value="Triangle">
                              <label for="Triangle">Triangle</label></td>
                             
-                           <td><input type="checkbox" id="Contrebasse" name="activite" value="Contrebasse">
+                           <td><input type="checkbox" id="Contrebasse" name="instrument[]" value="Contrebasse">
                              <label for="Contrebasse">Contrebasse</label></td>
                        </tr>
                     </table>
                     
 
             </section>
-				
+        
 <!-- Styles de musiques favoris  -->
             <section>
                 <hr>
                 <h3>Styles musicaux favoris </h3> 
-                <ul>
-                
-                    <li><input type="checkbox" name="rock" value="rock">Rock</li>
-                    <li><input type="checkbox" name="hiphop" value="hiphop">Hip-Hop</li>
-                    <li><input type="checkbox" name="pop" value="pop">Pop</li>
-                    <li><input type="checkbox" name="jazz" value="jazz">Jazz</li>
-                    <li><input type="checkbox" name="rap" value="rap">Rap</li>
-                    <li><input type="checkbox" name="rnb" value="rnb">R'n'B</li>
-                    <li><input type="checkbox" name="metal" value="metal">Metal</li>
-                    <li><input type="checkbox" name="classique" value="classique">Musique classique</li>
-                    <li><input type="checkbox" name="house" value="house">House</li>
-                    <li><input type="checkbox" name="opera" value="opera">Opéra</li>
-                    <li><input type="checkbox" name="dubstep" value="dubstep">Dubstep</li>
-                    <li><input type="checkbox" name="techno" value="techno">Techno</li>
-                    <li><input type="checkbox" name="transe" value="transe">Transe</li>
-                    <li><input type="checkbox" name="country" value="country">Country</li>
-                </ul>
+                <table>
+                       <tr>
+
+                           <td><input type="checkbox" id="Rock" name="style[]" value="Rock">
+                             <label for="Rock">Rock </label></td>
+                           
+                           <td><input type="checkbox" id="HipHop" name="style[]" value="HipHop">
+                             <label for="HipHop">Hip Hop</label></td>
+                           
+                           <td><input type="checkbox" id="Pop" name="style[]" value="Pop">
+                             <label for="Pop">Pop</label></td>
+                       </tr>
+                       <tr>
+                           <td><input type="checkbox" id="Jazz" name="style[]" value="Jazz">
+                             <label for="Jazz">Jazz</label></td>
+                           
+                           <td><input type="checkbox" id="Rap" name="style[]" value="Rap">
+                             <label for="Rap">Rap</label></td>
+
+                           <td><input type="checkbox" id="RnB" name="style[]" value="R'n'B">
+                             <label for="RnB">R'n'B</label></td>
+                       </tr>
+                        
+                        <tr>
+                           <td><input type="checkbox" id="Metal" name="style[]" value="Metal">
+                             <label for="Metal">Metal</label></td>
+                           
+                           <td><input type="checkbox" id="Classique" name="style[]" value="Classique">
+                             <label for="Classique">Classique</label></td>
+                            
+                           <td><input type="checkbox" id="House" name="style[]" value="House">              
+                             <label for="House">House</label></td>
+                       </tr>
+
+                       <tr>
+                           <td><input type="checkbox" id="Opera" name="style[]" value="Opera">
+                             <label for="Opera">Opéra</label></td>                                                                        
+                           
+                           <td><input type="checkbox" id="Dubstep" name="activite" value="Dubstep">
+                             <label for="Dubstep">Dubstep</label></td>
+                            
+                           <td><input type="checkbox" id="Techno" name="activite" value="Techno">
+                             <label for="Techno">Techno</label></td>
+                       </tr>
+                        
+                        <tr>
+
+                           <td><input type="checkbox" id="Transe" name="style[]" value="Transe">
+                             <label for="Transe">Transe</label></td>
+                           
+                           <td><input type="checkbox" id="Country" name="style[]" value="Country">
+                             <label for="Country">Country</label></td>
+            
+                       </tr>
+                    </table>
             </section>
         
-				
+        
 <!-- Adresse ou arrondissement  -->
                 <section>
                     <hr>
                     <h3>Adresse ou arondissement </h3> 
                     <p>
-						<input type="adress" placeholder="Votre adresse" id="adresse" name="adresse" />
+            <!--<input type="adress" placeholder="Votre adresse" id="adresse" name="adresse" />-->
+                        <input type="text" id="adress" class="validate" name="adress" value="<?php echo $userinfo['adresse']; ?>">
+                       <!-- <label for="icon_prefix">Adresse</label>-->
+                        <span id="place-id"></span>
+                        <span id="place-address"></span>
                     </p>
                  
                     
                 </section>
-						
-                	
+            
+                  
 <!-- Ce que vous attendez de soundme  -->
-                    <hr>
+                <!--    <hr>-->
                    <h3>Objectifs</h3>
                     <section id="objectifs">
-                    <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherches-tu ?"></textarea></div>
+                   <!-- <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherches-tu ?"></textarea></div>
+
+                    <div class="row">-->
+
 		                <div class="row">
 
         <div class="input-field col s12">
           <i class="material-icons prefix">mode_edit</i>
-          <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+          <textarea id="icon_prefix2" name="objectifs" class="materialize-textarea" value="<?php echo $userinfo['objectifs']; ?>"></textarea>
           <label for="icon_prefix2">Que recherches-tu ?</label>
         </div>
       </div>
 
   </div>
-                    </section>	
-	   
+                    </section>  
+     
   <section>             
             <!-- Bouton validation  -->
-			<input id="valide" type="submit" name="forminscription" value="Confirmer" />
+      <input id="valide" type="submit" name="forminscription" value="Confirmer" />
                     
             <!-- Bouton ignorer  -->
             
-            <a id="valide" href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>">Ignorer cette étape</a>
+            <a id="valide" href="profil.php?id_utilisateur=<?php //echo $_SESSION['id_utilisateur']; ?>">Ignorer cette étape</a>
        
 </section>
         </form>
-	   </div>
+     </div>
      </div>
  </div>
 
@@ -276,5 +382,9 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBesfXDKzNyZPcB2Nr-F8DoeFg2kCCDbiQ&libraries=places&callback=find_adress"
         async defer></script>
 
-	</body>
+  </body>
 </html>
+
+<?php
+} 
+?>

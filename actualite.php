@@ -4,7 +4,9 @@ error_reporting(E_ALL);
 session_start();
 
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+
+
 
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
@@ -422,6 +424,10 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="250" />
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
+<<<<<<< HEAD
+      				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+=======
+>>>>>>> ef06300244b39487f5e1ec1dad04495f98b985f5
 
     			</li>
 	  		</ul>

@@ -14,7 +14,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
 if(isset($_POST['formconnexion']))
 {
