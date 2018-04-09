@@ -178,20 +178,20 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                     <h3>Niveau</h3> 
                         <ol>
                     <li>
-                        <input type="checkbox" id="debutant" name="niveau" value="debutant">
+                        <input type="radio" id="debutant" name="niveau" value="debutant">
                          <label for="debutant">Débutant</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="intermediaire" name="niveau" value="intermediaire">
+                        <input type="radio" id="intermediaire" name="niveau" value="intermediaire">
                         <label for="intermediaire">Intermédiaire</label>
                     </li>
 
                     <li>
-                         <input type="checkbox" id="avance" name="niveau" value="avance">
+                         <input type="radio" id="avance" name="niveau" value="avance">
                          <label for="avance">Avancé</label>
                     </li>
                     <li>
-                         <input type="checkbox" id="professionel" name="niveau" value="professionnel">                    
+                         <input type="radio" id="professionel" name="niveau" value="professionnel">                                       
                          <label for="professionel">Professionel</label>
                     </li>
                 </ol>
@@ -333,7 +333,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                    <h3>Objectifs</h3>
                     <section id="objectifs">
                    <!-- <div class="lol"><textarea name="objectifs" id="objectifs" rows="10" cols="50" placeholder="Que recherches-tu ?"></textarea></div>
-<<<<<<< HEAD
+
                     <div class="row">-->
 
 		                <div class="row">
