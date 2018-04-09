@@ -158,12 +158,12 @@ if(isset($_POST['forminscriptionstudio']))
 			             
                     <!-- Nom  -->
                     <p>
-						<input type="text" placeholder="Nom du studio" id="nomstudio" name="nomstudio" value="<?php if(isset($nomstudio)) {echo $nomstudio;} ?>"  />
+						<input type="text" placeholder="Nom du studio" id="nomstudio" name="nomstudio"   />
                     </p>
 					
 				     <!-- Adresse  -->
                     <p>
-						<input type="text" placeholder="Adresse du studio" id="adresstudio" name="adresstudio" value="<?php if(isset($adresstudio)) {echo $adresstudio;} ?>" />
+						<input type="text" placeholder="Adresse du studio" id="adresstudio" name="adresstudio"  />
                     </p>
 					
 					 <!-- Téléphone  -->
@@ -179,7 +179,7 @@ if(isset($_POST['forminscriptionstudio']))
 				
 						 <!-- Mail  -->
                     <p>
-						<input type="mail" placeholder="e-mail" id="email" name="email" value="<?php if(isset($email)) {echo $email;} ?>" />
+						<input type="mail" placeholder="e-mail" id="email" name="email"  />
                     </p>
 				
 					
