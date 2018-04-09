@@ -191,11 +191,11 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		  		<!-- CONTENU -->
 		  	    <div class="row"></div>
             
-<<<<<<< HEAD
+
 				 </div>
 				      <div class="file-path-wrapper">
 				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
-=======
+
     			 <div class="row">
 				      <div class="col s4"><img src="membres/avatar/<?php echo $userinfo['avatar']; ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
 				      <div class="col s8">
@@ -208,7 +208,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 					      <li><h6><i class=" tiny material-icons">settings</i> Paramètres </h6></li>
 			  			</ul>
 			  		</blockquote>
->>>>>>> ef06300244b39487f5e1ec1dad04495f98b985f5
+
 				      </div>
 
     			</div>
