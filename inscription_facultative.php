@@ -153,7 +153,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
     <hr>
             <section>
                 <h3>Profil musical</h3>
-                <label for="prenom">Profil</label>
+                <label for="profil_musical">Profil</label>
                 <ol>
                     <li>
                         <input type="checkbox" id="chanteur" name="activite[]" value="chanteur">
