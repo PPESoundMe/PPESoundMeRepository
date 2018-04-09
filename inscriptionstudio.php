@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
 $dbname = DB_DATABASE;
@@ -26,7 +28,7 @@ if(isset($_POST['forminscriptionstudio']))
 	if((!empty($_POST['nomstudio'])) AND (!empty($_POST['adresstudio'])) AND (!empty($_POST['telstudio'])) AND (!empty($_POST['nbrsalles'])) AND (!empty($_POST['email'])) AND (!empty($_POST['mdp'])) AND (!empty($_POST['mdp2'])))
 	{		
 		$nomlength = strlen($nomstudio);
-		$prenomlength = strlen($adresstudio);
+		
 		
 		$taille_max= 2000000;
 		$extensionvalide= $arrayName = array('jpeg', 'jpg', 'png');
@@ -56,20 +58,14 @@ if(isset($_POST['forminscriptionstudio']))
 
 							     
 
-							     $insertmbr = $pdo->prepare('INSERT INTO Studio(nom_studio, adresse_studio, telephone_studio, nombre_salle, email_studio, mdp_studio) VALUES(?, ?, ?, ?, ?, ?)');
+							     $insertstd = $pdo->prepare("INSERT INTO studio(nom_studio, adresse_studio, telephone_studio, email_studio, nombre_salle, mdp_studio) VALUES(?, ?, ?, ?, ?, ?)");
 
-							     $insertmbr->execute(array(
-							     	'nom_studio' => $nomstudio, 
-							     	'adresse_studio' => $adresstudio, 
-							     	'telephone_studio' => $telstudio, 
-							     	'nombre_salle' => $nbrsalles, 
-							     	'email_studio' => $email, 
-							     	'mdp_studio' => $mdp));
+							     $insertstd->execute(array($nomstudio, $adresstudio, $telstudio, $email, $nbrsalles, $mdp));
 
 							     /*$chemin="photos/couvstudios/".$_SESSION['id_studio'].".".$extension;
 							     $placement= move_uploaded_file($FILES['photostudio']['tmp_name'], $chemin); */
 
-							     $reqstudio= $pdo->prepare("SELECT * FROM Studio WHERE email_studio=? AND mdp_studio=?");		
+							     $reqstudio= $pdo->prepare("SELECT * FROM studio WHERE email_studio=? AND mdp_studio=?");		
 							     $reqstudio->execute(array($email,$mdp));		     
 							     $userinfo = $reqstudio->fetch();
 
@@ -158,7 +154,7 @@ if(isset($_POST['forminscriptionstudio']))
 			             
                     <!-- Nom  -->
                     <p>
-						<input type="text" placeholder="Nom du studio" id="nomstudio" name="nomstudio"   />
+						<input type="text" placeholder="Nom du studio" id="nomstudio" name="nomstudio"  />
                     </p>
 					
 				     <!-- Adresse  -->
@@ -179,7 +175,7 @@ if(isset($_POST['forminscriptionstudio']))
 				
 						 <!-- Mail  -->
                     <p>
-						<input type="mail" placeholder="e-mail" id="email" name="email"  />
+						<input type="mail" placeholder="e-mail" id="email" name="email" />
                     </p>
 				
 					
@@ -215,6 +211,10 @@ if(isset($_POST['forminscriptionstudio']))
 	</body>
 
 </html>
+
+
+
+<!-- INSERT INTO `studio` (`id_studio`, `nom_studio`, `adresse_studio`, `telephone_studio`, `nombre_salle`, `email_studio`, `mdp_studio`) VALUES(NULL,'Local 15', '1 rue Raynouard', '0617501817', '3', 'rochfolly@hotmail.fr', 'yoyo') -->
 
 
 
