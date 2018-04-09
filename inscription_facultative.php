@@ -35,131 +35,58 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
             {
                 $adress = htmlspecialchars($_POST['adress']);
                 $insertadress = $pdo->prepare("UPDATE Utilisateur SET adresse = ? WHERE id_utilisateur = ?");
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
                 $insertadress->execute(array($adress,$userinfo['id_utilisateur']));
                 
             }  
       
-      if(!empty($_POST['activite']))
-      {
-        foreach($_POST['activite'] as $value)
-        {
-          $req_activite = $pdo->prepare("INSERT INTO profil_musical(id_utilisateur,activite) VALUES (?,?)");
-          $req_activite->execute(array($userinfo['id_utilisateur'],$value));
-        }
-      }
-            
-      if(!empty($_POST['instrument']))
-      {
-        foreach($_POST['instrument'] as $value)
-        {
-          $req_instrument = $pdo->prepare("INSERT INTO instrument(nom_instrument,id_utilisateur) VALUES (?,?)");
-          $req_instrument->execute(array($value,$userinfo['id_utilisateur']));
-        }
-      }
-      
-      if(!empty($_POST['style']))
-      {
-        foreach($_POST['style'] as $value)
-        {
-          $req_style = $pdo->prepare("INSERT INTO style_musical(style,id_utilisateur) VALUES (?,?)");
-          $req_style->execute(array($value,$userinfo['id_utilisateur']));
-        }
-      }
-      
-      if(isset($_POST['objectifs']) AND !empty($_POST['objectifs']) AND $_POST['objectifs']!=$userinfo['objectifs'])
-=======
-<<<<<<< HEAD
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                $insertadress->execute(array($adress,$userinfo['id_utilisateur']));
-                
-            }  
-			
 			if(!empty($_POST['activite']))
-			{
+			  {
 				foreach($_POST['activite'] as $value)
 				{
-					$req_activite = $pdo->prepare("INSERT INTO profil_musical(id_utilisateur,activite) VALUES (?,?)");
-					$req_activite->execute(array($userinfo['id_utilisateur'],$value));
+				  $req_activite = $pdo->prepare("INSERT INTO profil_musical(id_utilisateur,activite) VALUES (?,?)");
+				  $req_activite->execute(array($userinfo['id_utilisateur'],$value));
 				}
-			}
+			  }
             
-			if(!empty($_POST['instrument']))
-			{
+			  if(!empty($_POST['instrument']))
+			  {
 				foreach($_POST['instrument'] as $value)
 				{
-					$req_instrument = $pdo->prepare("INSERT INTO instrument(nom_instrument,id_utilisateur) VALUES (?,?)");
-					$req_instrument->execute(array($value,$userinfo['id_utilisateur']));
+				  $req_instrument = $pdo->prepare("INSERT INTO instrument(nom_instrument,id_utilisateur) VALUES (?,?)");
+				  $req_instrument->execute(array($value,$userinfo['id_utilisateur']));
 				}
-			}
-			
-			if(!empty($_POST['style']))
-			{
+			  }
+			  
+			  if(!empty($_POST['style']))
+			  {
 				foreach($_POST['style'] as $value)
 				{
-					$req_style = $pdo->prepare("INSERT INTO style_musical(style,id_utilisateur) VALUES (?,?)");
-					$req_style->execute(array($value,$userinfo['id_utilisateur']));
+				  $req_style = $pdo->prepare("INSERT INTO style_musical(style,id_utilisateur) VALUES (?,?)");
+				  $req_style->execute(array($value,$userinfo['id_utilisateur']));
 				}
-			}
+			  }
+                
 			
-			if(isset($_POST['objectifs']) AND !empty($_POST['objectifs']) AND $_POST['objectifs']!=$userinfo['objectifs'])
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
-            {
-                $objectifs = htmlspecialchars($_POST['objectifs']);
-                $insertobjectif = $pdo->prepare("UPDATE Utilisateur SET objectifs = ? WHERE id_utilisateur = ?");
-                $insertobjectif->execute(array($objectifs,$userinfo['id_utilisateur']));  
-            }
-<<<<<<< HEAD
-      
-      if(isset($_POST['niveau']) AND !empty($_POST['niveau']) AND $_POST['niveau']!=$userinfo['niveau'])
-=======
-			
-			if(isset($_POST['niveau']) AND !empty($_POST['niveau']) AND $_POST['niveau']!=$userinfo['niveau'])
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
-            {
-                $niveau = htmlspecialchars($_POST['niveau']);
-                $insertniveau = $pdo->prepare("UPDATE Utilisateur SET niveau = ? WHERE id_utilisateur = ?");
-                $insertniveau->execute(array($niveau,$userinfo['id_utilisateur']));
-            }
-<<<<<<< HEAD
+				if(isset($_POST['objectifs']) AND !empty($_POST['objectifs']) AND $_POST['objectifs']!=$userinfo['objectifs'])
+
+				{
+					$objectifs = htmlspecialchars($_POST['objectifs']);
+					$insertobjectif = $pdo->prepare("UPDATE Utilisateur SET objectifs = ? WHERE id_utilisateur = ?");
+					$insertobjectif->execute(array($objectifs,$userinfo['id_utilisateur']));  
+				}
+
+				
+				if(isset($_POST['niveau']) AND !empty($_POST['niveau']) AND $_POST['niveau']!=$userinfo['niveau'])
+				{
+					$niveau = htmlspecialchars($_POST['niveau']);
+					$insertniveau = $pdo->prepare("UPDATE Utilisateur SET niveau = ? WHERE id_utilisateur = ?");
+					$insertniveau->execute(array($niveau,$userinfo['id_utilisateur']));
+				}
+
       
       header("Location:profil.php?id_utilisateur=".$userinfo['id_utilisateur']);
 
-=======
-			
-			header("Location:profil.php?id_utilisateur=".$userinfo['id_utilisateur']);
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                $insertadress->execute(array($adress,$_SESSION['id_utilisateur']));
-                header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
-            } 
-
-            if(isset($_POST['adress']) AND !empty($_POST['adress']) AND $_POST['adress']!=$userinfo['adresse'])
-            {
-                $adress = htmlspecialchars($_POST['adress']);
-                $insertadress = $pdo->prepare("UPDATE Utilisateur SET adresse = ? WHERE id_utilisateur = ?");
-                $insertadress->execute(array($adress,$_SESSION['id_utilisateur']));
-                header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
-            } 
-            
-
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
+               
     }
 
 
@@ -227,11 +154,6 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
             <section>
                 <h3>Profil musical</h3>
                 <label for="prenom">Profil</label>
-<<<<<<< HEAD
-        
-=======
-				
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
                 <ol>
                     <li>
                         <input type="checkbox" id="chanteur" name="activite[]" value="chanteur">
@@ -247,11 +169,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                          <label for="musicien">Musicien</label>
                     </li>
                 </ol>
-<<<<<<< HEAD
-        
-=======
-				
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
+
             </section>
          
             <!-- Niveau  -->
@@ -260,84 +178,20 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                     <h3>Niveau</h3> 
                         <ol>
                     <li>
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                         <input type="checkbox" id="debutant" name="niveau" value="debutant">
                          <label for="debutant">Débutant</label>
                     </li>
                     <li>
                         <input type="checkbox" id="intermediaire" name="niveau" value="intermediaire">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                        <input type="checkbox" id="debutant" name="activite" value="debutant">
-                         <label for="debutant">Débutant</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="intermediaire" name="activite" value="intermediaire">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                         <label for="intermediaire">Intermédiaire</label>
+                        <label for="intermediaire">Intermédiaire</label>
                     </li>
 
                     <li>
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                          <input type="checkbox" id="avance" name="niveau" value="avance">
                          <label for="avance">Avancé</label>
                     </li>
                     <li>
-                         <input type="checkbox" id="professionel" name="niveau" value="professionnel">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                         <input type="checkbox" id="avance" name="activite" value="avance">
-                         <label for="avance">Avancé</label>
-                    </li>
-                    <li>
-                         <input type="checkbox" id="professionel" name="activite" value="professionnel">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
+                         <input type="checkbox" id="professionel" name="niveau" value="professionnel">                    
                          <label for="professionel">Professionel</label>
                     </li>
                 </ol>
@@ -402,15 +256,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                 <h3>Styles musicaux favoris </h3> 
                 <table>
                        <tr>
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                            <td><input type="checkbox" id="Rock" name="style[]" value="Rock">
                              <label for="Rock">Rock </label></td>
                            
@@ -428,170 +274,37 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                              <label for="Rap">Rap</label></td>
 
                            <td><input type="checkbox" id="RnB" name="style[]" value="R'n'B">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                           <td><input type="checkbox" id="Rock" name="activite" value=value="<?php echo $userinfo['adresse']; ?>">
-                             <label for="Rock">Rock </label></td>
-                           
-                           <td><input type="checkbox" id="HipHop" name="activite" value="HipHop">
-                             <label for="HipHop">Hip Hop</label></td>
-                           
-                           <td><input type="checkbox" id="Pop" name="activite" value="Pop">
-                             <label for="Pop">Pop</label></td>
-                       </tr>
-                       <tr>
-                           <td><input type="checkbox" id="Jazz" name="activite" value="Jazz">
-                             <label for="Jazz">Jazz</label></td>
-                           
-                           <td><input type="checkbox" id="Rap" name="activite" value="Rap">
-                             <label for="Rap">Rap</label></td>
-
-                           <td><input type="checkbox" id="RnB" name="activite" value="R'n'B">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                              <label for="RnB">R'n'B</label></td>
                        </tr>
                         
                         <tr>
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                            <td><input type="checkbox" id="Metal" name="style[]" value="Metal">
                              <label for="Metal">Metal</label></td>
                            
                            <td><input type="checkbox" id="Classique" name="style[]" value="Classique">
                              <label for="Classique">Classique</label></td>
                             
-                           <td><input type="checkbox" id="House" name="style[]" value="House">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                           <td><input type="checkbox" id="Metal" name="activite" value="Metal">
-                             <label for="Metal">Metal</label></td>
-                           
-                           <td><input type="checkbox" id="Classique" name="activite" value="Classique">
-                             <label for="Classique">Classique</label></td>
-                            
-                           <td><input type="checkbox" id="House" name="activite" value="House">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
+                           <td><input type="checkbox" id="House" name="style[]" value="House">              
                              <label for="House">House</label></td>
                        </tr>
 
                        <tr>
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                            <td><input type="checkbox" id="Opera" name="style[]" value="Opera">
-                             <label for="Opera">Opéra</label></td>
-                           
-                           <td><input type="checkbox" id="Dubstep" name="style[]" value="Dubstep">
-                             <label for="Dubstep">Classique</label></td>
-                            
-                           <td><input type="checkbox" id="Techno" name="style[]" value="Techno">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                           <td><input type="checkbox" id="Opera" name="activite" value="Opera">
-                             <label for="Opera">Opéra</label></td>
+                             <label for="Opera">Opéra</label></td>                                                                        
                            
                            <td><input type="checkbox" id="Dubstep" name="activite" value="Dubstep">
-                             <label for="Dubstep">Classique</label></td>
+                             <label for="Dubstep">Dubstep</label></td>
                             
                            <td><input type="checkbox" id="Techno" name="activite" value="Techno">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                              <label for="Techno">Techno</label></td>
                        </tr>
                         
                         <tr>
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                            <td><input type="checkbox" id="Transe" name="style[]" value="Transe">
                              <label for="Transe">Transe</label></td>
                            
                            <td><input type="checkbox" id="Country" name="style[]" value="Country">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
-                           <td><input type="checkbox" id="Transe" name="activite" value="Transe">
-                             <label for="Transe">Transe</label></td>
-                           
-                           <td><input type="checkbox" id="Country" name="activite" value="Country">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
                              <label for="Country">Country</label></td>
             
                        </tr>
@@ -623,18 +336,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 <<<<<<< HEAD
                     <div class="row">-->
 
-=======
-		                <div class="row">-->
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-						
-					
-=======
->>>>>>> 0b3aa450578f89b20d341c4aebc1b26d65d9d2e1
->>>>>>> e5b379d5932749b474a7c29a48b9845e25b7e23b
->>>>>>> 8794c943a3b9dc4e5713795f78e994b5b7d007bb
+		                <div class="row">
 
         <div class="input-field col s12">
           <i class="material-icons prefix">mode_edit</i>
