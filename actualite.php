@@ -6,13 +6,6 @@ session_start();
 
 $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
-function Supprime_publication($id)
-{
-	$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
-	$supprimestatut = $bdd->prepare('DELETE FROM actu WHERE id_actualite=?');
-	$supprimestatut->execute(array($id));			
-}
-
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
 	$getid = intval($_GET['id_utilisateur']);
@@ -30,17 +23,9 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 
 //STATUT
-if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
-{
-	$getid = intval($_GET['id_utilisateur']);
-	$requser = $bdd->prepare('SELECT * FROM utilisateur WHERE id_utilisateur=?');
-	$requser->execute(array($getid));
-	$userinfo = $requser->fetch();
-}
-
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
-	if(isset($_POST['valider']))
+	if(isset($_POST['valider_statut']))
 	{
 		$statut = $_POST['statut'];		
 		
@@ -56,22 +41,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 }
 
 //PHOTOS
-if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
-{
-	$getid = intval($_GET['id_utilisateur']);
-	$requser = $bdd->prepare('SELECT * FROM utilisateur WHERE id_utilisateur=?');
-	$requser->execute(array($getid));
-	$userinfo = $requser->fetch();
-}
-
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
-	if(isset($_POST['valider']))
+	if(isset($_POST['valider_photo']))
 	{
-		$reqid = $bdd->query('SELECT * FROM actu ORDER BY id_actualite DESC LIMIT 0,1');
-		$idinfo = $reqid->fetch();
-		$res = $idinfo['id_actualite']+1;
-		echo $res;
+		$res = $bdd->query("SELECT auto_increment FROM information_schema.tables WHERE table_schema = 'soundme' AND table_name='actu' ");
+		$id = $res->fetch();
 		
 		if(isset($_FILES['photo']) AND !empty($_FILES['photo']['name']))
 		{
@@ -82,13 +57,14 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				$extensionUpload = strtolower(substr(strrchr($_FILES['photo']['name'],'.'),1));
 				if(in_array($extensionUpload, $extensionValides))
 				{
-					$chemin = "membres/actus/".$res.".".$extensionUpload;
+					$chemin = "membres/actus/".$id['auto_increment'].".".$extensionUpload;
 					$resultat = move_uploaded_file($_FILES['photo']['tmp_name'],$chemin);
 					if($resultat)
 					{
 						$updatephoto = $bdd->prepare('INSERT INTO actu(id_utilisateur,date_upload,URL) VALUES (?,CURRENT_TIMESTAMP,?)');
-						$updatephoto->execute(array($_SESSION['id_utilisateur'],$res.".".$extensionUpload));
+						$updatephoto->execute(array($_SESSION['id_utilisateur'],$id['auto_increment'].".".$extensionUpload));
 						header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+						
 					}
 					else
 					{
@@ -110,21 +86,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 	//ENREGISTREMENTS
 
-	if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
-{
-	$getid = intval($_GET['id_utilisateur']);
-	$requser = $bdd->prepare('SELECT * FROM utilisateur WHERE id_utilisateur=?');
-	$requser->execute(array($getid));
-	$userinfo = $requser->fetch();
-}
-
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
-	if(isset($_POST['valider']))
+	if(isset($_POST['valider_enregistrement']))
 	{
-		$reqid = $bdd->query('SELECT * FROM actu ORDER BY id_actualite DESC LIMIT 0,1');
-		$idinfo = $reqid->fetch();
-		$res = $idinfo['id_actualite']+1;
+		$res = $bdd->query("SELECT auto_increment FROM information_schema.tables WHERE table_schema = 'soundme' AND table_name='actu' ");
+		$id = $res->fetch();
 		
 		if(isset($_FILES['enregistrement']) AND !empty($_FILES['enregistrement']['name']))
 		{
@@ -135,12 +102,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				$extensionUpload = strtolower(substr(strrchr($_FILES['enregistrement']['name'],'.'),1));
 				if(in_array($extensionUpload, $extensionValides))
 				{
-					$chemin = "membres/actus/".$res.".".$extensionUpload;
+					$chemin = "membres/actus/".$id['auto_increment'].".".$extensionUpload;
 					$resultat = move_uploaded_file($_FILES['enregistrement']['tmp_name'],$chemin);
 					if($resultat)
 					{
 						$updateenregistrement = $bdd->prepare('INSERT INTO actu(id_utilisateur,date_upload,URL) VALUES (?,CURRENT_TIMESTAMP,?)');
-						$updateenregistrement->execute(array($_SESSION['id_utilisateur'],$res.".".$extensionUpload));
+						$updateenregistrement->execute(array($_SESSION['id_utilisateur'],$id['auto_increment'].".".$extensionUpload));
 						header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
 					}
 					else
@@ -328,7 +295,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
         </div>
 		
     <div class="modal-footer">
-    	<input type="submit" name="valider" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>		 
+    	<input type="submit" name="valider_statut" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>		 
     </div>
     </div>
    </form>
@@ -354,7 +321,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				  
     </div>
 	    <div class="modal-footer">
-	    	<input type="submit" name="valider" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
+	    	<input type="submit" name="valider_photo" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
 	    </div>
     </form>
   </div>
@@ -381,7 +348,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
     </div>
     <div class="modal-footer">
-    	<input type="submit" name="valider" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
+    	<input type="submit" name="valider_enregistrement" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
     </div>
     </form>
   </div>
@@ -389,7 +356,8 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 	      		
 	
-         	<?php
+    <?php
+			
 	
 	while ($donnees = $reqactus->fetch())
 	{
@@ -428,8 +396,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
-
-
+					<form method="POST" action="supprimer_publication.php">
+					<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+					<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+					</form>
+					
+					
 
     			</li>
 	  		</ul>
@@ -447,6 +419,10 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			         	<video src="membres/actus/<?php echo $donnees['url']; ?>" controls poster="membres/actus/<?php echo $videos['URL']; ?>.jpg" width="250"></video>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+					<form method="POST" action="supprimer_publication.php">
+					<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+					<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+					</form>
 
     			</li>
     		</ul>
@@ -465,6 +441,10 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			         	<audio src="membres/actus/<?php echo $donnees['url']; ?>" controls></audio>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+					<form method="POST" action="supprimer_publication.php">
+					<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+					<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+					</form>
     			</li>
     		</ul>
 						
@@ -484,16 +464,17 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 
 				        <a href="edit.php" class="secondary-content"><i class="material-icons">thumb_up</i></a>
-					    <form method="POST" action="">
+					    <form method="POST" action="supprimer_publication.php">
+						<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
 						<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
 						</form>
 						
-						<?php
-							if(isset($_POST['supprimer']))
-							{
-								Supprime_publication(key($_POST['supprimer']));
-							}
-						?>
+						<form method="POST" action="modifier_publication.php">
+						<input id="modifierchamp" name="modifierchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+						<input type="submit" name="modifier" id="<?php echo $donnees['id_utilisateur']; ?>" value="modifieroigufielksjghejkdgrjkejdghkjdghkjdghkjd" class="secondary-content" />		 
+						</form>
+						
+						
 				    </li>
 				  </ul>
 				<?php
