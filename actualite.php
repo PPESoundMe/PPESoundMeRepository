@@ -6,8 +6,12 @@ session_start();
 
 $bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
-
-
+function Supprime_publication($id)
+{
+	$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+	$supprimestatut = $bdd->prepare('DELETE FROM actu WHERE id_actualite=?');
+	$supprimestatut->execute(array($id));			
+}
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -22,10 +26,8 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
 	$reqactus = $bdd->query('SELECT * FROM actu ORDER BY date_upload DESC ');
-
-
-
 }
+
 
 //STATUT
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
@@ -44,7 +46,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		
 		if(!empty($statut))
 		{
-			$req= $bdd->prepare("INSERT INTO actu(id_utilisateur,description,date_upload) VALUES(?,?,CURRENT_TIMESTAMP)");
+			$req = $bdd->prepare("INSERT INTO actu(id_utilisateur,description,date_upload) VALUES(?,?,CURRENT_TIMESTAMP)");
 			$req->execute(array($_SESSION['id_utilisateur'],$statut));
 			header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
 			
@@ -157,7 +159,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			}
 		}
 	}
-
+}
 
 	?>
 
@@ -478,18 +480,26 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				      <img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable">
 				      <span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 
-				         <?php echo $donnees['description'];?>
+				         <?php echo $donnees['description']; ?>
 
 
-				      <a href="edit.php" class="secondary-content"><i class="material-icons">thumb_up</i></a>
-				       <input type="submit" name="supprimer" value="Supprimer" class="secondary-content"/>		 
-
+				        <a href="edit.php" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+					    <form method="POST" action="">
+						<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+						</form>
+						
+						<?php
+							if(isset($_POST['supprimer']))
+							{
+								Supprime_publication(key($_POST['supprimer']));
+							}
+						?>
 				    </li>
 				  </ul>
-				
-				  <?php
-			}
+				<?php
+			}						
 		}
+		
 	}
 	
 	?>
@@ -525,9 +535,3 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 </html>
 
-<?php
-
-}
-
-
-?>
