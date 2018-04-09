@@ -257,11 +257,8 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		
     <hr>
           <section>
-<<<<<<< HEAD
     <h2><i class="material-icons prefix">mode_edit</i>Changer la photo de profil</h2>
-=======
     <h2><i class="material-icons prefix">photo</i> Changer la photo de profil</h2>
->>>>>>> ef06300244b39487f5e1ec1dad04495f98b985f5
 
     <form method="POST" action ="" enctype="multipart/form-data">
       
