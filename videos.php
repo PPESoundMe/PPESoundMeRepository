@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {

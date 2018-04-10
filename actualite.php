@@ -4,8 +4,7 @@ error_reporting(E_ALL);
 session_start();
 
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
-
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -20,29 +19,19 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
 	$reqactus = $bdd->query('SELECT * FROM actu ORDER BY date_upload DESC ');
-
-
-
 }
+
 
 //STATUT
-if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
-{
-	$getid = intval($_GET['id_utilisateur']);
-	$requser = $bdd->prepare('SELECT * FROM utilisateur WHERE id_utilisateur=?');
-	$requser->execute(array($getid));
-	$userinfo = $requser->fetch();
-}
-
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
-	if(isset($_POST['valider']))
+	if(isset($_POST['valider_statut']))
 	{
 		$statut = $_POST['statut'];		
 		
 		if(!empty($statut))
 		{
-			$req= $bdd->prepare("INSERT INTO actu(id_utilisateur,description,date_upload) VALUES(?,?,CURRENT_TIMESTAMP)");
+			$req = $bdd->prepare("INSERT INTO actu(id_utilisateur,description,date_upload) VALUES(?,?,CURRENT_TIMESTAMP)");
 			$req->execute(array($_SESSION['id_utilisateur'],$statut));
 			header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
 			
@@ -52,22 +41,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 }
 
 //PHOTOS
-if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
-{
-	$getid = intval($_GET['id_utilisateur']);
-	$requser = $bdd->prepare('SELECT * FROM utilisateur WHERE id_utilisateur=?');
-	$requser->execute(array($getid));
-	$userinfo = $requser->fetch();
-}
-
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
-	if(isset($_POST['valider']))
+	if(isset($_POST['valider_photo']))
 	{
-		$reqid = $bdd->query('SELECT * FROM actu ORDER BY id_actualite DESC LIMIT 0,1');
-		$idinfo = $reqid->fetch();
-		$res = $idinfo['id_actualite']+1;
-		echo $res;
+		$res = $bdd->query("SELECT auto_increment FROM information_schema.tables WHERE table_schema = 'soundme' AND table_name='actu' ");
+		$id = $res->fetch();
 		
 		if(isset($_FILES['photo']) AND !empty($_FILES['photo']['name']))
 		{
@@ -78,13 +57,14 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				$extensionUpload = strtolower(substr(strrchr($_FILES['photo']['name'],'.'),1));
 				if(in_array($extensionUpload, $extensionValides))
 				{
-					$chemin = "membres/actus/".$res.".".$extensionUpload;
+					$chemin = "membres/actus/".$id['auto_increment'].".".$extensionUpload;
 					$resultat = move_uploaded_file($_FILES['photo']['tmp_name'],$chemin);
 					if($resultat)
 					{
 						$updatephoto = $bdd->prepare('INSERT INTO actu(id_utilisateur,date_upload,URL) VALUES (?,CURRENT_TIMESTAMP,?)');
-						$updatephoto->execute(array($_SESSION['id_utilisateur'],$res.".".$extensionUpload));
+						$updatephoto->execute(array($_SESSION['id_utilisateur'],$id['auto_increment'].".".$extensionUpload));
 						header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+						
 					}
 					else
 					{
@@ -106,21 +86,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 	//ENREGISTREMENTS
 
-	if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
-{
-	$getid = intval($_GET['id_utilisateur']);
-	$requser = $bdd->prepare('SELECT * FROM utilisateur WHERE id_utilisateur=?');
-	$requser->execute(array($getid));
-	$userinfo = $requser->fetch();
-}
-
 if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION['id_utilisateur'])
 {
-	if(isset($_POST['valider']))
+	if(isset($_POST['valider_enregistrement']))
 	{
-		$reqid = $bdd->query('SELECT * FROM actu ORDER BY id_actualite DESC LIMIT 0,1');
-		$idinfo = $reqid->fetch();
-		$res = $idinfo['id_actualite']+1;
+		$res = $bdd->query("SELECT auto_increment FROM information_schema.tables WHERE table_schema = 'soundme' AND table_name='actu' ");
+		$id = $res->fetch();
 		
 		if(isset($_FILES['enregistrement']) AND !empty($_FILES['enregistrement']['name']))
 		{
@@ -131,12 +102,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				$extensionUpload = strtolower(substr(strrchr($_FILES['enregistrement']['name'],'.'),1));
 				if(in_array($extensionUpload, $extensionValides))
 				{
-					$chemin = "membres/actus/".$res.".".$extensionUpload;
+					$chemin = "membres/actus/".$id['auto_increment'].".".$extensionUpload;
 					$resultat = move_uploaded_file($_FILES['enregistrement']['tmp_name'],$chemin);
 					if($resultat)
 					{
 						$updateenregistrement = $bdd->prepare('INSERT INTO actu(id_utilisateur,date_upload,URL) VALUES (?,CURRENT_TIMESTAMP,?)');
-						$updateenregistrement->execute(array($_SESSION['id_utilisateur'],$res.".".$extensionUpload));
+						$updateenregistrement->execute(array($_SESSION['id_utilisateur'],$id['auto_increment'].".".$extensionUpload));
 						header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
 					}
 					else
@@ -155,7 +126,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			}
 		}
 	}
-
+}
 
 	?>
 
@@ -235,7 +206,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		        <img src="photos/fond.jpg">
 		      </div>
 		      
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php echo $userinfo['avatar']; ?>"></a>
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>"></a>
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
 
@@ -324,7 +295,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
         </div>
 		
     <div class="modal-footer">
-    	<input type="submit" name="valider" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>		 
+    	<input type="submit" name="valider_statut" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>		 
     </div>
     </div>
    </form>
@@ -350,7 +321,7 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				  
     </div>
 	    <div class="modal-footer">
-	    	<input type="submit" name="valider" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
+	    	<input type="submit" name="valider_photo" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
 	    </div>
     </form>
   </div>
@@ -377,15 +348,15 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
     </div>
     <div class="modal-footer">
-    	<input type="submit" name="valider" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
+    	<input type="submit" name="valider_enregistrement" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>
     </div>
     </form>
   </div>
-				  
-
-	      		
+  
+       		
 	
-         	<?php
+    <?php
+			
 	
 	while ($donnees = $reqactus->fetch())
 	{
@@ -417,11 +388,24 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 				<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
+			      	<img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable">
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<img src="membres/actus/<?php echo $donnees['url']; ?>" class="materialboxed" data-caption="Photo de <?php echo $userinfo['prenom']; ?>" width="250" />
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
+
+					<?php if ($donnees['id_utilisateur'] == $_SESSION['id_utilisateur'])
+					{
+					?>
+      				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
+					<form method="POST" action="supprimer_publication.php">
+					<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+					<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+					</form>
+					<?php
+					}
+					?>
+					
 
     			</li>
 	  		</ul>
@@ -434,11 +418,15 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				?>
 					<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
+			      	<img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable">
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<video src="membres/actus/<?php echo $donnees['url']; ?>" controls poster="membres/actus/<?php echo $videos['URL']; ?>.jpg" width="250"></video>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+					<form method="POST" action="supprimer_publication.php">
+					<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+					<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+					</form>
 
     			</li>
     		</ul>
@@ -452,11 +440,15 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 					?>
 							<ul class="collection z-depth-2">
 			    	<li class="collection-item avatar">
-			      	<a href ="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>" ><img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable" ></a>
+			      	<a href ="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>" ><img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable" ></a>
 			      		<span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 			         	<audio src="membres/actus/<?php echo $donnees['url']; ?>" controls></audio>
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+					<form method="POST" action="supprimer_publication.php">
+					<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+					<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+					</form>
     			</li>
     		</ul>
 						
@@ -469,21 +461,46 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 			{	?>
 				  <ul class="collection z-depth-2">
 				    <li class="collection-item avatar">
-				      <img src="membres/avatar/<?php echo $publisher['avatar']; ?>" alt="" class="circle hoverable">
+				      <img src="membres/avatar/<?php if($publisher['avatar'] == NULL) { echo "default.png"; } else {  echo $publisher['avatar']; } ?>" alt="" class="circle hoverable">
 				      <span class="title"><div class="nomstatut"><?php echo $publisher['prenom']." ".$publisher['nom']." :"; ?></div></span>
 
-				         <?php echo $donnees['description'];?>
+				         <?php echo $donnees['description']; ?>
 
 
-				      <a href="edit.php" class="secondary-content"><i class="material-icons">thumb_up</i></a>
-				       <input type="submit" name="supprimer" value="Supprimer" class="secondary-content"/>		 
-
+				        <a href="edit.php" class="secondary-content"><i class="material-icons">thumb_up</i></a>
+					    <form method="POST" action="supprimer_publication.php">
+						<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+						<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+						</form>
+						
+						<a class="btn-floating btn-large red darken-2 hoverable modal-trigger hoverable" href="#modal5?id=<?php echo $donnees['id_actualite']; ?>"><i class="material-icons enregistrement"></i></a><br>Modifier
+						
+						<!-- FENETRE MODIFIER STATUT -->
+					    <div id="modal5?id=<?php echo $donnees['id_actualite']; ?>" class="modal">
+						
+						<form method="POST" action="modifier_publication.php">
+						<div class="modal-content">
+						  <h4>Modifier un statut</h4>
+						  <br>			
+							<div class="input-field">
+							  <i class="material-icons prefix">mode_edit</i>
+							  <textarea id="icon_prefix2" class="materialize-textarea" name="modifstatut" placeholder="<?php echo $donnees['description']; ?>"></textarea><br></br>
+							  <input id="modifierchamp" name="modifierchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+							</div>
+							
+						<div class="modal-footer">
+							<input type="submit" name="valider_statut" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>		 
+						</div>
+						</div>
+					   </form>
+					  </div>
+						
 				    </li>
 				  </ul>
-				
-				  <?php
-			}
+				<?php
+			}						
 		}
+		
 	}
 	
 	?>
@@ -519,9 +536,3 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
 </html>
 
-<?php
-
-}
-
-
-?>

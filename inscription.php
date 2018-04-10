@@ -1,6 +1,9 @@
-<?php //include "../inc/dbinfo.inc"; ?>
+﻿<?php //include "../inc/dbinfo.inc"; ?>
 
 <?php
+
+session_start();
+
 
 /*$dbhost = DB_SERVER;
 $dbport = DB_PORT;
@@ -12,7 +15,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
 
 if(isset($_POST['forminscription']))
 {
@@ -35,7 +38,7 @@ if(isset($_POST['forminscription']))
 			{
 				if(filter_var($email, FILTER_VALIDATE_EMAIL))
 				{
-					$reqmail = $pdo->prepare("SELECT * FROM Utilisateur WHERE email=?");
+					$reqmail = $pdo->prepare("SELECT * FROM utilisateur WHERE email=?");
 					$reqmail->execute(array($email));
 					$mailexist=$reqmail->rowCount();
 					
@@ -43,9 +46,9 @@ if(isset($_POST['forminscription']))
 					{					
 						if($mdp == $mdp2)
 						{
-							$insertmbr = $pdo->prepare("INSERT INTO Utilisateur(nom, prenom, sexe, age,email,mdp) VALUES(?, ?, ?, ?, ?, ?)");
+							$insertmbr = $pdo->prepare("INSERT INTO utilisateur(nom, prenom, sexe, age,email,mdp) VALUES(?, ?, ?, ?, ?, ?)");
 							$insertmbr->execute(array($nom, $prenom, $sexe, $age, $email, $mdp));
-							$requser= $pdo->prepare("SELECT * FROM Utilisateur WHERE email=? AND mdp=?");		
+							$requser= $pdo->prepare("SELECT * FROM utilisateur WHERE email=? AND mdp=?");		
 							$requser->execute(array($email,$mdp));		     
 							$userinfo = $requser->fetch();
 			
@@ -174,11 +177,12 @@ if(isset($_POST['forminscription']))
 							      <label for ="homme">
 							        <input id="homme" name="sexe" type="radio" value"homme" checked />
 							        <span>Homme</span>
-							      </label>
+							      </label></p></br>
+							      <p id="sexe">
 							      <label for ="femme">
 							        <input id="femme" name="sexe" type="radio" value"femme" />
 							        <span>Femme</span>
-							      </label>
+							      </label></p>
 
 
 						    </p>				        		
@@ -249,4 +253,3 @@ if(isset($_POST['forminscription']))
 
 </body>
 </html>
-
