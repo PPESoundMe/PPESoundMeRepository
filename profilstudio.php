@@ -204,6 +204,7 @@ function devoiler(bouton, id) {
 
     <div class="card">
 
+<<<<<<< HEAD
        <div class="card-tabs">
          <ul class="tabs tabs-fixed-width">
            <li class="tab"><a href="#salles" class="active">Salles</a></li>
@@ -276,18 +277,30 @@ function devoiler(bouton, id) {
             
         </form>
 
+=======
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a href="#test1" class="active">Salles</a></li>
+          
+>>>>>>> 5ab1aa8c86c2ec8e391db4e13cae13f10c9a29dd
 
-         </div>
+        <li class="tab"><a href="#test2">Evènements</a></li>
 
+<<<<<<< HEAD
        </div>
 
         <div id="test2">
           
         </div>
       
+=======
+      </ul>
+>>>>>>> 5ab1aa8c86c2ec8e391db4e13cae13f10c9a29dd
 
-      
+      <div id="salles"> 
 
+         <h4>Ce studio dispose de <?php echo $userinfo['nombre_salle'] ?> salles d'enregistrement.</h4>
+         <a href="ajoutsalles.php?id_studio=<?php echo $_SESSION['id_studio']; ?>">Ajouter une salle</a></div>
     
 
            <?php  /*
@@ -304,13 +317,14 @@ function devoiler(bouton, id) {
 
 
 
-          <!-- <h4>Ajouter une photo de couverture</h4>
+          <h4>Ajouter une photo de couverture</h4>
           <form method="POST" action="   " enctype="multipart/form-data">
 
           <input type="file" id="photostudio" name="photostudio" value="Parcourir" />
           <input type="submit" id="valide" name="photocouverture" value="Upload" />
-          </form>  -->
-     
+          </form>
+
+      </div>
 
       
          <?php 

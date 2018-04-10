@@ -1,10 +1,11 @@
+
 <?php
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 session_start();
 
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -217,9 +218,10 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		            <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
 		            <div class="collapsible-body">
 		              <ul>
-		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
+		              	<li><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">person</i>Mon profil</a></li>
+		              	<li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">message</i>Messagerie</a></li>
 		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
-		                <li><a href=""><i class="material-icons">today</i>Mes événements</a></li>
+
 
 
 		              </ul>
@@ -228,26 +230,12 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		        </ul>
 		    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
 		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
-		 
+		 	<li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">favorite</i>SoundFamily</a></li>
+
 		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
 		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
 		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
 		    
-		    <ul class="collapsible collapsible-accordion">
-		          <li>
-		            <a class="collapsible-header">Messagerie<i class="material-icons">message</i></a>
-		            <div class="collapsible-body">
-		              <ul>
-		                <li><a href="#!">Envoyer un message</a></li>
-		                <li><a href="#!">Mes messages</a></li>
-
-		              </ul>
-		            </div>
-		          </li>
-		        </ul>
-		    <li><div class="divider"></div></li>
-		    <li><a class="subheader">Subheader</a></li>
-		    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
 		  </ul>
 
 
@@ -467,14 +455,18 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 				         <?php echo $donnees['description']; ?>
 
 
-				        <a href="edit.php" class="secondary-content"><i class="material-icons">thumb_up</i></a>
-					    <form method="POST" action="supprimer_publication.php">
-						<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
-						<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
+					    <form method="POST" action="supprimer_publication.php" class="secondary-content">
+							<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+							<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="Supprimer"  />
+
+							 <a href="#modal5?id=<?php echo $donnees['id_actualite']; ?>" class="secondary-content modal-trigger "><i class="material-icons">edit</i></a>
+
+
+
+
 						</form>
 						
-						<a class="btn-floating btn-large red darken-2 hoverable modal-trigger hoverable" href="#modal5?id=<?php echo $donnees['id_actualite']; ?>"><i class="material-icons enregistrement"></i></a><br>Modifier
-						
+
 						<!-- FENETRE MODIFIER STATUT -->
 					    <div id="modal5?id=<?php echo $donnees['id_actualite']; ?>" class="modal">
 						
@@ -529,10 +521,55 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 	
 </body>
 
-<footer>
+<footer class="footer-distributed">
 
-		<h1>Footer</h1>
-</footer>
+			<div class="footer-left">
+
+				<div class="logofooter">
+					<img src="photos/logoblanc.png">
+				</div>
+
+			
+				<p class="footer-company-name">SoundMe &copy; 2018</p>
+			</div>
+
+			<div class="footer-center">
+
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>37 Quai de Grenelle</span> Paris, France</p>
+				</div>
+
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123456</p>
+				</div>
+
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:support@company.com">soundmecontact@soundme.com</a></p>
+				</div>
+
+			</div>
+
+			<div class="footer-right">
+
+				<p class="footer-company-about">
+					<span>À propos de nous</span>
+					Nous sommes six étudiants ingénieurs à l'ECE Paris. Notre projet est de permettre aux musiciens de vivre et partager leurs passions.
+				</p>
+
+				<div class="footer-icons">
+
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-linkedin"></i></a>
+					<a href="#"><i class="fa fa-github"></i></a>
+
+				</div>
+
+			</div>
+
+		</footer>
 
 </html>
-
