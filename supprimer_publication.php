@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 	
 	session_start();
@@ -8,9 +8,9 @@
 	$supprimestatut->execute(array($_POST['suppressionchamp']));	
 
 	header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+?>
 
 
-=======
 <?php
 	
 	session_start();
@@ -22,5 +22,4 @@
 	header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
 
 
->>>>>>> ba95a580443475c17a5407c71e5187fa3a60805a
 ?>
