@@ -157,8 +157,10 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		          </li>
 		        </ul>
 		    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
-		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
-		 
+		   <!-- <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li> -->
+
+		 	<li><a href="carte.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">location_on</i>SoundMap</a></li>
+
 		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
 		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
 		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
