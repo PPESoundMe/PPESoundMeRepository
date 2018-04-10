@@ -148,7 +148,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		            <div class="collapsible-body">
 		              <ul>
 		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
-		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
+		                <li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
 		                <li><a href=""><i class="material-icons">today</i>Mes évènements</a></li>
 
 
