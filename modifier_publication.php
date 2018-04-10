@@ -4,9 +4,8 @@
 
 	$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
 	$modifstatut = $bdd->prepare('UPDATE actu SET description = ? WHERE id_actualite=?');
-	$modifstatut->execute(array($_POST['suppressionchamp']));	
+	$modifstatut->execute(array($_POST['modifstatut'],$_POST['modifierchamp']));	
 
 	header("Location:actualite.php?id_utilisateur=".$_SESSION['id_utilisateur']);
-
 
 ?>

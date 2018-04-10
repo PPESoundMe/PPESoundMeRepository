@@ -352,9 +352,8 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
     </div>
     </form>
   </div>
-				  
-
-	      		
+  
+       		
 	
     <?php
 			
@@ -395,12 +394,17 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 
       				<a href="#!" class="secondary-content"><i class="material-icons">thumb_up</i></a><br>
 
+					<?php if ($donnees['id_utilisateur'] == $_SESSION['id_utilisateur'])
+					{
+					?>
       				<a href="#!" class="secondary-content"><i class="material-icons">edit</i></a>
 					<form method="POST" action="supprimer_publication.php">
 					<input id="suppressionchamp" name="suppressionchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
 					<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
 					</form>
-					
+					<?php
+					}
+					?>
 					
 
     			</li>
@@ -469,11 +473,27 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 						<input type="submit" name="supprimer" id="<?php echo $donnees['id_utilisateur']; ?>" value="supprimer" class="secondary-content" />		 
 						</form>
 						
-						<form method="POST" action="modifier_publication.php">
-						<input id="modifierchamp" name="modifierchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
-						<input type="submit" name="modifier" id="<?php echo $donnees['id_utilisateur']; ?>" value="modifieroigufielksjghejkdgrjkejdghkjdghkjdghkjd" class="secondary-content" />		 
-						</form>
+						<a class="btn-floating btn-large red darken-2 hoverable modal-trigger hoverable" href="#modal5?id=<?php echo $donnees['id_actualite']; ?>"><i class="material-icons enregistrement"></i></a><br>Modifier
 						
+						<!-- FENETRE MODIFIER STATUT -->
+					    <div id="modal5?id=<?php echo $donnees['id_actualite']; ?>" class="modal">
+						
+						<form method="POST" action="modifier_publication.php">
+						<div class="modal-content">
+						  <h4>Modifier un statut</h4>
+						  <br>			
+							<div class="input-field">
+							  <i class="material-icons prefix">mode_edit</i>
+							  <textarea id="icon_prefix2" class="materialize-textarea" name="modifstatut" placeholder="<?php echo $donnees['description']; ?>"></textarea><br></br>
+							  <input id="modifierchamp" name="modifierchamp" type="hidden" value="<?php echo $donnees['id_actualite']; ?>">
+							</div>
+							
+						<div class="modal-footer">
+							<input type="submit" name="valider_statut" value="Valider" class="modal-action modal-close waves-effect waves-green btn-flat"/>		 
+						</div>
+						</div>
+					   </form>
+					  </div>
 						
 				    </li>
 				  </ul>
