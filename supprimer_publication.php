@@ -2,7 +2,7 @@
 	
 	session_start();
 
-	$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+	$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 	$supprimestatut = $bdd->prepare('DELETE FROM actu WHERE id_actualite=?');
 	$supprimestatut->execute(array($_POST['suppressionchamp']));	
 
