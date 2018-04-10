@@ -66,6 +66,8 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
       }
     }
 
+    
+
 
 
 ?>
