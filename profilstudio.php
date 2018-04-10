@@ -12,14 +12,61 @@ $pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root','');
 if(isset($_GET['id_studio']) AND $_GET['id_studio']>0)
 {
   $getid = intval($_GET['id_studio']);
-  $reqstudio = $pdo->prepare('SELECT * FROM Studio WHERE id_studio=?');
-  $reqstudio->execute(array($getid));
-  $userinfo = $reqstudio->fetch();
-}
+  $requser = $pdo->prepare('SELECT * FROM studio WHERE id_studio=?');
+  $requser->execute(array($getid));
+  $userinfo = $requser->fetch();
 
+
+//if(isset($_POST['formajoutsalles']))
+//{
+
+    
+    //$id2= intval($_GET['id_studio']);
+   if(isset($_POST['formajoutsalles'])){
+
+       $id2=$userinfo['id_studio'];
+       $numero_salle = $_POST['numero_salle'];
+       $surface_salle = $_POST['surface_salle'];
+       $capacite = $_POST['capacite'];
+       $prix_salle = $_POST['prix_salle'];
+
+      
+       if((isset($userinfo['id_studio'])) AND (!empty($_POST['numero_salle'])) AND (!empty($_POST['surface_salle'])) AND (!empty($_POST['capacite'])) AND (!empty($_POST['prix_salle'])))
+       {    
+      
+          $insertsalle = $pdo->prepare("INSERT INTO salle (id_studio, nbr_max_personne, prix_salle, surface_salle, numero_salle) VALUES (?, ?, ?, ?, ?)");
+          $insertsalle->execute(array($id2, $capacite, $prix_salle, $surface_salle, $numero_salle));
+                          //$salleinfo = $insertsalle->fetch();    
+        }  
+       else { echo "Vous devez remplir tous les champs.";} 
+   } 
+
+    $salles = $pdo->query('SELECT * FROM salle');
+
+    
+
+}  
 
 ?>
-    
+
+<script>
+
+function devoiler(bouton, id) { 
+  
+            var section = document.getElementById(id);
+
+              if(section.style.display=="none") { // Si le div est masqué
+             section.style.display = "block"; // on l'affiche
+             bouton.innerHTML = "-"; // et on change le contenu du bouton.
+             } 
+  
+              else { // S'il est visible
+             section.style.display = "none"; // on le masque
+             bouton.innerHTML = "+ Centres d'intérêts"; // ... et on change le contenu du bouton.
+             }
+            }
+   
+  </script> 
 
 
 <html>
@@ -99,7 +146,7 @@ if(isset($_GET['id_studio']) AND $_GET['id_studio']>0)
                 <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
                 <div class="collapsible-body">
                   <ul>
-                    <li><a href="salles.php?id_studio=<?php echo $_SESSION['id_studio']; ?>"><i class="material-icons">music_note</i>Mes salles</a></li>
+                    <li><a href="#salles"?>"><i class="material-icons">music_note</i>Mes salles</a></li>
                     <li><a href="#"><i class="material-icons">today</i>Mon planning</a></li>
 
 
@@ -157,14 +204,98 @@ if(isset($_GET['id_studio']) AND $_GET['id_studio']>0)
 
     <div class="card">
 
+<<<<<<< HEAD
+       <div class="card-tabs">
+         <ul class="tabs tabs-fixed-width">
+           <li class="tab"><a href="#salles" class="active">Salles</a></li>
+           <li class="tab"><a href="#test2">Planning</a></li>
+
+         </ul>
+       </div>
+      
+       <div class="card-content grey lighten-4">
+
+         <div id="salles">
+
+             <h4>Ce studio dispose de <?php echo $userinfo['nombre_salle'] ?> salles d'enregistrement.</h4>
+            
+             <?php
+             while($infos=$salles->fetch()){                      
+             ?>
+             <div id=afiichesalle">
+             <p class="numero"> Salle n°<?php echo $infos['numero_salle'] ?></p>
+             <p class="description">Surface: <?php echo $infos['surface_salle'] ?> m² </p>
+             <p class="description">Capacité: <?php echo $infos["nbr_max_personne"] ?> personnes </p>
+             <p class="description">Prix horaire: <?php echo $infos["prix_salle"] ?> €/heure </p>
+             </br></br>
+
+          
+
+             <?php
+             }
+
+             $salles->closeCursor(); // Termine le traitement de la requête
+
+             ?>
+             </div>
+
+
+            <button type="button" onclick="devoiler(this,'affichable');">+ Ajouter une salle</button>
+              <div id="affichable" style="display:none;">
+
+             <form method="POST" action="" >
+                         
+                    
+                <table>
+              <tr>
+                  <td><label>Numéro de la salle : </label></td>
+                  <td><input type="text" name="numero_salle" id="numero_salle" class="formsalle" /></td>
+            
+              </tr>
+              
+              <tr>
+                  <td><label>Surface : </label></td>
+                  <td><input type="text" name="surface_salle" id="surface_salle" class="formsalle" /><p> m²</p></td>
+            
+              </tr>
+            <tr>
+                <td><label>Capacité : </label></td>
+                <td><input type="text" name="capacite" id="capacite" class="formsalle" /><p> personnnes</p></td>
+              </tr>
+            
+              <tr>
+                  <td><label>Prix Horaire : </label></td>
+                  <td><input type="text" name="prix_salle" id="prix_salle" class="formsalle" /><p>€/heure</td>
+              </tr>
+
+              <tr>
+                  <td><input type="submit" value="Ajouter" name="formajoutsalles" /></td>
+              </tr>
+            </table>
+
+
+            
+        </form>
+
+=======
     <div class="card-tabs">
       <ul class="tabs tabs-fixed-width">
         <li class="tab"><a href="#test1" class="active">Salles</a></li>
           
+>>>>>>> 5ab1aa8c86c2ec8e391db4e13cae13f10c9a29dd
 
         <li class="tab"><a href="#test2">Evènements</a></li>
 
+<<<<<<< HEAD
+       </div>
+
+        <div id="test2">
+          
+        </div>
+      
+=======
       </ul>
+>>>>>>> 5ab1aa8c86c2ec8e391db4e13cae13f10c9a29dd
 
       <div id="salles"> 
 
