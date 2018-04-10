@@ -25,6 +25,10 @@ if(isset($_POST['formconnexion']))
 		$requser= $pdo->prepare("SELECT * FROM Utilisateur WHERE email=? AND mdp=?");
 		$requser->execute(array($mailconnect, $mdpconnect));
 		$userexist= $requser->rowCount();
+        
+        $reqstudio= $pdo->prepare("SELECT * FROM Studio WHERE email_studio=? AND mdp_studio=?");
+		$reqstudio->execute(array($mailconnect, $mdpconnect));
+		$studioexist= $reqstudio->rowCount();
 		
 		if($userexist == 1)
 		{
@@ -34,6 +38,16 @@ if(isset($_POST['formconnexion']))
 			$_SESSION['email']=$userinfo['email'];
             
 			header("Location:profil.php?id_utilisateur=".$_SESSION['id_utilisateur']);
+		}
+		else if ($studioexist==1)
+		{
+			$stdinfo = $reqstudio->fetch();
+			
+			$_SESSION['id_studio']=$stdinfo['id_studio'];
+			$_SESSION['email_studio']=$stdinfo['email_studio'];
+            
+			header("Location:profilstudio.php?id_studio=".$_SESSION['id_studio']);
+
 		}
 		else
 		{

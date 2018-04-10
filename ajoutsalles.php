@@ -1,4 +1,4 @@
-<?php>
+<?php
 
 $pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
 
@@ -14,12 +14,13 @@ if(isset($_POST['formajoutsalles']))
     if((!empty($_POST['numero_salle'])) AND (!empty($_POST['surface_salle'])) AND (!empty($_POST['capacité'])) AND (!empty($_POST['prix_salle'])))
     {    
 
-                                $insertmbr = $pdo->prepare("INSERT INTO Salle(id_studio, numero_salle, surface_salle, capacité, prix_salle) VALUES('id_studio' => $_SESSION['id_studio'],?, ?, ?, ?)");
+                            $insertsalle = $pdo->prepare("INSERT INTO `salle` (`id_studio`, `nbr_max_personne`, `prix_salle`, `photo_salle`, `surface_salle`, `numero_salle`) VALUES ('0', '$capacité', 'prix_salle', '15', NULL, '15', '1')");
                             $insertmbr->execute(array($numero_salle, $surface_salle, $capacité, $prix_salle));
                             $requser= $pdo->prepare("SELECT * FROM Salle WHERE id_salle=?");       
                             $requser->execute(array($id_salle));      
 
-    }   
+    }  
+    else { echo "Vous devez rempir tous les champs."} 
 
 ?>
 
@@ -78,7 +79,7 @@ if(isset($_POST['formajoutsalles']))
 	   <main>
 		<h1>Ajouter une salle</h1>		
 
-        <form method="POST" action=" " >
+        <form method="POST" action="profilstudio.php" >
                          
                     
           <table>

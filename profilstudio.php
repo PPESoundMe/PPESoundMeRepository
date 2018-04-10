@@ -157,19 +157,30 @@ if(isset($_GET['id_studio']) AND $_GET['id_studio']>0)
 
     <div class="card">
 
-    <div class="card-tabs">
-      <ul class="tabs tabs-fixed-width">
-        <li class="tab"><a href="#test1" class="active">Salles</a></li>
+       <div class="card-tabs">
+         <ul class="tabs tabs-fixed-width">
+           <li class="tab"><a href="#salles" class="active">Salles</a></li>
+           <li class="tab"><a href="#test2">Planning</a></li>
+
+         </ul>
+       </div>
+      
+       <div class="card-content grey lighten-4">
+         <div id="salles">
+
+            <h4>Ce studio dispose de <?php echo $userinfo['nombre_salle'] ?> salles d'enregistrement.</h4>
+            <a href="ajoutsalles.php?id_studio=<?php echo $_SESSION['id_studio']; ?>">Ajouter une salle</a></div>
+
+
+         </div>
+
+        <div id="test2">
           
+        </div>
+      
 
-        <li class="tab"><a href="#test2">Evènements</a></li>
+      
 
-      </ul>
-
-      <div id="salles"> 
-
-         <h4>Ce studio dispose de <?php echo $userinfo['nombre_salle'] ?> salles d'enregistrement.</h4>
-         <a href="ajoutsalles.php?id_studio=<?php echo $_SESSION['id_studio']; ?>">Ajouter une salle</a></div>
     
 
            <?php  /*
@@ -186,14 +197,13 @@ if(isset($_GET['id_studio']) AND $_GET['id_studio']>0)
 
 
 
-          <h4>Ajouter une photo de couverture</h4>
+          <!-- <h4>Ajouter une photo de couverture</h4>
           <form method="POST" action="   " enctype="multipart/form-data">
 
           <input type="file" id="photostudio" name="photostudio" value="Parcourir" />
           <input type="submit" id="valide" name="photocouverture" value="Upload" />
-          </form>
-
-      </div>
+          </form>  -->
+     
 
       
          <?php 
