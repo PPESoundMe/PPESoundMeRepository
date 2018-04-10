@@ -521,9 +521,55 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 	
 </body>
 
-<footer>
+<footer class="footer-distributed">
 
-		<h1>Footer</h1>
-</footer>
+			<div class="footer-left">
+
+				<div class="logofooter">
+					<img src="photos/logoblanc.png">
+				</div>
+
+			
+				<p class="footer-company-name">SoundMe &copy; 2018</p>
+			</div>
+
+			<div class="footer-center">
+
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>37 Quai de Grenelle</span> Paris, France</p>
+				</div>
+
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123456</p>
+				</div>
+
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:support@company.com">soundmecontact@soundme.com</a></p>
+				</div>
+
+			</div>
+
+			<div class="footer-right">
+
+				<p class="footer-company-about">
+					<span>À propos de nous</span>
+					Nous sommes six étudiants ingénieurs à l'ECE Paris. Notre projet est de permettre aux musiciens de vivre et partager leurs passions.
+				</p>
+
+				<div class="footer-icons">
+
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-linkedin"></i></a>
+					<a href="#"><i class="fa fa-github"></i></a>
+
+				</div>
+
+			</div>
+
+		</footer>
 
 </html>

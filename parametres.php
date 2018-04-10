@@ -448,7 +448,11 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBesfXDKzNyZPcB2Nr-F8DoeFg2kCCDbiQ&libraries=places&callback=find_adress"
         async defer></script>
 
-	
+	</div>
 	</body>
+
+  
+
+
 	
 </html>

@@ -184,6 +184,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 				      <div class="col s4"><img src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
 				      <div class="col s8">
 				      	<h3> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h3>
+				      	<h5 class="bio">Bonjour je suis Eugénie !!</h5>
 				      	<blockquote class="coucou">
 				      	<ul class="grey-text">
 					      <li><h6><i class=" tiny material-icons">cake</i> <?php echo $userinfo['age']; ?></h6></li>
@@ -206,7 +207,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
         <li class="tab"><a href="#test1" class="active">Photos</a></li>
         <li class="tab"><a href="#test2">Vidéos</a></li>
         <li class="tab"><a href="#test3">Enregistrements</a></li>
-        <li class="tab"><a href="#test4">Évènements</a></li>
+
       </ul>
     </div>
 
@@ -274,7 +275,7 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 			}
 	    ?>
 	  </div>
-      <div id="test4">Evènements</div>
+   
     </div>
   </div>
 		
@@ -330,7 +331,56 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 	</script>
 	</body>
 
-<footer></footer>
+<footer class="footer-distributed">
+
+			<div class="footer-left">
+
+				<div class="logofooter">
+					<img src="photos/logoblanc.png">
+				</div>
+
+			
+				<p class="footer-company-name">SoundMe &copy; 2018</p>
+			</div>
+
+			<div class="footer-center">
+
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>37 Quai de Grenelle</span> Paris, France</p>
+				</div>
+
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123456</p>
+				</div>
+
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:support@company.com">soundmecontact@soundme.com</a></p>
+				</div>
+
+			</div>
+
+			<div class="footer-right">
+
+				<p class="footer-company-about">
+					<span>À propos de nous</span>
+					Nous sommes six étudiants ingénieurs à l'ECE Paris. Notre projet est de permettre aux musiciens de vivre et partager leurs passions.
+				</p>
+
+				<div class="footer-icons">
+
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-linkedin"></i></a>
+					<a href="#"><i class="fa fa-github"></i></a>
+
+				</div>
+
+			</div>
+
+		</footer>
 
 </html>
 

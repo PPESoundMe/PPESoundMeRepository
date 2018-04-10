@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 ?>
 

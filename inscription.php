@@ -15,7 +15,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
 
 if(isset($_POST['forminscription']))
 {
@@ -170,22 +170,24 @@ if(isset($_POST['forminscription']))
 				        	</div>
 				      </div>
    
+
+             
+                        
+        
 				   		<!-- Sexe  -->
 				 		<div class="row">
 				        	<div class="input-field col s12">
-				        		<p id="sexe">
-							      <label for ="homme">
-							        <input id="homme" name="sexe" type="radio" value"homme" checked />
-							        <span>Homme</span>
-							      </label></p></br>
-							      <p id="sexe">
-							      <label for ="femme">
-							        <input id="femme" name="sexe" type="radio" value"femme" />
-							        <span>Femme</span>
-							      </label></p>
+				        		<ul>
+                    	<li>
+                        	<input type="radio" class="with-gap" id="homme" name="sexe" value="homme" checked>
+                         	<label for="homme">Homme</label>
+                    	</li>
+                    	<li>
+                        	<input type="radio" class="with-gap" id="femme" name="sexe" value="femme">
+                        	<label for="femme">Femme</label>
+                    	</li>
 
-
-						    </p>				        		
+               			 </ul>
 			        	</div>
 				      </div>
 

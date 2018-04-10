@@ -29,7 +29,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
         <!-- Feuilles de style  -->
 	  
         <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/styleprofil.css">
+        <link rel="stylesheet" href="css/.css">
    
         
     	<script type="text/javascript" src="js/materialize.min.js"></script>
@@ -72,92 +72,84 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 	</header>
 
 	<body>
-	
-	<!-- NAVBAR DU BAS  -->		
-		<ul id="slide-out" class="sidenav sidenav-fixed">
-		    <li><div class="user-view">
-		      <div class="background">
-		        <img src="photos/fond.jpg">
-		      </div>
 
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable modal-trigger" src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" href="#modal"></a>
-		         
-
-		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
+		<!-- NAVBAR DU BAS  -->   
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li><div class="user-view">
+          <div class="background">
+            <img src="photos/fond.jpg">
+          </div>
+          
+		    <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable modal-trigger" src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" href="#modal"></a>
+          <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
 
-		    </div></li>
+        </div></li>
 
-		    <ul class="collapsible collapsible-accordion">
-		          <li>
-		            <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
-		            <div class="collapsible-body">
-		              <ul>
-		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
-		                <li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
-		                <li><a href=""><i class="material-icons">today</i>Mes évènements</a></li>
+        <ul class="collapsible collapsible-accordion">
+              <li>
+                <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">person</i>Mon profil</a></li>
+                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">message</i>Messagerie</a></li>
+                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
 
+                  </ul>
+                </div>
+              </li>
+            </ul>
+        <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
+        <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
+      <li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">favorite</i>SoundFamily</a></li>
 
-		              </ul>
-		            </div>
-		          </li>
-		        </ul>
-		    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
-		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
-		 
-		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
-		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
-		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
-		    
-		    <ul class="collapsible collapsible-accordion">
-		          <li>
-		            <a class="collapsible-header">Messagerie<i class="material-icons">message</i></a>
-		            <div class="collapsible-body">
-		              <ul>
-		                <li><a href="#!">Envoyer un message</a></li>
-		                <li><a href="#!">Mes messages</a></li>
-
-		              </ul>
-		            </div>
-		          </li>
-		        </ul>
-		    <li><div class="divider"></div></li>
-		    <li><a class="subheader">Subheader</a></li>
-		    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-		</ul>
+        <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
+        <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
+        <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
+        
+      </ul>
 		 
 
 	<!-- CONTENU DE LA PAGE  -->		
 	<main>
-		<div class="container">
+	
 
-			<!-- CONTENU -->
-			<div class="row"></div>
-			
+
+			<!-- CONTENU -->		
+
+		<div class="container">
+			<h1 class="left-align">Les membres</h1>
+
 			<?php
+
 				while($membres = $reqmembres->fetch())
 				{
 					
 					if ($membres['id_utilisateur'] != $_SESSION['id_utilisateur'])
 					{	
 						?>
-						<ul class="collection z-depth-2">
-							<li class="collection-item avatar">
-						<?php
-					    echo $membres['prenom']." ".$membres['nom']."<br>";
-						?>
-						<img src="membres/avatar/<?php if($membres['avatar'] == NULL) { echo "default.png"; } else {  echo $membres['avatar']; } ?>" class=" materialboxed pp left-align" /></div>
-							</li>
-						</ul>
-						<?php					
+				<ul class="collection">
+    			<li class="collection-item avatar">
+						<img src="membres/avatar/<?php if($membres['avatar'] == NULL) { echo "default.png"; } else {  echo $membres['avatar']; } ?>" class="circle" /></div>
+		      				<span class="title"><?php
+							    echo $membres['prenom']." ".$membres['nom'];
+								?></span>
+		      				<p>Membre</p>
+
+		      			<a href="#!" class="secondary-content"><i class="material-icons">group_add</i></a>
+    			</li>
+  			</ul>
+  			<?php					
 					}
 				}
 			
 			?>
+            
+          </div>
 				            
-
-	    </div>
-	
+				
+	 
+	</main>
 	</body>
 	
 </html>
