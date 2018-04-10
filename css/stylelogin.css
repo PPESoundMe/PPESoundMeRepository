@@ -66,3 +66,14 @@ body, main {
     justify-content:center;
     align-items:center;
 }
+
+.sexe{
+    display: inline;
+    margin: 0;
+    text-align: center;
+
+}
+.sexe li{
+    display: inline;
+    padding: 29px;
+}

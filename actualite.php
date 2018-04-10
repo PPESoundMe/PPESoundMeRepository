@@ -232,7 +232,17 @@ if(isset($_SESSION['id_utilisateur']) AND $userinfo['id_utilisateur']==$_SESSION
 		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
 		 	<li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">favorite</i>SoundFamily</a></li>
 
-		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
+		    <ul class="collapsible collapsible-accordion">
+		          <li>
+		            <a class="collapsible-header">Studios<i class="material-icons">arrow_drop_down</i></a>
+		            <div class="collapsible-body">
+		              <ul>
+		              	<li><a href="#"><i class="material-icons">headset</i>Les studios</a></li>
+						<li><a href="#!"><i class="material-icons">event_available</i>Mes réservations</a></li>
+		              </ul>
+		            </div>
+		          </li>
+		        </ul>
 		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
 		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
 		    

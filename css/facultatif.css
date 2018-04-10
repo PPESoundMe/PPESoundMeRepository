@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Bitstream Vera Serif Bold";
+  src: url("/fonts/Tw Cen MT.ttf");
+}
+
+body{
+  background-color: #eeeeee;
+}
+figure img{
+  width: 150px;
+}
+
+h3,h1{
+     font-family: 'Tw Cen MT';
+}
+
+.container{
+  border-style: solid  ;
+  padding-left: 20px;
+
+}

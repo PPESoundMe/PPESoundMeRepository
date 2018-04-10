@@ -170,15 +170,13 @@ if(isset($_POST['forminscription']))
 				        	</div>
 				      </div>
    
-
-             
-                        
-        
 				   		<!-- Sexe  -->
 				 		<div class="row">
 				        	<div class="input-field col s12">
-				        		<ul>
+
+				        		<ul class="sexe">
                     	<li>
+
                         	<input type="radio" class="with-gap" id="homme" name="sexe" value="homme" checked>
                          	<label for="homme">Homme</label>
                     	</li>

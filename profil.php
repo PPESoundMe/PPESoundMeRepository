@@ -158,8 +158,19 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
 		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
 		 	<li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">favorite</i>SoundFamily</a></li>
-
-		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
+		 	
+		 	<ul class="collapsible collapsible-accordion">
+		          <li>
+		            <a class="collapsible-header">Studios<i class="material-icons">arrow_drop_down</i></a>
+		            <div class="collapsible-body">
+		              <ul>
+		              	<li><a href="#"><i class="material-icons">headset</i>Les studios</a></li>
+						<li><a href="#!"><i class="material-icons">event_available</i>Mes réservations</a></li>
+		              </ul>
+		            </div>
+		          </li>
+		        </ul>
+		    
 		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
 		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
 		    
@@ -184,13 +195,12 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 				      <div class="col s4"><img src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
 				      <div class="col s8">
 				      	<h3> <?php echo $userinfo['prenom']." ".$userinfo['nom'].""; ?> </h3>
-				      	<h5 class="bio">Bonjour je suis Eugénie !!</h5>
+				      	<h5 class="bio"><?php echo $userinfo['objectifs']; ?></h5>
 				      	<blockquote class="coucou">
 				      	<ul class="grey-text">
 					      <li><h6><i class=" tiny material-icons">cake</i> <?php echo $userinfo['age']; ?></h6></li>
-					      <li><h6><i class=" tiny material-icons">group</i> Abonnés </h6></li>
-					      <li><h6><i class=" tiny material-icons">message</i> Messages </h6></li>
-					      <li><h6><i class=" tiny material-icons">settings</i> Paramètres </h6></li>
+					      <li><h6><i class=" tiny material-icons">wc</i> <?php echo $userinfo['sexe']; ?></h6></li>
+			
 			  			</ul>
 			  		</blockquote>
 

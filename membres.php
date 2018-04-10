@@ -130,7 +130,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 						?>
 				<ul class="collection">
     			<li class="collection-item avatar">
-						<img src="membres/avatar/<?php if($membres['avatar'] == NULL) { echo "default.png"; } else {  echo $membres['avatar']; } ?>" class="circle" /></div>
+						<img src="membres/avatar/<?php if($membres['avatar'] == NULL) { echo "default.png"; } else {  echo $membres['avatar']; } ?>" class="circle hoverable" /></div>
 		      				<span class="title"><?php
 							    echo $membres['prenom']." ".$membres['nom'];
 								?></span>
