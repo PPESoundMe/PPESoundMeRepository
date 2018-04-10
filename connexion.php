@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php //include "../inc/dbinfo.inc"; ?>
 
 <?php
@@ -148,7 +148,7 @@ if(isset($_POST['formconnexion']))
 		</div>
 			
 	</body>
-=======
+
 <?php //include "../inc/dbinfo.inc"; ?>
 
 <?php
@@ -298,5 +298,4 @@ if(isset($_POST['formconnexion']))
 		</div>
 			
 	</body>
->>>>>>> ba95a580443475c17a5407c71e5187fa3a60805a
 </html>

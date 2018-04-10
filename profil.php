@@ -15,7 +15,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
 {
@@ -133,10 +133,8 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		      <div class="background">
 		        <img src="photos/fond.jpg">
 		      </div>
-
-		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable modal-trigger" src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" href="#modal"></a>
-		         
-
+		      
+		      <a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><img class="circle hoverable" src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>"></a>
 		      <a href="#name"><span class="white-text name"><?php echo $userinfo['prenom'] ; echo(" "); echo $userinfo['nom'] ; ?></span></a>
 		      <a href="#email"><span class="white-text email"><?php echo $userinfo['email'] ;?></span></a>
 
@@ -147,9 +145,10 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		            <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
 		            <div class="collapsible-body">
 		              <ul>
-		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
-		                <li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
-		                <li><a href=""><i class="material-icons">today</i>Mes évènements</a></li>
+		              	<li><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">person</i>Mon profil</a></li>
+		              	<li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">message</i>Messagerie</a></li>
+		                <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
+
 
 
 		              </ul>
@@ -158,26 +157,12 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		        </ul>
 		    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
 		    <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
-		 
+		 	<li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">favorite</i>SoundFamily</a></li>
+
 		    <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
 		    <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
 		    <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
 		    
-		    <ul class="collapsible collapsible-accordion">
-		          <li>
-		            <a class="collapsible-header">Messagerie<i class="material-icons">message</i></a>
-		            <div class="collapsible-body">
-		              <ul>
-		                <li><a href="#!">Envoyer un message</a></li>
-		                <li><a href="#!">Mes messages</a></li>
-
-		              </ul>
-		            </div>
-		          </li>
-		        </ul>
-		    <li><div class="divider"></div></li>
-		    <li><a class="subheader">Subheader</a></li>
-		    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
 		  </ul>
 		 
 
@@ -192,9 +177,8 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		  	    <div class="row"></div>
             
 
-				 </div>
-				      <div class="file-path-wrapper">
-				        <input class="file-path validate" type="text" placeholder="Charger une photo"><br></br>
+			
+				        
 
     			 <div class="row">
 				      <div class="col s4"><img src="membres/avatar/<?php if($userinfo['avatar'] == NULL) { echo "default.png"; } else {  echo $userinfo['avatar']; } ?>" class=" materialboxed pp left-align" data-caption="Photo de profil de <?php echo $userinfo['prenom']; ?>" /></div>
@@ -210,6 +194,8 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 			  		</blockquote>
 
 				      </div>
+
+    			</div>
 
     			</div>
 

@@ -14,7 +14,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 
 if(isset($_SESSION['id_utilisateur']))
@@ -205,7 +205,10 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
    
    <body>     
      
-    <!-- NAVBAR DU BAS  -->   
+
+
+
+      <!-- NAVBAR DU BAS  -->   
     <ul id="slide-out" class="sidenav sidenav-fixed">
         <li><div class="user-view">
           <div class="background">
@@ -223,9 +226,10 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
                 <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
                 <div class="collapsible-body">
                   <ul>
-                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
+                    <li><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">person</i>Mon profil</a></li>
+                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">message</i>Messagerie</a></li>
                     <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
-                    <li><a href=""><i class="material-icons">today</i>Mes événements</a></li>
+
 
 
                   </ul>
@@ -234,26 +238,12 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
             </ul>
         <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
         <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
-     
+      <li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">favorite</i>SoundFamily</a></li>
+
         <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
         <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
         <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
         
-        <ul class="collapsible collapsible-accordion">
-              <li>
-                <a class="collapsible-header">Messagerie<i class="material-icons">message</i></a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li><a href="#!">Envoyer un message</a></li>
-                    <li><a href="#!">Mes messages</a></li>
-
-                  </ul>
-                </div>
-              </li>
-            </ul>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
       </ul>
             
         
