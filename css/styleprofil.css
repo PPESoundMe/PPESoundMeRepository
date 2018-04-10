@@ -15,10 +15,9 @@ h3{
   height: 200px;
   border-radius: 50%;
 
-  border-style: solid;
-  border-width: 2px;
-  border-color: #bd1130;
- 
 }
 
-
+.bio{
+	font-family: 'Tw Cen MT';
+	color: #757575;
+}

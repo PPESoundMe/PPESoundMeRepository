@@ -14,7 +14,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme','root','root');
 
 // echo $_SESSION['id_utilisateur'];
 
@@ -132,7 +132,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                 <figure>
 
                   
-                    <a href="accueil.php" class="  "><img src="photos/noteblanche.png" alt="logoSoundMe"></a> 
+                    <a href="accueil.php" class=""><img src="photos/noteblanche.png" alt="logoSoundMe"></a> 
 
                 </figure>
             </header>
@@ -142,7 +142,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
        <div class="container">
 
             <div class="box">
-    <h1>Inscription facultative</h1>
+        <h1>Inscription facultative</h1>
         <h2 grey>Vous pouvez ignorer cette étape ou y revenir plus tard.</h2>
   
     
@@ -153,8 +153,8 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
     <hr>
             <section>
                 <h3>Profil musical</h3>
-                <label for="prenom">Profil</label>
-                <ol>
+                <label for="profil_musical">Profil</label>
+                <ul>
                     <li>
                         <input type="checkbox" id="chanteur" name="activite[]" value="chanteur">
                          <label for="chanteur">Chanteur</label>
@@ -168,7 +168,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                          <input type="checkbox" id="musicien" name="activite[]" value="musicien">
                          <label for="musicien">Musicien</label>
                     </li>
-                </ol>
+                </ul>
 
             </section>
          
@@ -176,7 +176,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
             <section>
                     <hr>
                     <h3>Niveau</h3> 
-                        <ol>
+                        <ul>
                     <li>
                         <input type="radio" id="debutant" name="niveau" value="debutant">
                          <label for="debutant">Débutant</label>
@@ -194,7 +194,7 @@ if(isset($_GET['id_utilisateur']) AND $_GET['id_utilisateur']>0)
                          <input type="radio" id="professionel" name="niveau" value="professionnel">                                       
                          <label for="professionel">Professionel</label>
                     </li>
-                </ol>
+                </ul>
                 </section>
             
                 

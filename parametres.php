@@ -14,7 +14,7 @@ $password = DB_PASSWORD;
 
 $pdo = new PDO($dsn, $username, $password);*/
 
-$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=soundme', 'root', 'root');
 
 
 if(isset($_SESSION['id_utilisateur']))
@@ -129,8 +129,16 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		header('Location:profil.php?id_utilisateur='.$_SESSION['id_utilisateur']);
 	}
 
-
+		$reqstyle = $pdo->prepare('SELECT * FROM style_musical WHERE id_utilisateur=?');
+		$reqstyle->execute(array($_SESSION['id_utilisateur']));
+		$style = $reqstyle->fetch();
+		
+		/*if (isset($_POST[profil_musical])) {  // SI ma_radio A BIEN ÉTÉ POSTÉ
+		if ($_POST["ma_radio"] == "1") { // SI ma_radio EST ÉGAL À 1 
+         echo "checked"; // je check ma radio */
+      
 }
+		
 ?>
 
 <html>
@@ -197,7 +205,10 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
    
    <body>     
      
-    <!-- NAVBAR DU BAS  -->   
+
+
+
+      <!-- NAVBAR DU BAS  -->   
     <ul id="slide-out" class="sidenav sidenav-fixed">
         <li><div class="user-view">
           <div class="background">
@@ -215,9 +226,10 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
                 <a class="collapsible-header">Mon espace<i class="material-icons">arrow_drop_down</i></a>
                 <div class="collapsible-body">
                   <ul>
-                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">music_note</i>Mes groupes</a></li>
+                    <li><a href="profil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">person</i>Mon profil</a></li>
+                    <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">message</i>Messagerie</a></li>
                     <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">group_add</i>Mes abonnés</a></li>
-                    <li><a href=""><i class="material-icons">today</i>Mes événements</a></li>
+
 
 
                   </ul>
@@ -226,26 +238,12 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
             </ul>
         <li><a href="actualite.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">language</i>Actualités</a></li>
         <li><a href="#!"><i class="material-icons">location_on</i>Soundmap</a></li>
-     
+      <li><a href="membres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">favorite</i>SoundFamily</a></li>
+
         <li><a href="#!"><i class="material-icons">headset</i>Mes réservations</a></li>
         <li><a href="parametres.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings</i>Paramètres</a></li>
         <li><a href="accueil.php?id_utilisateur=<?php echo $_SESSION['id_utilisateur']; ?>"><i class="material-icons">settings_power</i>Déconnexion</a></li>
         
-        <ul class="collapsible collapsible-accordion">
-              <li>
-                <a class="collapsible-header">Messagerie<i class="material-icons">message</i></a>
-                <div class="collapsible-body">
-                  <ul>
-                    <li><a href="#!">Envoyer un message</a></li>
-                    <li><a href="#!">Mes messages</a></li>
-
-                  </ul>
-                </div>
-              </li>
-            </ul>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
       </ul>
             
         
@@ -257,7 +255,6 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		
     <hr>
           <section>
-    <h2><i class="material-icons prefix">mode_edit</i>Changer la photo de profil</h2>
     <h2><i class="material-icons prefix">photo</i> Changer la photo de profil</h2>
 
     <form method="POST" action ="" enctype="multipart/form-data">
@@ -407,72 +404,17 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 		
 		<form method="POST" action ="">
 		
-			<h3>Profil musical</h3>
-            
-            <ol>
-                <li>
-                    <input type="checkbox" id="chanteur" name="activite" value="chanteur">
-			         <label for="chanteur">Chanteur</label>
-                </li>
-			<li>
-                <input type="checkbox" id="DJ" name="activite" value="DJ">
-			     <label for="DJ">DJ</label>
-                </li>
-                
-                <li>
-			         <input type="checkbox" id="musicien" name="activite" value="musicien">
-			         <label for="musicien">Musicien</label>
-                </li>
-            </ol>
-            
-			<h3>Niveau</h3> 
-			<select name="niveau" size="1">
-				<option>Débutant <option>Intermédiaire <option>Avancé <option>Professionnel 
-			</select>
-				 				 
-			 <h3>Styles musicaux favoris </h3> 
-            <ul>
-                
-                <li><input type="checkbox" name="rock" value="rock">Rock</li>
-                <li><input type="checkbox" name="hiphop" value="hiphop">Hip-Hop</li>
-                <li><input type="checkbox" name="pop" value="pop">Pop</li>
-                <li><input type="checkbox" name="jazz" value="jazz">Jazz</li>
-                <li><input type="checkbox" name="rap" value="rap">Rap</li>
-                <li><input type="checkbox" name="rnb" value="rnb">R'n'B</li>
-                <li><input type="checkbox" name="metal" value="metal">Metal</li>
-                <li><input type="checkbox" name="classique" value="classique">Musique classique</li>
-                <li><input type="checkbox" name="house" value="house">House</li>
-                <li><input type="checkbox" name="opera" value="opera">Opéra</li>
-                <li><input type="checkbox" name="dubstep" value="dubstep">Dubstep</li>
-                <li><input type="checkbox" name="techno" value="techno">Techno</li>
-                <li><input type="checkbox" name="transe" value="transe">Transe</li>
-                <li><input type="checkbox" name="country" value="country">Country</li>
-            </ul>
-        </form>
-
-</section>
-           <hr>
-           
-			<h3>Objectifs</h3>
-
-           <section id="objectifs">
-
-            <div class="input-field col s12">
-            <textarea id="textarea2" name="objectifs" class="materialize-textarea" data-length="120"></textarea>
-            <label for="textarea2">Quel est votre objectif ? </label>
-          </div>			 
-              
-               <div class="row">
-              <div class="input-field col s6">   
-                <button id="valide" class="btn waves-effect waves-light red accent-3" type="button" value="Enregistrer l'objectif">Enregistrer l'adresse
-                <i class="material-icons right">send</i>
-             </button>
-              </div>
-            </div> 
-           </section>
+					<input type="checkbox" id="chanteur" name="activite" value="chanteur">
+					<label for="chanteur">Chanteur</label>
+				
+					<input type="checkbox" id="DJ" name="activite" value="DJ">
+					<label for="DJ">DJ</label>
+				
+					<input type="checkbox" id="musicien" name="activite" value="musicien">
+					<label for="musicien">Musicien</label>
+				
 		
-    </div>
-		</main>	
+		</form>
 	
   <!-- Dossier Javascript -->
   <script type="text/javascript">
@@ -506,7 +448,11 @@ if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBesfXDKzNyZPcB2Nr-F8DoeFg2kCCDbiQ&libraries=places&callback=find_adress"
         async defer></script>
 
-	
+	</div>
 	</body>
+
+  
+
+
 	
 </html>
